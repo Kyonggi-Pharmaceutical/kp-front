@@ -1,36 +1,33 @@
-import { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import Login from './pages/Login';
+import MyPage from './pages/MyPage';
+import { useEffect, useState } from 'react';
+import { Navigate } from 'react-router-dom';
+import { getUserInfo } from './api/getUserInfo';
 
-class App extends Component {
-  state = {
-    clients: []
-  };
+export default function App() {
+  const [isLogin, setIsLogin] = useState(false);
 
-  async componentDidMount() {
-    const response = await fetch('/test/ping');
-    const body = await response.text();
-    this.setState({ping: body});
-  }
+  useEffect(() => {
+    const initLogin = async () => {
+      const name = await getUserInfo();
+      setIsLogin(!!name);
+    };
+    initLogin();
+  }, []);
 
-  render() {
-    const {ping} = this.state;
-    console.log(ping);
-    return (
-        <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <div className="App-intro">
-              <h2>ping</h2>
-              {
-                <div>
-                {ping}
-                </div>
-              }
-            </div>
-          </header>
-        </div>
-    );
-  }
+  return (
+    <div className="App">
+      <Routes>
+        <Route
+          path="/"
+          element={<Login isLogin={isLogin} setIsLogin={setIsLogin} />}
+        />
+        <Route
+          path="mypage"
+          element={isLogin ? <MyPage isLogin={isLogin} /> : <Navigate to="/" />}
+        />
+      </Routes>
+    </div>
+  );
 }
-export default App;
