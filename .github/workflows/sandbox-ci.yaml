@@ -24,8 +24,8 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: ./
-        build_args: 
-        - REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}
-        - REACT_APP_GOOGLE_CLIENT_ID=${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }}
+        build_args: |
+          REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}
+          REACT_APP_GOOGLE_CLIENT_ID=${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }}
         push: true
         tags: devwithpug/kp-front:0.1
