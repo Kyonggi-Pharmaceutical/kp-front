@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { getUserInfo } from '../api/getUserInfo';
@@ -12,7 +12,10 @@ export default function MyPage({ isLogin }) {
   });
 
   useEffect(() => {
-    if (!isLogin) navigate('/');
+    if (!isLogin) {
+      alert("no");
+      navigate('/mypage')
+    };
 
     const initUserinfo = async () => {
       const newinfo = await getUserInfo();
@@ -22,11 +25,13 @@ export default function MyPage({ isLogin }) {
   }, [isLogin]);
 
   return (
-    <div>
-      <h1>mypage</h1>
-      <p>Welcome To MyPage</p>
-      <p>email: {info.email}</p>
-      <p>name: {`${info.lastName} ${info.firstName}`}</p>
+    <div className="main-bg">
+      <div className="main">
+        <h1>mypage</h1>
+        <p>Welcome To MyPage</p>
+        <p>email: {info.email}</p>
+        <p>name: {`${info.lastName} ${info.firstName}`}</p>
+      </div>
     </div>
   );
 }
