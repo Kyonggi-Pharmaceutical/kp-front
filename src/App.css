@@ -1,0 +1,154 @@
+.App {
+    text-align: center;
+}
+
+.App-logo {
+    height: 40vmin;
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
+}
+
+.App-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.App-link {
+    color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+.navbar {
+    background-color: #fff;
+    color: #000;
+    overflow: hidden;
+    display: flex;
+    font-size: 14px;
+    justify-content: flex-end;
+}
+
+.nav-list {
+    margin: 0 auto;
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 1000px;
+}
+
+.nav-list li {
+    display: inline-block;
+}
+
+.nav-list li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.nav-list li a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.title-header{
+
+}
+
+.title{
+    margin: 0 auto;
+    max-width: 1000px;
+    padding: 20px;
+    font-size: 30px;
+    color: #E63A35;
+    font-weight: bolder;
+}
+
+.main-bg{
+    background-color: #F2F3F5;
+    padding: 20px;
+    height: 650px;  /*수정 예정*/
+}
+
+.main{
+    background-color: white;
+    margin: 0 auto;
+    border-radius: 20px;
+    max-width: 1000px;
+    height: 550px;
+    padding: 20px;
+}
+
+.login-page{
+    background-color: white;
+    margin: 0 auto;
+    border-radius: 20px;
+    max-width: 500px;
+    height: 400px;
+    padding: 20px;
+}
+
+.input-box{
+    margin-top: 20px;
+    margin-bottom: 40px;
+    margin-left: 30px;
+    font-size: 30px;
+    border-left-width:0;
+    border-right-width:0;
+    border-top-width:0;
+    width: 400px;
+    background: transparent;
+    display: block;
+}
+
+input:focus {
+    outline:none;
+}
+
+.submit-button{
+    text-align: center;
+    font-size: 35px;
+    color: #C9C5C5;
+    width: 150px;
+    height: 50px;
+    border: 1px solid black;
+    padding : 5px 0;
+    margin: 0 auto;
+}
+
+.sign-page{
+    background-color: white;
+    margin: 0 auto;
+    border-radius: 20px;
+    max-width: 1000px;
+    height: 550px;
+    padding: 20px;
+}
+
+.signup-input{
+    display: block;
+    font-size: 20px;
+}
