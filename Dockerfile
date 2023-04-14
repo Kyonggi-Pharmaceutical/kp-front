@@ -5,7 +5,8 @@ ENV REACT_APP_API_URL=$REACT_APP_API_URL
 ENV REACT_APP_GOOGLE_CLIENT_ID=$REACT_APP_GOOGLE_CLIENT_ID
 WORKDIR /usr/src/app
 COPY package*.json ./
-RUN yarn cache clean && yarn --update-checksums
+RUN yarn install --frozen-lockfile
 COPY . ./
+RUN yarn build
 EXPOSE 3000
-CMD ["yarn", "run", "build", "&&", "yarn", "run", "serve"]
+CMD ["yarn", "serve"]
