@@ -3,7 +3,6 @@ export const getUserInfo = async () => {
   const path = '/api/v1/users/me';
 
   try {
-    console.log(process.env.REACT_APP_GOOGLE_CLIENT_ID);
     const response = await fetch(`${API_URL}${path}`, {
       headers: {
         'Content-Type': 'application/json',
