@@ -8,4 +8,4 @@ COPY package*.json ./
 RUN yarn cache clean && yarn --update-checksums
 COPY . ./
 EXPOSE 3000
-CMD ["serve", "-s", "build"]
+CMD ["yarn", "start"]
