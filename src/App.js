@@ -6,6 +6,7 @@ import { Navigate } from 'react-router-dom';
 import { getUserInfo } from './api/getUserInfo';
 
 export default function App() {
+  console.log(process.env.REACT_APP_GOOGLE_CLIENT_ID);
   const [isLogin, setIsLogin] = useState(false);
 
   useEffect(() => {
