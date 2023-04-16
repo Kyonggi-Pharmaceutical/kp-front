@@ -6,16 +6,26 @@ import Login2 from "./pages/Login2";
 import SignUp from "./pages/SignUp";
 import MyPage from "./pages/MyPage"
 import { getUserInfo } from './api/getUserInfo';
+import StartPage from "./pages/StartPage";
 
 function App(){
     const [isLogin, setIsLogin] = useState(false);
+    const [info, setUserInfo] = useState({
+        email: '',
+        firstName: '',
+        lastName: '',
+        stressPoint: 0,
+    });
 
     useEffect(() => {
         const initLogin = async () => {
             const name = await getUserInfo();
             setIsLogin(!!name);
+            setUserInfo(name);
         };
+
         initLogin();
+
     }, []);
 
   return(
@@ -35,6 +45,7 @@ function App(){
           <Route path="/login" element={<Login2 isLogin={isLogin} setIsLogin={setIsLogin}/>} />
           <Route path="/signup" element={<SignUp />}/>
           <Route path="/mypage" element={isLogin ? <MyPage isLogin={isLogin} /> : <Navigate to="/" />} />
+          <Route path="/survey" element={isLogin ? <StartPage isLogin={isLogin} info={info}/>: <Navigate to="/" />} />
         </Routes>
       </div>)
 }
