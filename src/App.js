@@ -1,9 +1,11 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, BrowserRouter as Router, Link } from 'react-router-dom';
 import Login from './pages/Login';
 import MyPage from './pages/MyPage';
 import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { getUserInfo } from './api/getUserInfo';
+import Activities from "./pages/Activities";
+import StressInput from "./pages/StressInput";
 
 export default function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -27,7 +29,10 @@ export default function App() {
           path="mypage"
           element={isLogin ? <MyPage isLogin={isLogin} /> : <Navigate to="/" />}
         />
+        <Route path="/stressInput" element={  <StressInput /> }/>
+        <Route path="/stressResult" element = { <Activities /> } />
       </Routes>
+
     </div>
   );
 }
