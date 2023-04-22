@@ -1,0 +1,236 @@
+[
+  {
+    "id": 1,
+    "question": "매우 피곤하고 지쳐서 먹는 것조차 힘드나요?",
+    "answers" : [
+      {
+        "score": 5,
+        "content" : "매우 그렇다"
+      },
+      {
+        "score": 4,
+        "content" : "그렇다"
+      },
+      {
+        "score": 3,
+        "content" : "보통"
+      },
+      {
+        "score": 2,
+        "content" : "아니다"
+      },
+      {
+        "score": 1,
+        "content" : "매우 아니다"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "question": "잠을 쉽게 이루지 못하는 편인가요?",
+    "answers" : [
+      {
+        "score": 5,
+        "content" : "매우 그렇다"
+      },
+      {
+        "score": 4,
+        "content" : "그렇다"
+      },
+      {
+        "score": 3,
+        "content" : "보통"
+      },
+      {
+        "score": 2,
+        "content" : "아니다"
+      },
+      {
+        "score": 1,
+        "content" : "매우 아니다"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "question": "무기력함을 자주 느끼시나요?",
+    "answers" : [
+      {
+        "score": 5,
+        "content" : "매우 그렇다"
+      },
+      {
+        "score": 4,
+        "content" : "그렇다"
+      },
+      {
+        "score": 3,
+        "content" : "보통"
+      },
+      {
+        "score": 2,
+        "content" : "아니다"
+      },
+      {
+        "score": 1,
+        "content" : "매우 아니다"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "question": "심장이 너무 크게 뛰는것처럼 느껴지나요?",
+    "answers" : [
+      {
+        "score": 5,
+        "content" : "매우 그렇다"
+      },
+      {
+        "score": 4,
+        "content" : "그렇다"
+      },
+      {
+        "score": 3,
+        "content" : "보통"
+      },
+      {
+        "score": 2,
+        "content" : "아니다"
+      },
+      {
+        "score": 1,
+        "content" : "매우 아니다"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "question": "삶의 의미가 없다고 느끼시나요?",
+    "answers" : [
+      {
+        "score": 5,
+        "content" : "매우 그렇다"
+      },
+      {
+        "score": 4,
+        "content" : "그렇다"
+      },
+      {
+        "score": 3,
+        "content" : "보통"
+      },
+      {
+        "score": 2,
+        "content" : "아니다"
+      },
+      {
+        "score": 1,
+        "content" : "매우 아니다"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "question": "자기주변을 통제할 수 없나요?",
+    "answers" : [
+      {
+        "score": 5,
+        "content" : "매우 그렇다"
+      },
+      {
+        "score": 4,
+        "content" : "그렇다"
+      },
+      {
+        "score": 3,
+        "content" : "보통"
+      },
+      {
+        "score": 2,
+        "content" : "아니다"
+      },
+      {
+        "score": 1,
+        "content" : "매우 아니다"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "question": "어떤 일을 바로 시작하기가 힘드나요?",
+    "answers" : [
+      {
+        "score": 5,
+        "content" : "매우 그렇다"
+      },
+      {
+        "score": 4,
+        "content" : "그렇다"
+      },
+      {
+        "score": 3,
+        "content" : "보통"
+      },
+      {
+        "score": 2,
+        "content" : "아니다"
+      },
+      {
+        "score": 1,
+        "content" : "매우 아니다"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "question": "전보다 자신이 예민하고 짜증이 늘어난것처럼 생각되시나요?",
+    "answers" : [
+      {
+        "score": 5,
+        "content" : "매우 그렇다"
+      },
+      {
+        "score": 4,
+        "content" : "그렇다"
+      },
+      {
+        "score": 3,
+        "content" : "보통"
+      },
+      {
+        "score": 2,
+        "content" : "아니다"
+      },
+      {
+        "score": 1,
+        "content" : "매우 아니다"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "question": "정신과 치료를 생각해본적이 있나요?",
+    "answers" : [
+      {
+        "score": 5,
+        "content" : "매우 그렇다"
+      },
+      {
+        "score": 4,
+        "content" : "그렇다"
+      },
+      {
+        "score": 3,
+        "content" : "보통"
+      },
+      {
+        "score": 2,
+        "content" : "아니다"
+      },
+      {
+        "score": 1,
+        "content" : "매우 아니다"
+      }
+    ]
+  }
+]

@@ -9,6 +9,7 @@ export default function MyPage({ isLogin }) {
     email: '',
     firstName: '',
     lastName: '',
+    stressPoint: 0,
   });
 
   useEffect(() => {

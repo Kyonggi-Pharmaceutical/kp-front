@@ -6,19 +6,33 @@ import Login from "./pages/Login";
 import Logout from "./pages/Logout";
 import SignUp from "./pages/SignUp";
 import MyPage from "./pages/MyPage"
+import ApiTest from "./pages/ApiTest"
 import { getUserInfo } from './api/getUserInfo';
+import ExerciseSolution from "./pages/ExerciseSolution";
+import StartPage from "./pages/StartPage";
+import { useDispatch, useSelector } from "react-redux"
+import { loginUser } from "./Store"
 
 function App(){
+    let dispatch = useDispatch();
     const [isLogin, setIsLogin] = useState(false);
-
+    const [info, setUserInfo] = useState({
+        email: '',
+        firstName: '',
+        lastName: '',
+        stressPoint: 0,
+    });
+    useEffect(()=>{
+        dispatch(loginUser(info));
+    }, [info]);
     useEffect(() => {
         const initLogin = async () => {
             const name = await getUserInfo();
             setIsLogin(!!name);
+            setUserInfo(name);
         };
         initLogin();
     }, []);
-
 
   return(
       <div>
@@ -40,6 +54,9 @@ function App(){
           <Route path="/logout" element={<Logout />} />
           <Route path="/signup" element={<SignUp />}/>
           <Route path="/mypage" element={isLogin ? <MyPage isLogin={isLogin} /> : <Navigate to="/" />} />
+          <Route path="/exerciseSolution" element={<ExerciseSolution />}/>
+          <Route path="/survey" element={isLogin ? <StartPage isLogin={isLogin} info={info}/>: <Navigate to="/" />} />
+          <Route path="/apitest" element={<ApiTest />}/>
         </Routes>
       </div>)
 }
