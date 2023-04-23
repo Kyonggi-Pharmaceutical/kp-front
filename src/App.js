@@ -7,6 +7,8 @@ import SignUp from "./pages/SignUp";
 import MyPage from "./pages/MyPage"
 import { getUserInfo } from './api/getUserInfo';
 import StartPage from "./pages/StartPage";
+import StressSurvey from "./pages/StressSurvey";
+import StressResult from "./pages/stressResult";
 
 function App(){
     const [isLogin, setIsLogin] = useState(false);
@@ -16,6 +18,7 @@ function App(){
         lastName: '',
         stressPoint: 0,
     });
+    const stressResult = 0;
 
     useEffect(() => {
         const initLogin = async () => {
@@ -46,6 +49,8 @@ function App(){
           <Route path="/signup" element={<SignUp />}/>
           <Route path="/mypage" element={isLogin ? <MyPage isLogin={isLogin} /> : <Navigate to="/" />} />
           <Route path="/survey" element={isLogin ? <StartPage isLogin={isLogin} info={info}/>: <Navigate to="/" />} />
+          <Route path="/stressSurvey" element={<StressSurvey stressResult={stressResult}/>}/>
+          <Route path="/stressResult" element={<StressResult info={info} stressResult={stressResult}/>}/>
         </Routes>
       </div>)
 }
