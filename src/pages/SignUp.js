@@ -1,10 +1,31 @@
 import React, {useEffect, useState} from 'react';
-import {useSelector} from "react-redux";
 import {signUpApi} from "../api/signUpApi"
+import {getUserInfo} from "../api/getUserInfo";
+import { useNavigate } from 'react-router-dom';
 
 //회원가입
-function SignUp(userInfo) {
-    let userStore = userInfo.userInfo;
+function SignUp({isLogin}) {
+    //유저 정보 조회
+    const navi = useNavigate();
+    const [info, setInfo] = useState({
+        email: '',
+        firstName: '',
+        lastName: '',
+        stressPoint: 0,
+    });
+    useEffect(() => {
+        if (!isLogin) {
+            alert("no");
+            navi('/mypage')
+        };
+
+        const initUserinfo = async () => {
+            let newin = await getUserInfo();
+            setInfo(newin);
+        };
+        initUserinfo();
+    }, [isLogin]);
+
 
     //변수
     const YEAR = [];
@@ -33,9 +54,9 @@ function SignUp(userInfo) {
         height: 0.0,
         weight: 0.0,
         mbti: "",
-        isSmoking: true,
-        isAlcohol: true,
-        HealthcareType: "HEALTH",
+        isSmoking: null,
+        isAlcohol: null,
+        HealthcareType: null,
         stressPoint: 0,
         year: '1980',
         month: '01',
@@ -74,15 +95,15 @@ function SignUp(userInfo) {
                         <div className="signup-form">
                             <div className="form-input-container">
                                 <label className="form-input-label" htmlFor="email">이메일</label>
-                                <input className="form-string-input" type="email" id="email" name="email" value={userStore.email} readOnly disabled/>
+                                <input className="form-string-input" type="email" id="email" name="email" value={info.email} readOnly disabled/>
                             </div>
                             <div className="form-input-container">
                                 <label className="form-input-label" htmlFor="lastname">성</label>
-                                <input className="form-string-input" type="text" id="lastname" name="lastname" value={userStore.lastName} readOnly disabled />
+                                <input className="form-string-input" type="text" id="lastname" name="lastname" value={info.lastName} readOnly disabled />
                             </div>
                             <div className="form-input-container">
                                 <label className="form-input-label" htmlFor="firstname">이름</label>
-                                <input className="form-string-input" type="text" id="firstname" name="firstname" value={userStore.firstName} readOnly disabled />
+                                <input className="form-string-input" type="text" id="firstname" name="firstname" value={info.firstName} readOnly disabled />
                             </div>
                             <div className="form-input-container">
                                 <label className="form-input-label" htmlFor="firstname">별명</label>

@@ -1,4 +1,4 @@
-import { Component, useEffect, useState } from 'react';
+import {Component, useEffect, useState} from 'react';
 import './App.css';
 import { Routes, Route, Link, Navigate } from "react-router-dom";
 import Main from "./pages/Main";
@@ -9,32 +9,17 @@ import MyPage from "./pages/MyPage"
 import { getUserInfo } from './api/getUserInfo';
 import ExerciseSolution from "./pages/ExerciseSolution";
 import StartPage from "./pages/StartPage";
-import { useDispatch, useSelector } from "react-redux"
-import { loginUser } from "./Store"
 
 function App(){
-    let dispatch = useDispatch();
     const [isLogin, setIsLogin] = useState(false);
-    const [info, setUserInfo] = useState({
-        email: '',
-        firstName: '',
-        lastName: '',
-        profileImageUrl: "",
-    });
-    useEffect(()=>{
-        dispatch(loginUser(info));
-    });
+
     useEffect(() => {
         const initLogin = async () => {
             const name = await getUserInfo();
             setIsLogin(!!name);
-            setUserInfo(name);
         };
         initLogin();
     }, []);
-    let userInfo = useSelector((state) => {
-        return state.user;
-    });
   return(
       <div>
         <nav className="navbar">
@@ -53,10 +38,10 @@ function App(){
           <Route path="/" element={<Main />}/>
           <Route path="/login" element={<Login isLogin={isLogin} setIsLogin={setIsLogin}/>} />
           <Route path="/logout" element={<Logout />} />
-          <Route path="/signup" element={<SignUp userInfo={userInfo} />}/>
+          <Route path="/signup" element={<SignUp isLogin={isLogin}/>}/>
           <Route path="/mypage" element={isLogin ? <MyPage isLogin={isLogin} /> : <Navigate to="/" />} />
           <Route path="/exerciseSolution" element={<ExerciseSolution />}/>
-          <Route path="/survey" element={isLogin ? <StartPage isLogin={isLogin} info={info}/>: <Navigate to="/" />} />
+          <Route path="/survey" element={isLogin ? <StartPage isLogin={isLogin}/>: <Navigate to="/" />} />
         </Routes>
       </div>)
 }

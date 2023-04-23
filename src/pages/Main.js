@@ -1,12 +1,7 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-import {useSelector} from "react-redux";
 
 function Main() {
-    let user = useSelector((state) => {
-        return state.user;
-    });
-    console.log(user);
     return (
         <div className="main-bg">
             <div className="main">
