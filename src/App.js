@@ -6,7 +6,6 @@ import Login from "./pages/Login";
 import Logout from "./pages/Logout";
 import SignUp from "./pages/SignUp";
 import MyPage from "./pages/MyPage"
-import ApiTest from "./pages/ApiTest"
 import { getUserInfo } from './api/getUserInfo';
 import ExerciseSolution from "./pages/ExerciseSolution";
 import StartPage from "./pages/StartPage";
@@ -20,11 +19,11 @@ function App(){
         email: '',
         firstName: '',
         lastName: '',
-        stressPoint: 0,
+        profileImageUrl: "",
     });
     useEffect(()=>{
         dispatch(loginUser(info));
-    }, [info]);
+    });
     useEffect(() => {
         const initLogin = async () => {
             const name = await getUserInfo();
@@ -33,7 +32,9 @@ function App(){
         };
         initLogin();
     }, []);
-
+    let userInfo = useSelector((state) => {
+        return state.user;
+    });
   return(
       <div>
         <nav className="navbar">
@@ -52,11 +53,10 @@ function App(){
           <Route path="/" element={<Main />}/>
           <Route path="/login" element={<Login isLogin={isLogin} setIsLogin={setIsLogin}/>} />
           <Route path="/logout" element={<Logout />} />
-          <Route path="/signup" element={<SignUp />}/>
+          <Route path="/signup" element={<SignUp userInfo={userInfo} />}/>
           <Route path="/mypage" element={isLogin ? <MyPage isLogin={isLogin} /> : <Navigate to="/" />} />
           <Route path="/exerciseSolution" element={<ExerciseSolution />}/>
           <Route path="/survey" element={isLogin ? <StartPage isLogin={isLogin} info={info}/>: <Navigate to="/" />} />
-          <Route path="/apitest" element={<ApiTest />}/>
         </Routes>
       </div>)
 }
