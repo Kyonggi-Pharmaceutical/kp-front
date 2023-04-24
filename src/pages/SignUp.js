@@ -84,6 +84,7 @@ function SignUp({isLogin}) {
             stressPoint: formData.stressPoint,
         }
         signUpApi(submitData);
+        navi("/mypage");
     };
 
     return (
