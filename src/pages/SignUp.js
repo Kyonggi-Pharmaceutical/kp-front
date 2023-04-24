@@ -27,7 +27,7 @@ function SignUp({isLogin}) {
     }, [isLogin]);
 
 
-    //변수
+    //dateOfBirth를 입력받기 위한 변수
     const YEAR = [];
     const nowYear = new Date().getFullYear();
     for (let i = 1980; i <= nowYear; i++) {
@@ -43,10 +43,11 @@ function SignUp({isLogin}) {
         let d = String(i).padStart(2, '0');
         DAY.push(d);
     }
-
     const dateToString = (year, month, day) => {
         return year + "-" + month + "-" + day
     }
+
+    //제출할 데이터를 저장할 state
     let [formData, setFormData] = useState({
         nickname: "",
         gender: "MALE",
@@ -63,15 +64,16 @@ function SignUp({isLogin}) {
         day: '01',
     });
 
-    const handleInputChange = (event) => {
+    const handleInputChange = (event) => {  //form에서 데이터 입력을 감지하는 handle
         setFormData((prevProps) => ({
             ...prevProps,
             [event.target.name]: event.target.value
         }));
     };
-    const onSubmit = (data) => {
+
+    const onSubmit = (data) => {    //회원가입 버튼을 눌렀을 떄 작동하는 함수
         data.preventDefault();
-        const submitData = {
+        const submitData = {    //API 서버로 보낼 사용자 데이터 변수
             nickname: formData.nickname,
             gender: formData.gender,
             dateOfBirth: dateToString(formData.year, formData.month, formData.day),
@@ -83,10 +85,11 @@ function SignUp({isLogin}) {
             HealthcareType: formData.HealthcareType,
             stressPoint: formData.stressPoint,
         }
-        signUpApi(submitData);
+        signUpApi(submitData);  //서버로 제출
+        navi("/mypage");
     };
 
-    return (
+    return (    //회원가입 form
         <div className="main-bg">
             <div className="main">
                 <h3 style={{margin: "25px", color: "#E63A35", fontWeight: "bolder", fontSize: "40px", marginBottom: "40px"}}>회원가입</h3>

@@ -4,6 +4,7 @@ import styles from './StressInput.css';
 import Questions from "../api/StressQuestion/../StressQuestion";
 console.log(Questions);
 export default function StressInput(props){
+    //변수 선언
     const [loading, setLoading] = useState(false);
     const [num, setNum] = useState(0);
     const [currentSlide, setCurrentSlide] = useState(1);
@@ -31,14 +32,14 @@ export default function StressInput(props){
 
     }
 
-    useEffect(() => {
+    useEffect(() => {   //문항 끝까지 가면 결과로 이동
         let result = stress;
         if (num > 9) navigate(`/stressResult/${result}`);
 
 
     }, [currentSlide]);
 
-    return (
+    return (    //문항 출력
         <>
             <section className={styles.container}>
                 {!loading && (

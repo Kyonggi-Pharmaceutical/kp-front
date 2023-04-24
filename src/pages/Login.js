@@ -9,10 +9,12 @@ function Login({ isLogin, setIsLogin }) {
     const navigate = useNavigate();
     const {register, handleSubmit} = useForm();
 
+    //입력 데이터가 잘 들어오는지 확인*
     const onSubmit = (data) => {
         console.log(data);
     };
 
+    //구글 소셜 로그인 성공 여부 확인
     // https://stackoverflow.com/questions/49819183/react-what-is-the-best-way-to-handle-login-and-authentication
     const onGoogleSignIn = async res => {
         const { credential } = res;
@@ -20,11 +22,13 @@ function Login({ isLogin, setIsLogin }) {
         setIsLogin(result);
     };
 
+    //로그인이 되었다면 mypage로 이동, 아니면 return
     useEffect(() => {
         if (!isLogin) return;
         navigate('/mypage');
     }, [isLogin]);
 
+    //로그인 창 보여줌(form, input, button, 소셜 로그인 버튼) *
     return (
         <div className="main-bg">
             <div className="login-page">
