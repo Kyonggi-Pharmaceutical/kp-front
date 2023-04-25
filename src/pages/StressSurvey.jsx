@@ -1,14 +1,18 @@
 import React, { createRef, useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import styles from './StressInput.css';
+import styles from './StressSurvey.css';
 import Questions from "../api/StressQuestion/../StressQuestion";
+import {getValue} from "@testing-library/user-event/dist/utils";
 console.log(Questions);
-export default function StressInput(props){
-    //변수 선언
+export default function StressSurvey({stressResult}){
     const [loading, setLoading] = useState(false);
     const [num, setNum] = useState(0);
     const [currentSlide, setCurrentSlide] = useState(1);
     const [stress, setStress] = useState(0);
+    stressResult = {
+        value: 0
+    };
+
     const slideRef = createRef(null);
     const TOTAL_QUESTIONS = 9;
     const navigate = useNavigate();
@@ -21,25 +25,16 @@ export default function StressInput(props){
 
     };
 
-    const stressResult = () => {
-        setLoading(true);
+
+
+    useEffect(() => {
         let result = stress;
-
-        setTimeout(() => {
-            const examResult = result;
-            navigate(`/result/${examResult}`);
-        }, 3000);
-
-    }
-
-    useEffect(() => {   //문항 끝까지 가면 결과로 이동
-        let result = stress;
-        if (num > 9) navigate(`/stressResult/${result}`);
-
-
+        if (num > 9) navigate("/stressResult?result="+result, {
+            state:{ value : parseInt(result) },
+        });
     }, [currentSlide]);
 
-    return (    //문항 출력
+    return (
         <>
             <section className={styles.container}>
                 {!loading && (
