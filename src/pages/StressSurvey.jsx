@@ -29,7 +29,7 @@ export default function StressSurvey({stressResult}){
 
     useEffect(() => {
         let result = stress;
-        if (num > 9) navigate("/stressResult?result="+result, {
+        if (num > 8) navigate("/stressResult?result="+result, {
             state:{ value : parseInt(result) },
         });
     }, [currentSlide]);
