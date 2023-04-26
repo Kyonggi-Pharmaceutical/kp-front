@@ -11,6 +11,7 @@ import StressSurvey from "./pages/StressSurvey";
 import StressResult from "./pages/StressResult";
 import DailyGoal from "./pages/DailyGoal";
 import SatisfactionSurvey from "./pages/SatisfactionSurvey";
+import SatisfactionResult from "./pages/SatisfactionResult";
 
 function App(){
     const [isLogin, setIsLogin] = useState(false);
@@ -26,6 +27,7 @@ function App(){
         activity: [],
         startStressValue:0
     });
+    const month = 0;
 
     useEffect(() => {
         const initLogin = async () => {
@@ -58,10 +60,11 @@ function App(){
           <Route path="/signup" element={<SignUp />}/>
           <Route path="/mypage" element={isLogin ? <MyPage isLogin={isLogin} /> : <Navigate to="/" />} />
           <Route path="/survey" element={isLogin ? <StartPage isLogin={isLogin} info={info}/>: <Navigate to="/" />} />
-          <Route path="/stressSurvey" element={<StressSurvey stressResult={StressResult}/>}/>
+          <Route path="/stressSurvey" element={<StressSurvey month={month} stressResult={StressResult}/>}/>
           <Route path="/stressResult" element={<StressResult info={info} setUserInfo={setUserInfo} healthGoal={healthGoal} setHealthGoal={setHealthGoal}/>}/>
           <Route path="/dailyGoal" element={<DailyGoal info={info} healthGoal={healthGoal}/>}/>
-          <Route path="/satisfactionSurvey" element={<SatisfactionSurvey info={info} healthGoal={healthGoal}/>} />
+          <Route path="/satisfactionSurvey" element={<SatisfactionSurvey month={month} info={info} healthGoal={healthGoal}/>} />
+          <Route path="/satisfactionResult" element={<SatisfactionResult info={info} />}/>
         </Routes>
       </div>)
 }

@@ -4,14 +4,16 @@ import { useLocation } from "react-router-dom";
 import stress from '../pages/StressSurvey';
 import Checkbox from "../components/CheckBox";
 
-const SatisfactionSurvey = () => {
-    navigate("/dailyGoal");
-}
+
 
 export default function DailyGoal(info) {
     const username = info.lastName + info.firstName;
     const location = useLocation();
     const [complete, setComplete] = useState(false);
+    const navigate = useNavigate();
+    const SatisfactionSurvey = () => {
+        navigate("/satisfactionSurvey");
+    }
 
     useEffect( ()=>{
     }, [info]);

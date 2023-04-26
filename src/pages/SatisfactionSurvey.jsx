@@ -1,17 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
 import stress from '../pages/StressSurvey';
 import Checkbox from "../components/CheckBox";
+import StressSurvey from "../pages/StressSurvey";
 
-// const SatisfactionSurvey = () => {
-//     navigate("/dailyGoal");
-// }
 
 export default function SatisfactionSurvey(info, healthGoal) {
-    const username = info.lastName + info.firstName;
-    const location = useLocation();
-    const [complete, setComplete] = useState(false);
+    const month = 1;
+    // const username = info.lastName + info.firstName;
+    // const location = useLocation();
+    // const [complete, setComplete] = useState(false);
 
     useEffect( ()=>{
     }, [info]);
@@ -20,18 +18,9 @@ export default function SatisfactionSurvey(info, healthGoal) {
 
         <div className="main-bg">
             <div className="result-page">
-                <h3 style={{margin: "25px", color: "#E63A35", fontWeight: "bolder", fontSize: "40px", marginBottom: "40px"}}>일일 목표관리</h3>
-                <p>기본 생활관리</p>
-                <p>수면 7~8시간</p><Checkbox checked={complete} onChange={setComplete} />
-                <p>간단한 외출 또는 운동</p><Checkbox checked={complete} onChange={setComplete} />
-
-                <p>---------------------------------</p>
-                <p>MBTI 스트레스대처하기</p>
-                <p>스스로 오늘 할 챌린지 한 가지 이상 정하고 지키기</p><Checkbox checked={complete} onChange={setComplete} />
-                <p>인생의 현실적인 목표 5가지 설정하기</p><Checkbox checked={complete} onChange={setComplete} />
-                <p>자신과 대화 하며 현재 기분을 적어보기 </p><Checkbox checked={complete} onChange={setComplete} />
-
-                <div className="submit-button" onClick={SatisfactionSurvey}>월간 만족도 조사</div>
+                <h3 style={{margin: "25px", color: "#E63A35", fontWeight: "bolder", fontSize: "40px", marginBottom: "40px"}}>월간 만족도 조사</h3>
+                <p>지난 달에 비해 얼마나 스트레스가 개선되었는지 확인해보세요!</p>
+                <StressSurvey month={1}></StressSurvey>
 
             </div>
         </div>

@@ -4,7 +4,7 @@ import styles from './StressSurvey.css';
 import Questions from "../api/StressQuestion/../StressQuestion";
 import {getValue} from "@testing-library/user-event/dist/utils";
 console.log(Questions);
-export default function StressSurvey({stressResult}){
+export default function StressSurvey({month, stressResult}){
     const [loading, setLoading] = useState(false);
     const [num, setNum] = useState(0);
     const [currentSlide, setCurrentSlide] = useState(1);
@@ -28,9 +28,12 @@ export default function StressSurvey({stressResult}){
     useEffect(() => {
         let result = stress;
 
-        if (num > 8) navigate("/stressResult?result="+result, {
+        if (num > 8 && month == 0){ navigate("/stressResult?result="+result, {
             state:{ value : parseInt(result) },
-        });
+        })}else if (num > 8 && month == 1){ navigate("/satisfactionResult?result="+result, {
+            state:{ value : parseInt(result) },
+        })};
+
     }, [currentSlide]);
 
     return (
