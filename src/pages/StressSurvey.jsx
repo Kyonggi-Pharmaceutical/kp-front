@@ -9,9 +9,7 @@ export default function StressSurvey({stressResult}){
     const [num, setNum] = useState(0);
     const [currentSlide, setCurrentSlide] = useState(1);
     const [stress, setStress] = useState(0);
-    stressResult = {
-        value: 0
-    };
+
 
     const slideRef = createRef(null);
     const TOTAL_QUESTIONS = 9;
@@ -29,6 +27,7 @@ export default function StressSurvey({stressResult}){
 
     useEffect(() => {
         let result = stress;
+
         if (num > 8) navigate("/stressResult?result="+result, {
             state:{ value : parseInt(result) },
         });
