@@ -29,8 +29,8 @@ export default function SatisfactionResult({info, setUserInfo, healthGoal, setHe
 
     function NO(){
         return(
-            <div>
-                <p>NO</p>
+            <div className='new-solution'>
+                <div className='new-solution-text'>NEW SOLUTION</div>
                 {MBTI.map((item) => {
                     return (
                         <div
@@ -40,11 +40,12 @@ export default function SatisfactionResult({info, setUserInfo, healthGoal, setHe
                         </div>
                     )
                 })}
+
                 <p>{value}점의 스트레스는 현상유지가 필요합니다.</p>
                 <p>ENFP유형은 사회적지지 추구, 정서적 대처, 소망적 사고에 해당하는 스트레스 대처방식을 자주 효과적으로 사용합니다.</p>
                 {Activity.map((item) => { return (<p>{`${info.lastName} ${info.firstName}`}님이 무기력할 때, 적절한 스트레스 관리방식은 {item.type}입니다.(증상별 2~3개 출력예정)</p>)
                 })}
-                <div className="submit-button" onClick={DailyGoal}>새 솔루션으로 일일 목표 관리하기</div>
+                <div className="new-submit-button" onClick={DailyGoal}>새 솔루션으로 일일 목표 관리하기</div>
             </div>
         )
     }
@@ -52,17 +53,17 @@ export default function SatisfactionResult({info, setUserInfo, healthGoal, setHe
 
     return (
 
-        <div className="main-bg">
-            <div className="result-page">
+        <div className="month-main-bg">
+            <div className="month-result-page">
                 <h3 style={{margin: "25px", color: "#E63A35", fontWeight: "bolder", fontSize: "40px", marginBottom: "40px"}}>설문 결과</h3>
                 <p>ENFP {`${info.lastName} ${info.firstName}`}님의 스트레스 지수는 {comparedStressPoint}점 변화했습니다.</p>
                 <p>해당 건강솔루션이 도움이 되었나요? </p>
-                <div className="submit-button" onClick={DailyGoal}>YES</div>
-                <div className="submit-button" onClick={()=>{
+                <div className="month-submit-button" onClick={DailyGoal}>YES</div>
+                <div className="month-submit-button" onClick={()=>{
                     setVisible(!visible);
                  }}
                 >
-                    {visible ? "NO" : "NO"}
+                    {visible ? "HOLD" : "NO"}
                 </div>
                 {visible && <NO />}
 

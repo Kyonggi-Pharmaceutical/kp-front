@@ -41,10 +41,11 @@ export default function StressSurvey({month, stressResult}){
             <section className={styles.container}>
                 {!loading && (
                     <>
-                        <div className={styles.slider} ref={slideRef}>
+                        <div id className={styles.slider} ref={slideRef}>
                             {Questions.map((item) => {
                                 return (
                                     <div
+                                        id='question'
                                         className={styles.content}
                                         key={item.id}
                                     >
@@ -79,30 +80,35 @@ export default function StressSurvey({month, stressResult}){
                                             className={styles.mbti__btn__box}
                                         >
                                             <button
+                                                id='choose'
                                                 className={styles.mbti__button}
                                                 onClick={() => nextSlide(0)}
                                             >
                                                 {item.answers[0].content}
                                             </button>
                                             <button
+                                                id='choose'
                                                 className={styles.mbti__button}
                                                 onClick={() => nextSlide(1)}
                                             >
                                                 {item.answers[1].content}
                                             </button>
                                             <button
+                                                id='choose'
                                                 className={styles.mbti__button}
                                                 onClick={() => nextSlide(2)}
                                             >
                                                 {item.answers[2].content}
                                             </button>
                                             <button
+                                                id='choose'
                                                 className={styles.mbti__button}
                                                 onClick={() => nextSlide(3)}
                                             >
                                                 {item.answers[3].content}
                                             </button>
                                             <button
+                                                id='choose'
                                                 className={styles.mbti__button}
                                                 onClick={() => nextSlide(4)}
                                             >

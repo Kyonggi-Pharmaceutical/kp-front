@@ -42,7 +42,7 @@ export default function StressResult({info, setUserInfo, healthGoal, setHealthGo
                         <div
                             key={item.id}
                         >
-                       <p>{item.description}</p>
+                            <p>{item.description}</p>
                         </div>
                     )
                 })}
