@@ -5,6 +5,9 @@ import Main from "./pages/Main";
 import Login2 from "./pages/Login2";
 import SignUp from "./pages/SignUp";
 import MyPage from "./pages/MyPage"
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Login from "./pages/Login";
+import Logout from "./pages/Logout";
 import { getUserInfo } from './api/getUserInfo';
 import StartPage from "./pages/StartPage";
 import StressSurvey from "./pages/StressSurvey";
@@ -20,6 +23,16 @@ function App(){
         firstName: '',
         lastName: '',
         stressPoint: 0,
+      nickname: "",
+      gender: "",
+      dateOfBirth: "",
+      height: 0.0,
+      weight: 0.0,
+      mbti: "",
+      isSmoking: null,
+      isAlcohol: null,
+      HealthcareType: null,
+
     });
     const [healthGoal, setHealthGoal] = useState({
         userId: '',
@@ -47,26 +60,29 @@ function App(){
         <nav className="navbar">
           <ul className="nav-list">
             <li><Link to="/">Home</Link></li>
-            <li><Link to="/login">Log In</Link></li>
+            {
+              isLogin ? (<li><Link to="/mypage">My Page</Link></li>) : (<li><Link to="/login">Log In</Link></li>)
+            }
             <li><Link to="/signup">Sign Up</Link></li>
           </ul>
         </nav>
         <div className="title-header">
-          <div className="title">16Healthcare💊</div>
-        </div>
-        <Routes>
-          <Route path="/" element={<Main />}/>
-          <Route path="/login" element={<Login2 isLogin={isLogin} setIsLogin={setIsLogin}/>} />
-          <Route path="/signup" element={<SignUp />}/>
-          <Route path="/mypage" element={isLogin ? <MyPage isLogin={isLogin} /> : <Navigate to="/" />} />
-          <Route path="/survey" element={isLogin ? <StartPage isLogin={isLogin} info={info}/>: <Navigate to="/" />} />
-          <Route path="/stressSurvey" element={<StressSurvey month={month} stressResult={StressResult}/>}/>
-          <Route path="/stressResult" element={<StressResult info={info} setUserInfo={setUserInfo} healthGoal={healthGoal} setHealthGoal={setHealthGoal}/>}/>
-          <Route path="/dailyGoal" element={<DailyGoal info={info} healthGoal={healthGoal}/>}/>
-          <Route path="/satisfactionSurvey" element={<SatisfactionSurvey month={month} info={info} healthGoal={healthGoal}/>} />
-          <Route path="/satisfactionResult" element={<SatisfactionResult info={info} />}/>
-        </Routes>
-      </div>)
+                <div className="title"><Link to={"/"} style={{textDecoration: "none", color: "inherit"}}>16Healthcare💊</Link></div>
+            </div>
+            <Routes>
+                <Route path="/" element={<Main />}/>
+                <Route path="/login" element={<Login isLogin={isLogin} setIsLogin={setIsLogin}/>} />
+                <Route path="/logout" element={<Logout />} />
+                <Route path="/signup" element={<SignUp isLogin={isLogin}/>}/>
+                <Route path="/mypage" element={isLogin ? <MyPage isLogin={isLogin} /> : <Navigate to="/" />} />
+                <Route path="/survey" element={isLogin ? <StartPage isLogin={isLogin} info={info}/>: <Navigate to="/" />} />
+                <Route path="/stressSurvey" element={<StressSurvey month={month} stressResult={StressResult}/>}/>
+                <Route path="/stressResult" element={<StressResult info={info} setUserInfo={setUserInfo} healthGoal={healthGoal} setHealthGoal={setHealthGoal}/>}/>
+                <Route path="/dailyGoal" element={<DailyGoal info={info} healthGoal={healthGoal}/>}/>
+                <Route path="/satisfactionSurvey" element={<SatisfactionSurvey month={month} info={info} healthGoal={healthGoal}/>} />
+                <Route path="/satisfactionResult" element={<SatisfactionResult info={info} />}/>
+            </Routes>
+        </div>)
 }
 
 export default App;

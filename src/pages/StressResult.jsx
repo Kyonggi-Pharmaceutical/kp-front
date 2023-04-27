@@ -6,6 +6,7 @@ import MBTI from "../api/Mbti/../Mbti";
 import Activity from "../api/Activity/../Activity";
 import styles from "./StressSurvey.css";
 import DailyGoal from "./DailyGoal";
+import Button from 'react-bootstrap/Button';
 console.log(MBTI);
 console.log(Activity);
 export default function StressResult({info, setUserInfo, healthGoal, setHealthGoal}) {
@@ -34,8 +35,8 @@ export default function StressResult({info, setUserInfo, healthGoal, setHealthGo
     return (
 
         <div className="main-bg">
-            <div className="result-page">
-                <h3 style={{margin: "25px", color: "#E63A35", fontWeight: "bolder", fontSize: "40px", marginBottom: "40px"}}>설문 결과</h3>
+            <div className="main">
+                <h3 className="small-title">설문 결과</h3>
                 <p>ENFP {`${info.lastName} ${info.firstName}`}님의 스트레스 지수는 {value}점입니다.</p>
                 {MBTI.map((item) => {
                     return (
@@ -51,8 +52,9 @@ export default function StressResult({info, setUserInfo, healthGoal, setHealthGo
                 {Activity.map((item) => { return (<p>{`${info.lastName} ${info.firstName}`}님이 무기력할 때, 적절한 스트레스 관리방식은 {item.type}입니다.(증상별 2~3개 출력예정)</p>)
                     submitData.activity = item.type;
                 })}
-
-                <div className="submit-button" onClick={DailyGoal}>일일 목표 관리하기</div>
+                <div style={{textAlign: "center"}}>
+                    <Button className="button-custom" variant="outline-danger" size="lg" onClick={DailyGoal}>일일 목표 관리하기</Button>
+                </div>
 
             </div>
         </div>

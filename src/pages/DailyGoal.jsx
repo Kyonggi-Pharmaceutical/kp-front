@@ -3,6 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
 import stress from '../pages/StressSurvey';
 import Checkbox from "../components/CheckBox";
+<<<<<<< HEAD
+=======
+import Button from "react-bootstrap/Button";
+>>>>>>> origin/develop
 
 
 
@@ -33,8 +37,9 @@ export default function DailyGoal(info) {
                 <p>인생의 현실적인 목표 5가지 설정하기</p><Checkbox checked={complete} onChange={setComplete} />
                 <p>자신과 대화 하며 현재 기분을 적어보기 </p><Checkbox checked={complete} onChange={setComplete} />
 
-                <div className="submit-button" onClick={SatisfactionSurvey}>월간 만족도 조사</div>
-
+                <div style={{textAlign: "center"}}>
+                    <Button className="button-custom" variant="outline-danger" size="lg" onClick={SatisfactionSurvey}>월간 만족도 조사</Button>
+                </div>
             </div>
         </div>
     );
