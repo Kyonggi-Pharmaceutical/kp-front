@@ -18,10 +18,8 @@ export default function MyPage({ isLogin }) {
   });
 
   useEffect(() => {
-    if (!isLogin) {
+    if (!isLogin)
       alert("no");
-      navigate('/')
-    };
 
     const initUserinfo = async () => {
       const newinfo = await getUserInfo();

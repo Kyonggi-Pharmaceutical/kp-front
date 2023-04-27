@@ -15,7 +15,6 @@ function SignUp({isLogin}) {
     });
     useEffect(() => {
         if (!isLogin) navi('/login');
-        navi('/mypage');
 
         const initUserinfo = async () => {
             let newinfo = await getUserInfo();
