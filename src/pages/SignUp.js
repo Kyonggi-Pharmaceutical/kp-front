@@ -14,14 +14,12 @@ function SignUp({isLogin}) {
         stressPoint: 0,
     });
     useEffect(() => {
-        if (!isLogin) {
-            alert("no");
-            navi('/mypage')
-        };
+        if (!isLogin) navi('/login');
+        navi('/mypage');
 
         const initUserinfo = async () => {
-            let newin = await getUserInfo();
-            setInfo(newin);
+            let newinfo = await getUserInfo();
+            setInfo(newinfo);
         };
         initUserinfo();
     }, [isLogin]);
@@ -90,85 +88,83 @@ function SignUp({isLogin}) {
     return (
         <div className="main-bg">
             <div className="main">
-                <h3 style={{margin: "25px", color: "#E63A35", fontWeight: "bolder", fontSize: "40px", marginBottom: "40px"}}>회원가입</h3>
+                <h3 className="small-title">회원가입</h3>
                 <div className="form-box">
                     <form onSubmit={onSubmit}>
-                        <div className="signup-form">
-                            <div className="form-input-container">
-                                <label className="form-input-label" htmlFor="email">이메일</label>
-                                <input className="form-string-input" type="email" id="email" name="email" value={info.email} readOnly disabled/>
-                            </div>
-                            <div className="form-input-container">
-                                <label className="form-input-label" htmlFor="lastname">성</label>
-                                <input className="form-string-input" type="text" id="lastname" name="lastname" value={info.lastName} readOnly disabled />
-                            </div>
-                            <div className="form-input-container">
-                                <label className="form-input-label" htmlFor="firstname">이름</label>
-                                <input className="form-string-input" type="text" id="firstname" name="firstname" value={info.firstName} readOnly disabled />
-                            </div>
-                            <div className="form-input-container">
-                                <label className="form-input-label" htmlFor="firstname">별명</label>
-                                <input onChange={handleInputChange} className="form-string-input" type="text" id="nickname" name="nickname" value={formData.nickname}/>
-                            </div>
-                            <div className="form-input-container">
-                                <label className="form-input-label" htmlFor="gender">성별</label>
-                                <div className="mb-3">
-                                    <label>
-                                        <input
-                                            type="radio"
-                                            name="gender"
-                                            value="MALE"
-                                            checked={formData.gender === 'MALE'}
-                                            onChange={handleInputChange}
-                                        />
-                                        남성
-                                    </label>
-                                    <label>
-                                        <input
-                                            type="radio"
-                                            name="gender"
-                                            value="FEMALE"
-                                            checked={formData.gender === 'FEMALE'}
-                                            onChange={handleInputChange}
-                                        />
-                                        여성
-                                    </label>
-                                </div>
-                            </div>
-                            <div className="form-input-container">
-                                <label className="form-input-label" htmlFor="height">생년월일</label>
-                                <div style={{display: 'flex'}}>
-                                    <select className="select" name="year" onChange={handleInputChange}>
-                                        {YEAR.map(y => {
-                                            return <option key={y}>{y}</option>;
-                                        })}
-                                    </select>
-                                    <select className="select" name="month" onChange={handleInputChange}>
-                                        {MONTH.map(m => {
-                                            return <option key={m}>{m}</option>;
-                                        })}
-                                    </select>
-                                    <select className="select" name="day" onChange={handleInputChange}>
-                                        {DAY.map(d => {
-                                            return <option key={d}>{d}</option>;
-                                        })}
-                                    </select>
-                                </div>
-                            </div>
-                            <div className="form-input-container">
-                                <label className="form-input-label" htmlFor="height">키</label>
-                                <input onChange={handleInputChange} className="form-string-input" type="text" id="height" name="height" value={formData.height} />
-                            </div>
-                            <div className="form-input-container">
-                                <label className="form-input-label" htmlFor="weight">몸무게</label>
-                                <input onChange={handleInputChange} className="form-string-input" type="text" id="weight" name="weight" value={formData.weight} />
-                            </div>
-                            <div className="form-input-container">
-                                <label className="form-input-label" htmlFor="mbti">MBTI</label>
-                                <input onChange={handleInputChange} className="form-string-input" type="text" id="mbti" name="mbti" value={formData.mbti} />
-                            </div>
-                            <button type="submit" className="submit-btn">회원가입</button>
+                        <div className="form-input-container">
+                            <label className="form-input-label" htmlFor="email">이메일</label>
+                            <input className="form-string-input" type="email" id="email" name="email" value={info.email} readOnly disabled/>
                         </div>
+                        <div className="form-input-container">
+                            <label className="form-input-label" htmlFor="lastname">성</label>
+                            <input className="form-string-input" type="text" id="lastname" name="lastname" value={info.lastName} readOnly disabled />
+                        </div>
+                        <div className="form-input-container">
+                            <label className="form-input-label" htmlFor="firstname">이름</label>
+                            <input className="form-string-input" type="text" id="firstname" name="firstname" value={info.firstName} readOnly disabled />
+                        </div>
+                        <div className="form-input-container">
+                            <label className="form-input-label" htmlFor="firstname">별명</label>
+                            <input onChange={handleInputChange} className="form-string-input" type="text" id="nickname" name="nickname" value={formData.nickname}/>
+                        </div>
+                        <div className="form-input-container">
+                            <label className="form-input-label" htmlFor="gender">성별</label>
+                            <div className="mb-3">
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="gender"
+                                        value="MALE"
+                                        checked={formData.gender === 'MALE'}
+                                        onChange={handleInputChange}
+                                    />
+                                    남성
+                                </label>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="gender"
+                                        value="FEMALE"
+                                        checked={formData.gender === 'FEMALE'}
+                                        onChange={handleInputChange}
+                                    />
+                                    여성
+                                </label>
+                            </div>
+                        </div>
+                        <div className="form-input-container">
+                            <label className="form-input-label" htmlFor="height">생년월일</label>
+                            <div style={{display: 'flex'}}>
+                                <select className="select" name="year" onChange={handleInputChange}>
+                                    {YEAR.map(y => {
+                                        return <option key={y}>{y}</option>;
+                                    })}
+                                </select>
+                                <select className="select" name="month" onChange={handleInputChange}>
+                                    {MONTH.map(m => {
+                                        return <option key={m}>{m}</option>;
+                                    })}
+                                </select>
+                                <select className="select" name="day" onChange={handleInputChange}>
+                                    {DAY.map(d => {
+                                        return <option key={d}>{d}</option>;
+                                    })}
+                                </select>
+                            </div>
+                        </div>
+                        <div className="form-input-container">
+                            <label className="form-input-label" htmlFor="height">키</label>
+                            <input onChange={handleInputChange} className="form-string-input" type="text" id="height" name="height" value={formData.height} />
+                        </div>
+                        <div className="form-input-container">
+                            <label className="form-input-label" htmlFor="weight">몸무게</label>
+                            <input onChange={handleInputChange} className="form-string-input" type="text" id="weight" name="weight" value={formData.weight} />
+                        </div>
+                        <div className="form-input-container">
+                            <label className="form-input-label" htmlFor="mbti">MBTI</label>
+                            <input onChange={handleInputChange} className="form-string-input" type="text" id="mbti" name="mbti" value={formData.mbti} />
+                        </div>
+                        <button type="submit" className="submit-btn">회원가입</button>
                     </form>
                 </div>
             </div>

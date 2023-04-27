@@ -3,15 +3,15 @@ import { useNavigate } from "react-router-dom";
 import styles from './StressSurvey.css';
 import Questions from "../api/StressQuestion/../StressQuestion";
 import {getValue} from "@testing-library/user-event/dist/utils";
+import { FiEdit2 } from "react-icons/fi";
+
 console.log(Questions);
-export default function StressSurvey({stressResult}){
+export default function StressSurvey({month, stressResult}){
     const [loading, setLoading] = useState(false);
     const [num, setNum] = useState(0);
     const [currentSlide, setCurrentSlide] = useState(1);
     const [stress, setStress] = useState(0);
-    stressResult = {
-        value: 0
-    };
+
 
     const slideRef = createRef(null);
     const TOTAL_QUESTIONS = 9;
@@ -29,93 +29,107 @@ export default function StressSurvey({stressResult}){
 
     useEffect(() => {
         let result = stress;
-        if (num > 9) navigate("/stressResult?result="+result, {
+
+        if (num > 8 && month == 0){ navigate("/stressResult?result="+result, {
             state:{ value : parseInt(result) },
-        });
+        })}else if (num > 8 && month == 1){ navigate("/satisfactionResult?result="+result, {
+            state:{ value : parseInt(result) },
+        })};
+
     }, [currentSlide]);
 
     return (
-        <>
-            <section className={styles.container}>
-                {!loading && (
-                    <>
-                        <div className={styles.slider} ref={slideRef}>
-                            {Questions.map((item) => {
-                                return (
-                                    <div
-                                        className={styles.content}
-                                        key={item.id}
-                                    >
-                                        <div className={styles.top}>
-                                            <div
-                                                className={styles.mbti__counter}
-                                            >
+        <div className="main-bg">
+            <div className="survey-form">
+                <h3 className="small-title">문진하기<FiEdit2 /></h3>
+                <section>
+                    {!loading && (
+                        <>
+                            <div id className={styles.slider} ref={slideRef}>
+                                {Questions.map((item) => {
+                                    return (
+                                        <div
+                                            id='question'
+                                            className={styles.content}
+                                            key={item.id}
+                                        >
+                                            <div className={styles.top}>
+                                                <div
+                                                    className={styles.mbti__counter}
+                                                >
                                                 <span
                                                     className={
                                                         styles.mbti__progress__color
                                                     }
                                                 >
-                                                    {item.id}
+                                                    {item.id + " "}
                                                 </span>
-                                                <span
+                                                    <span
+                                                        className={
+                                                            styles.mbti__end__color
+                                                        }
+                                                    >
+                                                        / {TOTAL_QUESTIONS}번
+                                                </span>
+                                                </div>
+                                                <p
                                                     className={
-                                                        styles.mbti__end__color
+                                                        styles.mbti__question
                                                     }
+                                                    style={{fontSize: "25px"}}
                                                 >
-                                                    /{TOTAL_QUESTIONS}
-                                                </span>
+                                                    {item.question}
+                                                </p>
                                             </div>
-                                            <h1
-                                                className={
-                                                    styles.mbti__question
-                                                }
+                                            <article
+                                                className={styles.mbti__btn__box}
                                             >
-                                                {item.question}
-                                            </h1>
+                                                <button
+                                                    id='choose'
+                                                    className={styles.mbti__button}
+                                                    onClick={() => nextSlide(0)}
+                                                >
+                                                    {item.answers[0].content}
+                                                </button>
+                                                <button
+                                                    id='choose'
+                                                    className={styles.mbti__button}
+                                                    onClick={() => nextSlide(1)}
+                                                >
+                                                    {item.answers[1].content}
+                                                </button>
+                                                <button
+                                                    id='choose'
+                                                    className={styles.mbti__button}
+                                                    onClick={() => nextSlide(2)}
+                                                >
+                                                    {item.answers[2].content}
+                                                </button>
+                                                <button
+                                                    id='choose'
+                                                    className={styles.mbti__button}
+                                                    onClick={() => nextSlide(3)}
+                                                >
+                                                    {item.answers[3].content}
+                                                </button>
+                                                <button
+                                                    id='choose'
+                                                    className={styles.mbti__button}
+                                                    onClick={() => nextSlide(4)}
+                                                >
+                                                    {item.answers[4].content}
+                                                </button>
+                                            </article>
                                         </div>
-                                        <article
-                                            className={styles.mbti__btn__box}
-                                        >
-                                            <button
-                                                className={styles.mbti__button}
-                                                onClick={() => nextSlide(0)}
-                                            >
-                                                {item.answers[0].content}
-                                            </button>
-                                            <button
-                                                className={styles.mbti__button}
-                                                onClick={() => nextSlide(1)}
-                                            >
-                                                {item.answers[1].content}
-                                            </button>
-                                            <button
-                                                className={styles.mbti__button}
-                                                onClick={() => nextSlide(2)}
-                                            >
-                                                {item.answers[2].content}
-                                            </button>
-                                            <button
-                                                className={styles.mbti__button}
-                                                onClick={() => nextSlide(3)}
-                                            >
-                                                {item.answers[3].content}
-                                            </button>
-                                            <button
-                                                className={styles.mbti__button}
-                                                onClick={() => nextSlide(4)}
-                                            >
-                                                {item.answers[4].content}
-                                            </button>
-                                        </article>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    </>
-                )}
+                                    );
+                                })}
+                            </div>
+                        </>
+                    )}
 
-            </section>
-        </>
+                </section>
+            </div>
+        </div>
 
     );
 

@@ -25,21 +25,21 @@ function Login({ isLogin, setIsLogin }) {
     //로그인이 되었다면 mypage로 이동, 아니면 return
     useEffect(() => {
         if (!isLogin) return;
-        navigate('/mypage');
+        //navigate('/mypage');
+        window.location.replace("/");
     }, [isLogin]);
 
     //로그인 창 보여줌(form, input, button, 소셜 로그인 버튼) *
     return (
         <div className="main-bg">
             <div className="login-page">
-                <h3 style={{margin: "25px", color: "#E63A35", fontWeight: "bolder", fontSize: "40px", marginBottom: "40px"}}>로그인</h3>
+                <h3 className="small-title">로그인</h3>
                 <form onSubmit={handleSubmit(onSubmit)} style={{textAlign: "center"}}>
                     <input className="input-box" type="text" placeholder="Username" {...register("username")}/>
                     <input className="input-box" type="password" placeholder="Password" {...register("password")}/>
                     <button type="submit" className="submit-btn">로그인</button>
                     <GoogleLogin onGoogleSignIn={onGoogleSignIn} text="로그인" />
                 </form>
-
             </div>
         </div>
     );

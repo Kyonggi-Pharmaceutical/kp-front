@@ -4,6 +4,16 @@ body {
     overflow-y: auto;
 }
 
+#question{
+    background: white;
+    padding-top: 20px;
+    padding-left: 70px;
+    border-radius: 30px;
+    margin-bottom: 20px;
+}
+#choose{
+    margin-inline:3px;
+}
 button {
     border: none;
 }
@@ -147,4 +157,36 @@ button {
     .ticket {
         width: 30rem;
     }
+}
+
+
+.start-page{
+    width: 100%;
+    text-align: center;
+}
+
+.start-page p{
+    font-size: 40px;
+}
+
+.button-custom{
+    width: 500px;
+    margin-top: 25px;
+    padding: 10px 0px;
+    font-size: 30px;
+}
+
+.survey-form{
+    background-color: white;
+    margin: 0 auto;
+    border-radius: 20px;
+    width: 1000px;
+    height: 550px;
+    padding: 20px;
+    overflow: auto;
+}
+
+.survey-form::-webkit-scrollbar{
+    width: 0;
+    height: 0;
 }

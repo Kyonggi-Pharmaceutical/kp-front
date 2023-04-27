@@ -87,6 +87,14 @@
     font-weight: bolder;
 }
 
+.small-title{
+    margin: 25px;
+    color: #E63A35;
+    font-weight: bolder;
+    font-size: 40px;
+    margin-bottom: 40px;
+}
+
 .main-bg{
     background-color: #F2F3F5;
     padding: 20px;
@@ -207,4 +215,70 @@ input:focus {
     border: 0.5px solid gray;
     font-size: 12px;
     outline: none;
+}
+
+.month-submit-button{
+    text-align: center;
+    font-weight: bold;
+    font-size: 35px;
+    background-color: #E63A35;
+    border-radius: 50px;
+    color : white;
+    width: 150px;
+    height: 50px;
+    border: none;
+    padding : 5px 0;
+    margin-top: 10px;
+    margin-inline: auto;
+}
+
+.new-submit-button{
+    text-align: center;
+    font-weight: bold;
+    font-size: 25px;
+    background-color: #E63A35;
+    border-radius: 50px;
+    color : white;
+    width: 580px;
+    height: 40px;
+    border: none;
+    padding : 5px 0;
+    margin-top: 30px;
+    margin-inline: auto;
+}
+
+
+.sign-page{
+    background-color: white;
+    margin: 0 auto;
+    border-radius: 20px;
+    max-width: 1000px;
+    height: 550px;
+    padding: 20px;
+}
+
+.signup-input{
+    display: block;
+    font-size: 20px;
+}
+
+.month-result-page{
+    text-align: center;
+}
+
+.new-solution{
+    margin-top:20px;
+    background-color: white;
+
+    padding-bottom:30px;
+    margin-inline: 150px;
+    padding-inline: 10px;
+    border-radius: 30px;
+}
+
+.new-solution-text{
+    font-size: 30px;
+    color: #E63A35;
+    font-weight: bolder;
+
 }
