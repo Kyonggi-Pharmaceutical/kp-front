@@ -48,7 +48,8 @@ export default function SatisfactionResult({info, setUserInfo, healthGoal, setHe
 
                 <p>{value}점의 스트레스는 현상유지가 필요합니다.</p>
                 <p>ENFP유형은 사회적지지 추구, 정서적 대처, 소망적 사고에 해당하는 스트레스 대처방식을 자주 효과적으로 사용합니다.</p>
-                {Activity.map((item) => { return (<p>{`${info.lastName} ${info.firstName}`}님이 무기력할 때, 적절한 스트레스 관리방식은 {item.type}입니다.(증상별 2~3개 출력예정)</p>)
+                {Activity.map((item) => { return (<p>{`${info.lastName} ${info.firstName}`}님이 무기력할 때, 적절한 스트레스 관리방식은 {item.type}입니다. 또는 스스로 오늘 할 챌린지 한 가지 이상 정하고 지키기나
+                    인생의 현실적인 목표 설정하기, 자신과 대화하며 현재 기분을 적어보세요.</p>)
                 })}
                 <Button className="button-custom" variant="outline-danger" onClick={DailyGoal}>새 솔루션으로 일일 목표 관리하기</Button>
             </div>
