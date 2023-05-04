@@ -8,10 +8,19 @@ function SignUp({isLogin}) {
     //유저 정보 조회
     const navi = useNavigate();
     const [info, setInfo] = useState({
+        nickname: "",
+        gender: "",
+        dateOfBirth: "",
+        height: 0.0,
+        weight: 0.0,
+        mbti: "",
+        isSmoking: null,
+        isAlcohol: null,
+        HealthcareType: null,
+        profileImageUrl: '',
         email: '',
         firstName: '',
         lastName: '',
-        stressPoint: 0,
     });
     useEffect(() => {
         if (!isLogin) navi('/login');

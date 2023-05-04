@@ -28,6 +28,10 @@ function App(){
         isSmoking: null,
         isAlcohol: null,
         HealthcareType: null,
+        profileImageUrl: '',
+        email: '',
+        firstName: '',
+        lastName: '',
     });
     const [healthGoal, setHealthGoal] = useState({
         userId: '',
