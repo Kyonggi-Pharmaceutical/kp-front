@@ -4,7 +4,9 @@ import { useState } from 'react';
 import { getUserInfo } from '../api/getUserInfo';
 import Table from 'react-bootstrap/Table';
 import Button from "react-bootstrap/Button";
+import Modal from 'react-bootstrap/Modal';
 import {updateUserInfo} from "../api/updateUserInfo";
+import {withdrawalApi} from "../api/withdrawalApi";
 
 export default function MyPage({ isLogin }) {
   const [update, setUpdate] = useState(true);
@@ -39,13 +41,32 @@ export default function MyPage({ isLogin }) {
     setUpdate(false);
   }
 
+    const [show, setShow] = useState(false);
+    const handleShow = () => setShow(true);
+    const handleClose = () => {
+        setShow(false);
+        withdrawalApi();
+        window.location.replace("/");
+    };
+
   return (
     <div className="main-bg">
+        <Modal show={show} onHide={handleClose} animation={false} size="lg" centered>
+            <Modal.Header closeButton>
+                <Modal.Title style={{color: "#E63A35"}}><strong>회원 탈퇴</strong></Modal.Title>
+            </Modal.Header>
+            <Modal.Body style={{fontSize: "25px"}}>정말 회원을 탈퇴하시겠습니까?</Modal.Body>
+            <Modal.Footer>
+                <Button variant="danger" onClick={handleClose}>
+                    확인
+                </Button>
+            </Modal.Footer>
+        </Modal>
       <div className="main">
         <h3 className="small-title">My Page</h3>
         <div>
         {
-          update ? <MyPageTrue info={info} updateStateFalse={updateStateFalse}/> : <MyPageFalse info={info} update={update} setUpdate={setUpdate} setInfo={setInfo}/>
+          update ? <MyPageTrue info={info} updateStateFalse={updateStateFalse} handleShow={handleShow}/> : <MyPageFalse info={info} update={update} setUpdate={setUpdate} setInfo={setInfo}/>
         }
         </div>
       </div>
@@ -53,7 +74,7 @@ export default function MyPage({ isLogin }) {
   );
 }
 
-function MyPageTrue({info, updateStateFalse}){
+function MyPageTrue({info, updateStateFalse, handleShow}){
 
   return (
       <Table striped bordered hover variant="light">
@@ -92,6 +113,7 @@ function MyPageTrue({info, updateStateFalse}){
           </tr>
           </tbody>
           <Button variant="outline-danger" size="lg" onClick={updateStateFalse}>정보 변경</Button>
+          <Button variant="outline-danger" size="lg" onClick={handleShow}>회원 탈퇴</Button>
       </Table>
   );
 }
