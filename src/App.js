@@ -1,4 +1,5 @@
 import {Component, useEffect, useState} from 'react';
+import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Routes, Route, Link, Navigate } from "react-router-dom";
@@ -14,6 +15,8 @@ import StressResult from "./pages/StressResult";
 import DailyGoal from "./pages/DailyGoal";
 import SatisfactionSurvey from "./pages/SatisfactionSurvey";
 import SatisfactionResult from "./pages/SatisfactionResult";
+import DietSurvey from "./pages/DietSurvey";
+import DietResult from "./pages/DietResult";
 
 function App(){
     const [isLogin, setIsLogin] = useState(false);
@@ -68,6 +71,8 @@ function App(){
                 <Route path="/survey" element={isLogin ? <StartPage isLogin={isLogin} info={info}/>: <Navigate to="/" />} />
                 <Route path="/stressSurvey" element={<StressSurvey month={month} stressResult={StressResult}/>}/>
                 <Route path="/stressResult" element={<StressResult info={info} setUserInfo={setUserInfo} healthGoal={healthGoal} setHealthGoal={setHealthGoal}/>}/>
+                <Route path="/dietSurvey" element={<DietSurvey info={info}/>}/>
+                <Route path="/dietResult" element={<DietResult info={info} />} />
                 <Route path="/dailyGoal" element={<DailyGoal info={info} healthGoal={healthGoal}/>}/>
                 <Route path="/satisfactionSurvey" element={<SatisfactionSurvey month={month} info={info} healthGoal={healthGoal}/>} />
                 <Route path="/satisfactionResult" element={<SatisfactionResult info={info} />}/>
