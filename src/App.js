@@ -15,6 +15,9 @@ import StressResult from "./pages/StressResult";
 import DailyGoal from "./pages/DailyGoal";
 import SatisfactionSurvey from "./pages/SatisfactionSurvey";
 import SatisfactionResult from "./pages/SatisfactionResult";
+import Board from "./pages/board/Board";
+import Article from "./pages/board/Article";
+import CreatedArticle from "./pages/board/CreatedArticle";
 
 function App(){
     const [isLogin, setIsLogin] = useState(false);
@@ -76,6 +79,9 @@ function App(){
                 <Route path="/dailyGoal" element={<DailyGoal info={info} healthGoal={healthGoal}/>}/>
                 <Route path="/satisfactionSurvey" element={<SatisfactionSurvey month={month} info={info} healthGoal={healthGoal}/>} />
                 <Route path="/satisfactionResult" element={<SatisfactionResult info={info} />}/>
+                <Route path="/board" element={<Board />}/>
+                <Route path="/article" element={<Article info={info}/>}/>
+                <Route path="/createdArticle" element={<CreatedArticle info={info}/>}/>
             </Routes>
         </div>)
 }
