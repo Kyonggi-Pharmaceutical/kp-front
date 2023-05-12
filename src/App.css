@@ -87,16 +87,6 @@
     font-weight: bolder;
 }
 
-.main-bg{
-    background-color: #F2F3F5;
-    padding: 20px;
-    height: 650px;  /*수정 예정*/
-}
-
-.month-main-bg{
-    background-color: #F2F3F5;
-    padding: 20px;
-    height: 100%;
 .small-title{
     margin: 25px;
     color: #E63A35;
@@ -115,9 +105,6 @@
     background-color: white;
     margin: 0 auto;
     border-radius: 20px;
-    max-width: 1000px;
-    height: 550px;
-    padding: 20px;
     width: 1000px;
     height: 550px;
     padding: 20px;
@@ -282,9 +269,7 @@ input:focus {
 .new-solution{
     margin-top:20px;
     background-color: white;
-    padding-top:30px;
-    padding-bottom:30px;
-    margin-inline: 350px;
+
     padding-bottom:30px;
     margin-inline: 150px;
     padding-inline: 10px;
@@ -298,3 +283,27 @@ input:focus {
 
 }
 
+.userinfo-table{
+    margin-left: 100px;
+    width: 500px;
+    fontSize: 40px;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+}
+
+.userinfo-table td{
+    border-bottom: 1px solid #444444;
+    border-left: 1px solid #444444;
+    padding: 10px;
+}
+
+.userinfo-table th {
+    width: 100px;
+    border-bottom: 1px solid #444444;
+    border-left: 1px solid #444444;
+    padding: 10px;
+}
+
+.userinfo-table th:first-child, td:first-child {
+    border-left: none;
+}

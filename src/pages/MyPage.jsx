@@ -27,9 +27,8 @@ export default function MyPage({ isLogin }) {
   });
 
   useEffect(() => {
-    if (!isLogin) {
+    if (!isLogin)
       alert("no");
-    };
 
     const initUserinfo = async () => {
       const newinfo = await getUserInfo();
@@ -52,11 +51,24 @@ export default function MyPage({ isLogin }) {
 
   return (
     <div className="main-bg">
+        <Modal show={show} onHide={handleClose} animation={false} size="lg" centered>
+            <Modal.Header closeButton>
+                <Modal.Title style={{color: "#E63A35"}}><strong>회원 탈퇴</strong></Modal.Title>
+            </Modal.Header>
+            <Modal.Body style={{fontSize: "25px"}}>정말 회원을 탈퇴하시겠습니까?</Modal.Body>
+            <Modal.Footer>
+                <Button variant="danger" onClick={handleClose}>
+                    확인
+                </Button>
+            </Modal.Footer>
+        </Modal>
       <div className="main">
-        <h1>mypage</h1>
-        <p>Welcome To MyPage</p>
-        <p>email: {info.email}</p>
-        <p>name: {`${info.lastName} ${info.firstName}`}</p>
+        <h3 className="small-title">My Page</h3>
+        <div>
+        {
+          update ? <MyPageTrue info={info} updateStateFalse={updateStateFalse} handleShow={handleShow}/> : <MyPageFalse info={info} update={update} setUpdate={setUpdate} setInfo={setInfo}/>
+        }
+        </div>
       </div>
     </div>
   );
