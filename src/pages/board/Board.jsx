@@ -4,14 +4,15 @@ import Accordion from 'react-bootstrap/Accordion'
 import './Board.css'
 import Button from "react-bootstrap/Button";
 import { AiOutlineLike } from "react-icons/ai";
+import {useNavigate} from "react-router-dom";
 
 function Board() {
     const testBoard = [
         {
             "boardId": 1,
             "userId": 'jeonh',
-            "title": "sunt aut facere repellat provident occaecati exsdfsdfsdfsdfsdfsdfsdfsdfsdfasdfiashjdfjkjasdkl;jaskl;dfjal;skdjf;klasjd;cepturi optio reprehenderit",
-            "description": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+            "title": "테스트 제목",
+            "description": "맞더라ㅣㅁㄴ아ㅣ;루ㅡㅁㄴ아ㅣ;ㄹ ㅓㅏㅣ;ㅁ너라ㅣ;ㅁ ㅓ\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
         },
         {
             "boardId": 2,
@@ -99,18 +100,7 @@ function Board() {
         }
     ]
 
-    /*
-    const [boardData, setBoardData] = useState([]);
 
-  useEffect(() => {
-    // 게시판 데이터를 가져오는 API 호출
-    // 예시로 fetch를 사용하여 데이터를 가져온다고 가정합니다.
-    fetch('/api/board')
-      .then((response) => response.json())
-      .then((data) => setBoardData(data));
-      setPageCount(Math.ceil(data.length / pageSize));
-  }, []);
-    * */
     useEffect(()=>{
         setPageCount(Math.ceil(testBoard.length / pageSize));
     }, [])
@@ -142,9 +132,25 @@ function Board() {
         setStress(!stress);
     }
 
+    const navigate = useNavigate();
     //게시글로 이동
-    const navigateToArticle = () => {
-        console.log('article');
+    const article = {
+        "boardId": null,
+        "userId": null,
+        "title": null,
+        "description": null
+    };
+    const navigateToArticle = (boardId) => {
+        const findArticle = testBoard.find(e => e.boardId === boardId);
+        article.boardId = findArticle.boardId;
+        article.title = findArticle.title;
+        article.userId = findArticle.userId;
+        article.description = findArticle.description;
+
+        navigate("/article", {state: article});
+    }
+    const navigateToCreatedArticle = () =>{
+        navigate("/createdArticle");
     }
 
     return (
@@ -152,7 +158,9 @@ function Board() {
             <div className="board-rank">
                 <div className="board">
                     <div style={{marginBottom: "20px"}}>
-                        <span className={activity ? "category category-selected" : "category"} onClick={selectCategory}>체중관리</span><span className={stress ? "category category-selected" : "category"} onClick={selectCategory}>스트레스관리</span>
+                        <span className={activity ? "category category-selected" : "category"} onClick={selectCategory}>체중관리</span>
+                        <span className={stress ? "category category-selected" : "category"} onClick={selectCategory}>스트레스관리</span>
+                        <span><Button variant="outline-danger" style={{float: "right"}} onClick={navigateToCreatedArticle}>게시글 작성</Button></span>
                     </div>
                     <div>
                         {
@@ -170,7 +178,7 @@ function Board() {
                                         <Accordion.Body style={{width: "100%"}}>
                                             {item.description}
                                             <div style={{display: "flex", justifyContent: "flex-end"}}>
-                                                <Button variant="outline-danger" onClick={navigateToArticle}>게시글 보기</Button>
+                                                <Button variant="outline-danger" onClick={()=>{navigateToArticle(item.boardId)}}>게시글 보기</Button>
                                             </div>
                                         </Accordion.Body>
                                     </Accordion.Item>

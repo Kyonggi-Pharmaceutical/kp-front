@@ -2,8 +2,10 @@ import React from 'react';
 import '../Main.css'
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { TfiPencilAlt } from "react-icons/tfi";
+import {useLocation} from "react-router-dom";
 
 function Article({info}) {
+    const { state } = useLocation();
 
     return (
         <div className="main-bg">
@@ -15,22 +17,24 @@ function Article({info}) {
                     <tbody>
                         <tr style={{borderTop: "4px solid black", borderBottom: "1px solid lightgray"}}>
                             <th style={{width: "15%"}}>제목</th>
-                            <td style={{width: "85%"}} colSpan={4}>제목</td>
+                            <td style={{width: "85%"}} colSpan={4}>{state.title}</td>
                         </tr>
                         <tr style={{borderBottom: "2px solid lightgray"}}>
                             {
                                 //info의 정보와 게시글의 정보가 같으면 수정 삭제 출력
                             }
                             <th style={{width: "15%"}}>작성자</th>
-                            <td style={{width: "25%"}}>작성자이름</td>
+                            <td style={{width: "25%"}}>{state.userId}</td>
                             <th style={{width: "40%"}}></th>
                             <th style={{width: "10%"}}>수정<TfiPencilAlt /></th>
                             <th style={{width: "10%"}}>삭제<RiDeleteBin6Line /></th>
                         </tr>
                         <tr style={{borderBottom: "4px solid black"}}>
-                            <div style={{minHeight: "300px", padding: "10px"}}>
-                                sdf
-                            </div>
+                            <td td style={{width: "100%", minHeight: "300px"}} colSpan={3}>
+                                <div style={{minHeight: "300px", padding: "10px"}}>
+                                    {state.description}
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

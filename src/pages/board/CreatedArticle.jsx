@@ -1,7 +1,42 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import '../Main.css'
+import {getUserInfo} from "../../api/getUserInfo";
+import {createArticle, createdArticle} from "../../api/createdArticle";
+import {useNavigate} from "react-router-dom";
 
-function CreatedArticle({info}) {
+function CreatedArticle() {
+    const navigate = useNavigate();
+    const [user, setUser] = useState({
+        id: null,
+        nickname: null,
+    });
+    useEffect(() => {
+        const initUserinfo = async () => {
+            const newinfo = await getUserInfo();
+            console.log(newinfo);
+            setUser(newinfo);
+        };
+        initUserinfo();
+    }, []);
+
+    const [article, setArticle] = useState({
+        title: null,
+        description: null,
+        userId: 1,
+        boardId: 0,
+    });
+
+    const handleInputChange = (event) => {
+        setArticle((prevProps) => ({
+            ...prevProps,
+            [event.target.name]: event.target.value
+        }));
+    };
+
+    const articleSubmit = () => {
+        createdArticle(article);
+        navigate("/board");
+    };
 
     return (
         <div className="main-bg">
@@ -14,20 +49,20 @@ function CreatedArticle({info}) {
                     <tbody>
                     <tr style={{borderTop: "4px solid black", borderBottom: "1px solid lightgray"}}>
                         <th style={{width: "15%"}}>제목</th>
-                        <td style={{width: "85%"}} colSpan={2}><input type="text"/></td>
+                        <td style={{width: "85%"}} colSpan={2}><input type="text" name="title" onChange={handleInputChange} value={article.title}/></td>
                     </tr>
                     <tr style={{borderBottom: "2px solid lightgray"}}>
                         {
                             //info의 정보와 게시글의 정보가 같으면 수정 삭제 출력
                         }
                         <th style={{width: "15%"}}>작성자</th>
-                        <td style={{width: "25%"}}>작성자이름</td>
+                        <td style={{width: "25%"}}>{user.nickname}</td>
                         <th style={{width: "60%"}}></th>
                     </tr>
                     <tr style={{borderBottom: "4px solid black"}}>
                         <td style={{width: "100%", minHeight: "300px"}} colSpan={3}>
                             <div style={{minHeight: "300px", width: "100%", padding: "10px"}}>
-                                <textarea style={{width: "100%", border: "none", resize: "none"}} rows="10" placeholder="내용을 입력하세요!"/>
+                                <textarea style={{width: "100%", border: "none", resize: "none"}} rows="10" placeholder="내용을 입력하세요!" name="description" onChange={handleInputChange} value={article.description}/>
                             </div>
                         </td>
                     </tr>
@@ -35,9 +70,8 @@ function CreatedArticle({info}) {
                 </table>
                 <form className="comment-input">
                     <div className="comment-btn">취소</div>
-                    <div className="comment-btn" style={{marginLeft: "10px"}}>등록</div>
+                    <div className="comment-btn" style={{marginLeft: "10px"}} onClick={articleSubmit}>등록</div>
                 </form>
-
             </div>
         </div>
     );
