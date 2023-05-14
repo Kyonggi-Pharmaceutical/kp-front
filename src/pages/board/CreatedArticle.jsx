@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import '../Main.css'
 import {getUserInfo} from "../../api/getUserInfo";
-import {createArticle, createdArticle} from "../../api/createdArticle";
-import {useNavigate} from "react-router-dom";
+import {postArticle} from "../../api/postArticle";
+import {useLocation, useNavigate} from "react-router-dom";
 
 function CreatedArticle() {
+    const location = useLocation();
     const navigate = useNavigate();
     const [user, setUser] = useState({
         id: null,
@@ -13,7 +14,6 @@ function CreatedArticle() {
     useEffect(() => {
         const initUserinfo = async () => {
             const newinfo = await getUserInfo();
-            console.log(newinfo);
             setUser(newinfo);
         };
         initUserinfo();
@@ -22,8 +22,6 @@ function CreatedArticle() {
     const [article, setArticle] = useState({
         title: null,
         description: null,
-        userId: 1,
-        boardId: 0,
     });
 
     const handleInputChange = (event) => {
@@ -34,7 +32,7 @@ function CreatedArticle() {
     };
 
     const articleSubmit = () => {
-        createdArticle(article);
+        postArticle(article, location.state.value);
         navigate("/board");
     };
 

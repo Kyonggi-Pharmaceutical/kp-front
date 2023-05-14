@@ -1,11 +1,21 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import '../Main.css'
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { TfiPencilAlt } from "react-icons/tfi";
 import {useLocation} from "react-router-dom";
+import {getArticleDetail} from "../../api/getArticleDetail";
+import { AiOutlineUser } from "react-icons/ai";
 
 function Article({info}) {
-    const { state } = useLocation();
+    const location = useLocation();
+    const [article, setArticle] = useState([]);
+    useEffect(() => {
+        async function fetchData() {
+            const data = await getArticleDetail(location.state.value);
+            setArticle(data);
+        }
+        fetchData();
+    }, []);
 
     return (
         <div className="main-bg">
@@ -17,14 +27,14 @@ function Article({info}) {
                     <tbody>
                         <tr style={{borderTop: "4px solid black", borderBottom: "1px solid lightgray"}}>
                             <th style={{width: "15%"}}>제목</th>
-                            <td style={{width: "85%"}} colSpan={4}>{state.title}</td>
+                            <td style={{width: "85%"}} colSpan={4}>{article.title}</td>
                         </tr>
                         <tr style={{borderBottom: "2px solid lightgray"}}>
                             {
                                 //info의 정보와 게시글의 정보가 같으면 수정 삭제 출력
                             }
                             <th style={{width: "15%"}}>작성자</th>
-                            <td style={{width: "25%"}}>{state.userId}</td>
+                            <td style={{width: "25%"}}>익명</td>
                             <th style={{width: "40%"}}></th>
                             <th style={{width: "10%"}}>수정<TfiPencilAlt /></th>
                             <th style={{width: "10%"}}>삭제<RiDeleteBin6Line /></th>
@@ -32,7 +42,7 @@ function Article({info}) {
                         <tr style={{borderBottom: "4px solid black"}}>
                             <td td style={{width: "100%", minHeight: "300px"}} colSpan={3}>
                                 <div style={{minHeight: "300px", padding: "10px"}}>
-                                    {state.description}
+                                    {article.description}
                                 </div>
                             </td>
                         </tr>
@@ -47,7 +57,7 @@ function Article({info}) {
                         <>
                             <div className="comment">
                                 <div className="profile-image">
-                                    <img src="https://lh3.googleusercontent.com/a/AGNmyxal6GULUyiusalkrSSEwBEU8QBUCIZXCloSo7z8tSQ=s96-c"/>
+                                    <AiOutlineUser className="user-icon"/>
                                 </div>
                                 <div style={{width: "90%", marginLeft: "20px"}}>
                                     <h6 style={{fontWeight: "bold"}}>닉네임</h6>
@@ -58,7 +68,7 @@ function Article({info}) {
 
                             <div className="comment">
                                 <div className="profile-image">
-                                    <img src="https://lh3.googleusercontent.com/a/AGNmyxal6GULUyiusalkrSSEwBEU8QBUCIZXCloSo7z8tSQ=s96-c"/>
+                                    <AiOutlineUser className="user-icon"/>
                                 </div>
                                 <div style={{width: "90%", marginLeft: "20px"}}>
                                     <h6 style={{fontWeight: "bold"}}>정현</h6>
