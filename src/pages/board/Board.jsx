@@ -15,6 +15,7 @@ function Board() {
         async function fetchData() {
             const data1 = await getArticlesByCategory(0);
             setActivityArticles(data1);
+            console.log(data1)
             const data2 = await getArticlesByCategory(1);
             setStressArticles(data2);;
         }
