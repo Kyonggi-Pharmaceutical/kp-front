@@ -2,26 +2,69 @@ import React, {useEffect, useState} from 'react';
 import '../Main.css'
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { TfiPencilAlt } from "react-icons/tfi";
-import {useLocation} from "react-router-dom";
-import {getArticleDetail} from "../../api/getArticleDetail";
+import {useLocation, useNavigate} from "react-router-dom";
+import {getArticleDetail} from "../../api/board/getArticleDetail";
 import { AiOutlineUser } from "react-icons/ai";
+import {postComment} from "../../api/board/postComment";
+import {getComments} from "../../api/board/getComments";
+import {getUserId} from "../../api/user/getUserId";
+import {deleteArticle} from "../../api/board/deleteArticle";
 
-function Article({info}) {
+function Article() {
+    const navigate = useNavigate();
     const location = useLocation();
+    const articleId = location.state.value;
     const [article, setArticle] = useState([]);
+    const [comments, setComments] = useState([]);
+    const [userId, setUserId] = useState(0);
     useEffect(() => {
         async function fetchData() {
-            const data = await getArticleDetail(location.state.value);
-            setArticle(data);
+            const userIdData = await getUserId();
+            setUserId(userIdData);
+            const articleData = await getArticleDetail(articleId);
+            setArticle(articleData);
+            // const commentData = await getComments(articleId);
+            // setComments(commentData);
+            // console.log(comments);
         }
         fetchData();
     }, []);
+
+    const delArticle = (articleId) => {
+        deleteArticle(articleId);
+        window.location.replace('/board');
+    };
+
+    const [comment, setComment] = useState({
+        description: null
+    });
+
+    const handleInputChange = (event) => {
+        setComment((prevProps) => ({
+            ...prevProps,
+            [event.target.name]: event.target.value
+        }));
+    };
+
+    const commentSubmit = () => {
+        postComment(comment, article.id);
+    };
+
+    const modifyArticle = () => {
+        const data = {
+            articleId: articleId,
+            userId: userId,
+            article: article,
+        };
+        console.log(data)
+        navigate("/modifyArticle", {state: data });
+    };
 
     return (
         <div className="main-bg">
             <div className="main">
                 {
-                    //카테고리에 따라 카테고리 출력
+                    article.boardId === 0 ? <h3 className="small-title">체중관리</h3> : <h3 className="small-title">스트레스관리</h3>
                 }
                 <table style={{width: "90%", margin: "20px auto"}}>
                     <tbody>
@@ -31,13 +74,21 @@ function Article({info}) {
                         </tr>
                         <tr style={{borderBottom: "2px solid lightgray"}}>
                             {
-                                //info의 정보와 게시글의 정보가 같으면 수정 삭제 출력
+                                userId === article.userId ?
+                                    <>
+                                        <th style={{width: "15%"}}>작성자</th>
+                                        <td style={{width: "25%"}}>익명{article.userId}</td>
+                                        <th style={{width: "40%"}}></th>
+                                        <th style={{width: "10%"}}><span className="icon-btn" onClick={()=>modifyArticle()}>수정<TfiPencilAlt /></span></th>
+                                        <th style={{width: "10%"}}><span className="icon-btn" onClick={()=>delArticle(article.id)}>삭제<RiDeleteBin6Line /></span></th>
+                                    </> : (
+                                    <>
+                                        <th style={{width: "15%"}}>작성자</th>
+                                        <td style={{width: "85%"}}>익명{article.userId}</td>
+                                    </>
+                                    )
                             }
-                            <th style={{width: "15%"}}>작성자</th>
-                            <td style={{width: "25%"}}>익명</td>
-                            <th style={{width: "40%"}}></th>
-                            <th style={{width: "10%"}}>수정<TfiPencilAlt /></th>
-                            <th style={{width: "10%"}}>삭제<RiDeleteBin6Line /></th>
+
                         </tr>
                         <tr style={{borderBottom: "4px solid black"}}>
                             <td td style={{width: "100%", minHeight: "300px"}} colSpan={3}>
@@ -49,7 +100,7 @@ function Article({info}) {
                     </tbody>
                 </table>
                 <form className="comment-input">
-                    <input type="text" placeholder="댓글을 입력하세요"/><div className="comment-btn">등록</div>
+                    <input type="text" placeholder="댓글을 입력하세요" name="description" onChange={handleInputChange} value={comment.description}/><div className="comment-btn" onClick={commentSubmit}>등록</div>
                 </form>
                 <div className="comment-list">
                     <h5>Comment</h5>

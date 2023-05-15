@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/Col';
 import './Main.css'
 import { HiOutlineClipboardList } from 'react-icons/hi';
 import {getDailyHealthMessage} from "../api/getDailyHealthMessage";
-import {getUserInfo} from "../api/getUserInfo";
+import {getUserInfo} from "../api/user/getUserInfo";
 
 function Main() {
     let navigate = useNavigate();

@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { getUserInfo } from '../api/getUserInfo';
+import { getUserInfo } from '../api/user/getUserInfo';
 import Table from 'react-bootstrap/Table';
 import Button from "react-bootstrap/Button";
 import Modal from 'react-bootstrap/Modal';
-import {updateUserInfo} from "../api/updateUserInfo";
-import {withdrawalApi} from "../api/withdrawalApi";
+import {updateUserInfo} from "../api/user/updateUserInfo";
+import {withdrawalApi} from "../api/user/withdrawalApi";
 
 export default function MyPage({ isLogin }) {
   const [update, setUpdate] = useState(true);

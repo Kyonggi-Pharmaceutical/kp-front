@@ -5,7 +5,7 @@ import './Board.css'
 import Button from "react-bootstrap/Button";
 import { AiOutlineLike } from "react-icons/ai";
 import {useNavigate} from "react-router-dom";
-import {getArticlesByCategory} from "../../api/getArticlesByCategory";
+import {getArticlesByCategory} from "../../api/board/getArticlesByCategory";
 
 function Board() {
     const [stressArticles, setStressArticles] = useState([]);
@@ -15,9 +15,8 @@ function Board() {
         async function fetchData() {
             const data1 = await getArticlesByCategory(0);
             setActivityArticles(data1);
-            console.log(data1);
             const data2 = await getArticlesByCategory(1);
-            setStressArticles(data2);
+            setStressArticles(data2);;
         }
         fetchData();
     }, []);

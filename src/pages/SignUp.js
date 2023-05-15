@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {signUpApi} from "../api/signUpApi"
-import {getUserInfo} from "../api/getUserInfo";
+import {signUpApi} from "../api/user/signUpApi"
+import {getUserInfo} from "../api/user/getUserInfo";
 import { useNavigate } from 'react-router-dom';
 
 //회원가입

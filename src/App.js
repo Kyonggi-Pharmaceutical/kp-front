@@ -8,7 +8,7 @@ import Login from "./pages/Login";
 import Logout from "./pages/Logout";
 import SignUp from "./pages/SignUp";
 import MyPage from "./pages/MyPage"
-import { getUserInfo } from './api/getUserInfo';
+import { getUserInfo } from './api/user/getUserInfo';
 import StartPage from "./pages/StartPage";
 import StressSurvey from "./pages/StressSurvey";
 import StressResult from "./pages/StressResult";
@@ -18,6 +18,7 @@ import SatisfactionResult from "./pages/SatisfactionResult";
 import Board from "./pages/board/Board";
 import Article from "./pages/board/Article";
 import CreatedArticle from "./pages/board/CreatedArticle";
+import ModifyArticle from "./pages/board/ModifyArticle";
 
 function App(){
     const [isLogin, setIsLogin] = useState(false);
@@ -80,8 +81,9 @@ function App(){
                 <Route path="/satisfactionSurvey" element={<SatisfactionSurvey month={month} info={info} healthGoal={healthGoal}/>} />
                 <Route path="/satisfactionResult" element={<SatisfactionResult info={info} />}/>
                 <Route path="/board" element={<Board />}/>
-                <Route path="/article" element={<Article info={info}/>}/>
-                <Route path="/createdArticle" element={<CreatedArticle info={info}/>}/>
+                <Route path="/article" element={<Article />}/>
+                <Route path="/createdArticle" element={<CreatedArticle/>}/>
+                <Route path="/modifyArticle" element={<ModifyArticle/>}/>
             </Routes>
         </div>)
 }

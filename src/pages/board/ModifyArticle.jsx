@@ -1,28 +1,25 @@
 import React, {useEffect, useState} from 'react';
 import '../Main.css'
 import {getUserInfo} from "../../api/user/getUserInfo";
-import {postArticle} from "../../api/board/postArticle";
 import {useLocation, useNavigate} from "react-router-dom";
+import {putArticle} from "../../api/board/putArticle";
 
-function CreatedArticle() {
-    const location = useLocation();
+function ModifyArticle() {
+    const {state} = useLocation();
     const navigate = useNavigate();
     const [user, setUser] = useState({
         id: null,
         nickname: null,
     });
+    const [article, setArticle] = useState([]);
     useEffect(() => {
-        const initUserinfo = async () => {
+        async function fetchData() {
             const newinfo = await getUserInfo();
             setUser(newinfo);
-        };
-        initUserinfo();
+            setArticle(state.article);
+        }
+        fetchData();
     }, []);
-
-    const [article, setArticle] = useState({
-        title: null,
-        description: null,
-    });
 
     const handleInputChange = (event) => {
         setArticle((prevProps) => ({
@@ -32,7 +29,7 @@ function CreatedArticle() {
     };
 
     const articleSubmit = () => {
-        postArticle(article, location.state.value);
+        putArticle(article, state.articleId, state.userId);
         navigate("/board");
     };
 
@@ -60,7 +57,7 @@ function CreatedArticle() {
                     <tr style={{borderBottom: "4px solid black"}}>
                         <td style={{width: "100%", minHeight: "300px"}} colSpan={3}>
                             <div style={{minHeight: "300px", width: "100%", padding: "10px"}}>
-                                <textarea style={{width: "100%", border: "none", resize: "none"}} rows="10" placeholder="내용을 입력하세요!" name="description" onChange={handleInputChange} value={article.description}/>
+                                <textarea style={{width: "100%", border: "none", resize: "none"}} rows="10" name="description" onChange={handleInputChange} value={article.description}/>
                             </div>
                         </td>
                     </tr>
@@ -75,4 +72,4 @@ function CreatedArticle() {
     );
 }
 
-export default CreatedArticle;
+export default ModifyArticle;

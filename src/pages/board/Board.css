@@ -129,6 +129,10 @@
     overflow: hidden;
 }
 
+.icon-btn:hover{
+    cursor: pointer;
+}
+
 .user-icon {
     width: 100%;
     height: 100%;
