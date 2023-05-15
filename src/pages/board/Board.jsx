@@ -44,7 +44,8 @@ function Board() {
         "boardId": null,
         "userId": null,
         "title": null,
-        "description": null
+        "description": null,
+        "username": null
     };
     const navigateToArticle = (articleId) => {
         navigate("/article", {state: {value : articleId}});
@@ -76,7 +77,7 @@ function Board() {
                                                 </div>
                                                 <p style={{width: "70%"}} className="accordion-title">{item.title}</p>
                                                 <p style={{width: "12%", textAlign: "center", marginTop: "16px"}}><AiOutlineLike size="20" color="black"/>5</p>
-                                                <p style={{width: "15%", textAlign: "center", marginTop: "16px"}}>익명</p>
+                                                <p style={{width: "15%", textAlign: "center", marginTop: "16px"}}>{item.username}</p>
                                             </Accordion.Header>
                                             <Accordion.Body style={{width: "100%"}}>
                                                 {item.description}
@@ -97,7 +98,7 @@ function Board() {
                                                 </div>
                                                 <p style={{width: "70%"}} className="accordion-title">{item.title}</p>
                                                 <p style={{width: "12%", textAlign: "center", marginTop: "16px"}}><AiOutlineLike size="20" color="black"/>5</p>
-                                                <p style={{width: "15%", textAlign: "center", marginTop: "16px"}}>익명</p>
+                                                <p style={{width: "15%", textAlign: "center", marginTop: "16px"}}>{item.username}</p>
                                             </Accordion.Header>
                                             <Accordion.Body style={{width: "100%"}}>
                                                 {item.description}

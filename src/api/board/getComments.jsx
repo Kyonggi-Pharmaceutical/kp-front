@@ -12,6 +12,6 @@ export async function getComments(articleId) {
         return response.data; // 데이터 반환
     } catch (error) {
         console.log(error);
-        return null; // 에러 발생 시 null 반환
+        return []; // 에러 발생 시 빈 배열 반환
     }
 }

@@ -9,6 +9,7 @@ import {postComment} from "../../api/board/postComment";
 import {getComments} from "../../api/board/getComments";
 import {getUserId} from "../../api/user/getUserId";
 import {deleteArticle} from "../../api/board/deleteArticle";
+import {getUserInfo} from "../../api/user/getUserInfo";
 
 function Article() {
     const navigate = useNavigate();
@@ -17,12 +18,27 @@ function Article() {
     const [article, setArticle] = useState([]);
     const [comments, setComments] = useState([]);
     const [userId, setUserId] = useState(0);
+    const [username, setUsername] = useState(null);
+    const [user, setUser] = useState({
+        id: null,
+        nickname: null,
+    });
+    useEffect(() => {
+        const initUserinfo = async () => {
+            const newinfo = await getUserInfo();
+            setUser(newinfo);
+        };
+        initUserinfo();
+    }, []);
     useEffect(() => {
         async function fetchData() {
             const userIdData = await getUserId();
             setUserId(userIdData);
             const articleData = await getArticleDetail(articleId);
             setArticle(articleData);
+            const usernames = articleData.username;
+            setUsername(usernames);
+
             // const commentData = await getComments(articleId);
             // setComments(commentData);
             // console.log(comments);
@@ -30,13 +46,27 @@ function Article() {
         fetchData();
     }, []);
 
+    useEffect(() => {
+        fetchComments();
+    }, []);
+
+    async function fetchComments() {
+        try {
+            const comments = await getComments(articleId);
+            setComments(comments);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     const delArticle = (articleId) => {
         deleteArticle(articleId);
         window.location.replace('/board');
     };
 
     const [comment, setComment] = useState({
-        description: null
+        description: null,
+        username: null
     });
 
     const handleInputChange = (event) => {
@@ -66,25 +96,27 @@ function Article() {
                 {
                     article.boardId === 0 ? <h3 className="small-title">체중관리</h3> : <h3 className="small-title">스트레스관리</h3>
                 }
+
                 <table style={{width: "90%", margin: "20px auto"}}>
                     <tbody>
                         <tr style={{borderTop: "4px solid black", borderBottom: "1px solid lightgray"}}>
                             <th style={{width: "15%"}}>제목</th>
                             <td style={{width: "85%"}} colSpan={4}>{article.title}</td>
+
                         </tr>
                         <tr style={{borderBottom: "2px solid lightgray"}}>
                             {
                                 userId === article.userId ?
                                     <>
                                         <th style={{width: "15%"}}>작성자</th>
-                                        <td style={{width: "25%"}}>익명{article.userId}</td>
+                                        <td style={{width: "25%"}}>{username}</td>
                                         <th style={{width: "40%"}}></th>
                                         <th style={{width: "10%"}}><span className="icon-btn" onClick={()=>modifyArticle()}>수정<TfiPencilAlt /></span></th>
                                         <th style={{width: "10%"}}><span className="icon-btn" onClick={()=>delArticle(article.id)}>삭제<RiDeleteBin6Line /></span></th>
                                     </> : (
                                     <>
                                         <th style={{width: "15%"}}>작성자</th>
-                                        <td style={{width: "85%"}}>익명{article.userId}</td>
+                                        <td style={{width: "85%"}}>{username}</td>
                                     </>
                                     )
                             }
@@ -99,10 +131,20 @@ function Article() {
                         </tr>
                     </tbody>
                 </table>
-                <form className="comment-input">
-                    <input type="text" placeholder="댓글을 입력하세요" name="description" onChange={handleInputChange} value={comment.description}/><div className="comment-btn" onClick={commentSubmit}>등록</div>
-                </form>
+                    <form className="comment-input">
+                        <input type="text" placeholder="댓글을 입력하세요" name="description" onChange={handleInputChange} value={comment.description} />
+                        <p style={{ display: 'none' }} name="username" onChange={handleInputChange} value={comment.username} >{user.username}</p>
+                        <div className="comment-btn" onClick={commentSubmit}>등록</div>
+                    </form>
+
                 <div className="comment-list">
+                    <div className="comment">
+                        <ul>
+                            {comments.map((comment) => (
+                                <li key={comment.id}>{comment.description}, {comment.username}</li>
+                            ))}
+                        </ul>
+                    </div>
                     <h5>Comment</h5>
                     {
                         <>

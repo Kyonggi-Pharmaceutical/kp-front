@@ -54,7 +54,7 @@ function CreatedArticle() {
                             //info의 정보와 게시글의 정보가 같으면 수정 삭제 출력
                         }
                         <th style={{width: "15%"}}>작성자</th>
-                        <td style={{width: "25%"}}>{user.nickname}</td>
+                        <td style={{width: "25%"}} onChange={handleInputChange} name="username" value={article.username}>{user.nickname}</td>
                         <th style={{width: "60%"}}></th>
                     </tr>
                     <tr style={{borderBottom: "4px solid black"}}>
