@@ -33,7 +33,7 @@ function CreatedArticle() {
 
     const articleSubmit = () => {
         postArticle(article, location.state.value);
-        navigate("/board");
+        window.location.replace('/board');
     };
 
     return (

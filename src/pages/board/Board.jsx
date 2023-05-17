@@ -15,16 +15,23 @@ function Board() {
         async function fetchData() {
             const data1 = await getArticlesByCategory(0);
             setActivityArticles(data1);
-            console.log(data1)
             const data2 = await getArticlesByCategory(1);
-            setStressArticles(data2);;
+            setStressArticles(data2);
         }
         fetchData();
     }, []);
 
+    // 게시글 등록하자마자 갱신
+    // useEffect(() => {
+    //     async function fetchData() {
+    //         const data1 = await getArticlesByCategory(0);
+    //         setActivityArticles(data1);
+    //         const data2 = await getArticlesByCategory(1);
+    //         setStressArticles(data2);;
+    //     }
+    //     fetchData();
+    // }, [activityArticles, stressArticles]);
 
-    //카테고리 이동 방법
-    //체중관리, 스트레스 클릭할 때 activity, stress의 state값이 바뀜. 이걸로 호출하면 될 듯
     const [activity, setActivity] = useState(true);
     const [stress, setStress] = useState(false);
     const selectAcitivity = () => {

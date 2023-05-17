@@ -30,7 +30,7 @@ function ModifyArticle() {
 
     const articleSubmit = () => {
         putArticle(article, state.articleId, state.userId);
-        navigate("/board");
+        window.location.replace('/board');
     };
 
     return (
