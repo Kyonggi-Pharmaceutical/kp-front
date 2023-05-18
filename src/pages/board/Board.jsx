@@ -3,34 +3,54 @@ import '../Main.css'
 import Accordion from 'react-bootstrap/Accordion'
 import './Board.css'
 import Button from "react-bootstrap/Button";
-import { AiOutlineLike } from "react-icons/ai";
+import { FcLike } from "react-icons/fc"
 import {useNavigate} from "react-router-dom";
-import {getArticlesByCategory} from "../../api/board/getArticlesByCategory";
+import {getArticlesByCategory} from "../../api/board/article/getArticlesByCategory";
+import {getLikes} from "../../api/board/like/getLikes";
 
 function Board() {
     const [stressArticles, setStressArticles] = useState([]);
     const [activityArticles, setActivityArticles] = useState([]);
     const [boardId, setBoardId] = useState(0);
+    const [articleAndLike, setArticleAndLike] = useState([]);
+
     useEffect(() => {
         async function fetchData() {
             const data1 = await getArticlesByCategory(0);
             setActivityArticles(data1);
             const data2 = await getArticlesByCategory(1);
             setStressArticles(data2);
+
+
+            for (const item of data1) {
+                const likes = await getLikes(item.id);
+                const data = {
+                    articleId: item.id,
+                    likes: likes,
+                };
+                setArticleAndLike(prevItems => [...prevItems, data]);
+            }
+            for (const item of data2) {
+                const likes = await getLikes(item.id);
+                const data = {
+                    articleId: item.id,
+                    likes: likes,
+                };
+                setArticleAndLike(prevItems => [...prevItems, data]);
+            }
         }
         fetchData();
     }, []);
 
-    // 게시글 등록하자마자 갱신
-    // useEffect(() => {
-    //     async function fetchData() {
-    //         const data1 = await getArticlesByCategory(0);
-    //         setActivityArticles(data1);
-    //         const data2 = await getArticlesByCategory(1);
-    //         setStressArticles(data2);;
-    //     }
-    //     fetchData();
-    // }, [activityArticles, stressArticles]);
+    const findLikes = (articleId) => {
+        const data = articleAndLike.find(item => item.articleId === articleId);
+        if (data) {
+            return data.likes;
+        } else {
+            //console.log("Item not found");
+            return 0;
+        }
+    };
 
     const [activity, setActivity] = useState(true);
     const [stress, setStress] = useState(false);
@@ -46,18 +66,9 @@ function Board() {
     };
 
     const navigate = useNavigate();
-    //게시글로 이동
-    const article = {
-        "boardId": null,
-        "userId": null,
-        "title": null,
-        "description": null,
-        "username": null
-    };
     const navigateToArticle = (articleId) => {
         navigate("/article", {state: {value : articleId}});
     }
-
 
     const navigateToCreatedArticle = () =>{
         navigate("/createdArticle", {state: {value : boardId}});
@@ -83,7 +94,7 @@ function Board() {
                                                     <span>{item.id}</span>
                                                 </div>
                                                 <p style={{width: "70%"}} className="accordion-title">{item.title}</p>
-                                                <p style={{width: "12%", textAlign: "center", marginTop: "16px"}}><AiOutlineLike size="20" color="black"/>5</p>
+                                                <p style={{width: "12%", textAlign: "center", marginTop: "16px"}}><FcLike size="20" color="black" />{findLikes(item.id)}</p>
                                                 <p style={{width: "15%", textAlign: "center", marginTop: "16px"}}>{item.username}</p>
                                             </Accordion.Header>
                                             <Accordion.Body style={{width: "100%"}}>
@@ -104,7 +115,7 @@ function Board() {
                                                     <span>{item.id}</span>
                                                 </div>
                                                 <p style={{width: "70%"}} className="accordion-title">{item.title}</p>
-                                                <p style={{width: "12%", textAlign: "center", marginTop: "16px"}}><AiOutlineLike size="20" color="black"/>5</p>
+                                                <p style={{width: "12%", textAlign: "center", marginTop: "16px"}}><FcLike size="20" color="black"/>{findLikes(item.id)}</p>
                                                 <p style={{width: "15%", textAlign: "center", marginTop: "16px"}}>{item.username}</p>
                                             </Accordion.Header>
                                             <Accordion.Body style={{width: "100%"}}>

@@ -2,17 +2,20 @@ import React, {useEffect, useState} from 'react';
 import '../Main.css'
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { TfiPencilAlt } from "react-icons/tfi";
+import { FcLike } from "react-icons/fc"
 import {useLocation, useNavigate} from "react-router-dom";
-import {getArticleDetail} from "../../api/board/getArticleDetail";
+import {getArticleDetail} from "../../api/board/article/getArticleDetail";
 import { AiOutlineUser } from "react-icons/ai";
 import { BsPencil } from "react-icons/bs";
 import { TiDeleteOutline } from "react-icons/ti"
-import {postComment} from "../../api/board/postComment";
-import {getComments} from "../../api/board/getComments";
+import {postComment} from "../../api/board/comment/postComment";
+import {getComments} from "../../api/board/comment/getComments";
 import {getUserId} from "../../api/user/getUserId";
-import {deleteArticle} from "../../api/board/deleteArticle";
-import {putComment} from "../../api/board/putComment";
-import {deleteComment} from "../../api/board/deleteComment";
+import {deleteArticle} from "../../api/board/article/deleteArticle";
+import {putComment} from "../../api/board/comment/putComment";
+import {deleteComment} from "../../api/board/comment/deleteComment";
+import {getLikes} from "../../api/board/like/getLikes";
+import {postLike} from "../../api/board/like/postLike";
 
 function Article() {
     const navigate = useNavigate();
@@ -22,6 +25,7 @@ function Article() {
     const [comments, setComments] = useState([]);
     const [userId, setUserId] = useState(0);
     const [newComment, setNewComment] = useState(false);
+    const [like, setLike] = useState(0);
     useEffect(() => {
         async function fetchData() {
             const userIdData = await getUserId();
@@ -30,6 +34,8 @@ function Article() {
             setArticle(articleData);
             const commentData = await getComments(articleId);
             setComments(commentData);
+            const likeData = await getLikes(articleId);
+            setLike(likeData);
         }
         fetchData();
     }, []);
@@ -78,6 +84,12 @@ function Article() {
         navigate("/modifyArticle", {state: data });
     };
 
+    const postLikeApi = (articleId) => {
+        console.log(articleId)
+        //여기가 하트 아이콘을 눌렀을 때 작동하는 함수
+        //postLike(articleId);
+    };
+
     return (
         <div className="main-bg">
             <div className="main">
@@ -97,13 +109,16 @@ function Article() {
                                     <>
                                         <th style={{width: "15%"}}>작성자</th>
                                         <td style={{width: "25%"}}>{article.username}</td>
-                                        <th style={{width: "40%"}}></th>
-                                        <th style={{width: "10%"}}><span className="icon-btn" onClick={()=>modifyArticle()}>수정<TfiPencilAlt /></span></th>
-                                        <th style={{width: "10%"}}><span className="icon-btn" onClick={()=>delArticle(article.id)}>삭제<RiDeleteBin6Line /></span></th>
+                                        <th style={{width: "30%"}}></th>
+                                        <td style={{width: "10%"}} className="icon-btn" onClick={()=>postLikeApi(article.id)}><FcLike size={20}/>{like}</td>
+                                        <th style={{width: "10%"}}><span className="icon-btn" onClick={()=>modifyArticle()}>수정<TfiPencilAlt size={20}/></span></th>
+                                        <th style={{width: "10%"}}><span className="icon-btn" onClick={()=>delArticle(article.id)}>삭제<RiDeleteBin6Line size={20}/></span></th>
                                     </> : (
                                     <>
                                         <th style={{width: "15%"}}>작성자</th>
-                                        <td style={{width: "85%"}}>{article.username}</td>
+                                        <td style={{width: "65%"}}>{article.username}</td>
+                                        <td style={{width: "10%"}} className="icon-btn" onClick={()=>postLikeApi(article.id)}><FcLike size={20}/>{like}</td>
+                                        <td style={{width: "10%"}}></td>
                                     </>
                                 )
                         }

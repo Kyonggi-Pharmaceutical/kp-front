@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import '../Main.css'
 import {getUserInfo} from "../../api/user/getUserInfo";
 import {useLocation, useNavigate} from "react-router-dom";
-import {putArticle} from "../../api/board/putArticle";
+import {putArticle} from "../../api/board/article/putArticle";
 
 function ModifyArticle() {
     const {state} = useLocation();
@@ -33,13 +33,14 @@ function ModifyArticle() {
         window.location.replace('/board');
     };
 
+    const navigateToArticle = (articleId) => {
+        navigate("/article", {state: {value : articleId}});
+    };
+
     return (
         <div className="main-bg">
             <div className="main">
-                {
-                    <h3 className="small-title">카테고리</h3>
-                    //카테고리에 따라 카테고리 출력
-                }
+                <h3 className="small-title">카테고리</h3>
                 <table style={{width: "90%", margin: "20px auto"}}>
                     <tbody>
                     <tr style={{borderTop: "4px solid black", borderBottom: "1px solid lightgray"}}>
@@ -47,9 +48,6 @@ function ModifyArticle() {
                         <td style={{width: "85%"}} colSpan={2}><input type="text" name="title" onChange={handleInputChange} value={article.title}/></td>
                     </tr>
                     <tr style={{borderBottom: "2px solid lightgray"}}>
-                        {
-                            //info의 정보와 게시글의 정보가 같으면 수정 삭제 출력
-                        }
                         <th style={{width: "15%"}}>작성자</th>
                         <td style={{width: "25%"}}>{user.nickname}</td>
                         <th style={{width: "60%"}}></th>
@@ -64,7 +62,7 @@ function ModifyArticle() {
                     </tbody>
                 </table>
                 <form className="comment-input">
-                    <div className="comment-btn">취소</div>
+                    <div className="comment-btn" onClick={()=>navigateToArticle(article.id)}>취소</div>
                     <div className="comment-btn" style={{marginLeft: "10px"}} onClick={articleSubmit}>등록</div>
                 </form>
             </div>

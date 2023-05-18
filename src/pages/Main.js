@@ -16,7 +16,11 @@ function Main() {
     }
 
     const board = () => {
-        navigate("/board");
+        if(info.nickname){
+            navigate("/board");
+        }
+        alert('로그인하세요!');
+        navigate('/');
     }
 
     const [info, setInfo] = useState({
