@@ -16,12 +16,14 @@ function Main() {
     }
 
     const board = () => {
-        // if(info.nickname){
+        if(info.nickname){
             navigate("/board");
+        }else{
+            alert('로그인하세요!');
+            navigate('/');
         }
-    //     alert('로그인하세요!');
-    //     navigate('/');
-    // }
+
+    }
 
     const [info, setInfo] = useState({
         nickname: '',
