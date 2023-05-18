@@ -90,7 +90,7 @@ function SignUp({isLogin}) {
             stressPoint: formData.stressPoint,
         }
         signUpApi(submitData);
-        navi("/");
+        window.location.replace('/');
     };
 
     return (
