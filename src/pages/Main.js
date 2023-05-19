@@ -167,15 +167,15 @@ function Main() {
                                     <tr>
                                         <th>순위</th>
                                         <th>닉네임</th>
-                                        <th>랭크</th>
+                                        <th>진척도</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     {dailyAllRanking.map((user, index) => (
-                                        <tr key={user.nickname}>
-                                            <td>{index + 1}</td>
-                                            <td>{user.nickname}</td>
+                                        <tr key={user.rank}>
                                             <td>{user.rank}</td>
+                                            <td>{user.nickname}</td>
+                                            <td>{user.progressRate}</td>
                                         </tr>
                                     ))}
                                     </tbody>
@@ -192,15 +192,15 @@ function Main() {
                                     <tr>
                                         <th>순위</th>
                                         <th>닉네임</th>
-                                        <th>랭크</th>
+                                        <th>진척도</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     {weeklyAllRanking.map((user, index) => (
-                                        <tr key={user.nickname}>
-                                            <td>{index + 1}</td>
-                                            <td>{user.nickname}</td>
+                                        <tr key={user.rank}>
                                             <td>{user.rank}</td>
+                                            <td>{user.nickname}</td>
+                                            <td>{user.progressRate}</td>
                                         </tr>
                                     ))}
                                     </tbody>
@@ -217,15 +217,15 @@ function Main() {
                                     <tr>
                                         <th>순위</th>
                                         <th>닉네임</th>
-                                        <th>랭크</th>
+                                        <th>진척도</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     {monthlyAllRanking.map((user, index) => (
-                                        <tr key={user.nickname}>
-                                            <td>{index + 1}</td>
-                                            <td>{user.nickname}</td>
+                                        <tr key={user.rank}>
                                             <td>{user.rank}</td>
+                                            <td>{user.nickname}</td>
+                                            <td>{user.progressRate}</td>
                                         </tr>
                                     ))}
                                     </tbody>
