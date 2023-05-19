@@ -24,42 +24,40 @@ function ExerciseList({info}) {
         fetchExerciseList();
     }, []);
 
-    // 체크 박스 서버 전달 및 스토지리 저장
-    useEffect(() => {
-        const checkMidnight = () => {
-            const currentTime = moment();
-            const midnight = moment().endOf('day');
-            const timeRemaining = midnight.diff(currentTime);
-
-            setTimeout(() => {
-                localStorage.setItem('isCheck', 'false');
-                setIsCheck(false);
-            }, timeRemaining);
-        };
-
-        checkMidnight();
-    }, []);
-
-    useEffect(() => {
-        const savedIsCheck = localStorage.getItem('isCheck');
-        setIsCheck(savedIsCheck === 'true');
-    }, []);
+    const fetchDailyProgressAPI = async () => {
+        try {
+            const response = await fetch(`/api/v1/health/printDailyProgress`);
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Failed to fetch daily progress:', error);
+            return false;
+        }
+    };
 
     const handleClick = async () => {
-        if (isCheck) {
+
+        const responses = await fetchDailyProgressAPI()
+        if(responses.isCheck ==true)
+        {
+            setIsCheck(true);
             alert('이미 체크하셨습니다!');
-        } else {
-            try {
-                setIsCheck(true);
-                localStorage.setItem('isCheck', 'true');
-                const response = await saveDailyChecked();
-                if (response.ok) {
-                    alert('전송되었습니다!');
-                } else {
-                    alert('전송에 실패했습니다!');
+
+        }else {
+            if (!isCheck) {
+                try {
+                    setIsCheck(true);
+                    const response = await saveDailyChecked({isCheck: true});
+                    if (response) {
+                        alert('전송되었습니다!');
+                    } else {
+                        alert('전송에 실패했습니다!');
+                    }
+                } catch (error) {
+                    console.error('Failed to fetch user info:', error);
                 }
-            } catch (error) {
-                console.error('Failed to fetch user info:', error);
+            } else {
+                alert('이미 체크하셨습니다!');
             }
         }
     };

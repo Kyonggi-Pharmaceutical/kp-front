@@ -1,7 +1,6 @@
-
-export const saveDailyChecked = async isCheck => {
+export const saveUserExercises = async () => {
     const API_URL = process.env.REACT_APP_API_URL;
-    const path = '/api/v1/health/dailyProgressChecked';
+    const path = '/api/v1/exercises/saveUserExercise';
     try {
         const response = await fetch(`${API_URL}${path}`, {
             method: 'POST',
@@ -10,15 +9,12 @@ export const saveDailyChecked = async isCheck => {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(isCheck),
+            body: JSON.stringify(),
         });
-        if (response.ok) {
-            return true;
-        } else {
-            throw new Error('Bad server condition');
-        }
-    } catch (error) {
-        console.error('saveDailyChecked Error:', error);
+        if (!response.ok) throw new Error('bad server condition');
+        return true;
+    } catch (e) {
+        console.error('saveUserExercises Error: ', e.message);
         return false;
     }
-};
+}

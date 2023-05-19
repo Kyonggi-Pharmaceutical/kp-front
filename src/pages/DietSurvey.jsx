@@ -2,6 +2,7 @@ import { useState } from 'react';
 import React, {useEffect} from 'react';
 import {saveHealthGoalWeight } from '../api/postExerciseInfo'
 import { useNavigate } from 'react-router-dom';
+import {saveUserExercises} from "../api/postUserExercise";
 
 
 function DietSurvey({ info }) {
@@ -18,11 +19,27 @@ function DietSurvey({ info }) {
     };
     const result = exerciseGroup;
     const handleSubmit = async (event) => {
-        event.preventDefault(); // 이벤트의 기본 동작을 막는 코드 추가
+        event.preventDefault(); // Prevent the default form submission behavior
+
         try {
             await saveHealthGoalWeight(weightGoal);
             console.log('Data successfully saved');
-            navigate("/dietResult?exerciseType="+result);
+            navigate('/dietResult?exerciseType=' + result);
+        } catch (error) {
+            console.log(error);
+            alert('API 요청이 실패했습니다. 다시 시도해주세요.');
+        }
+
+        // Call the handleClick function after handleSubmit
+        handleClick();
+    };
+
+    const handleClick = async () => {
+        try {
+            const response = await saveUserExercises();
+            if (response.ok) {
+                console.log('User exercises successfully saved');
+            }
         } catch (error) {
             console.log(error);
             alert('API 요청이 실패했습니다. 다시 시도해주세요.');
