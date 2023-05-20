@@ -1,0 +1,38 @@
+
+.daily-progress-button {
+    background-color: #E63A35;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    width: 200px;
+    border-radius: 50px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.daily-progress-button:hover {
+    background-color: #C32722;
+}
+
+.daily-progress-button:focus {
+    outline: none;
+}
+
+.daily-progress-col-box {
+    padding: 10px 0px;
+    text-align: center;
+    background: #F2F3F5;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.daily-progress-col-box p {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.daily-progress-col-box:hover {
+    background: #e3e4e5;
+}
