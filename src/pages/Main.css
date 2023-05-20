@@ -16,6 +16,17 @@
     background: #e3e4e5;
 }
 
+.main h3 {
+    margin: 25px;
+    color: #E63A35;
+    font-weight: bolder;
+}
+
+.main h4 {
+    margin: 25px;
+    font-weight: bolder;
+}
+
 .greeting {
     text-align: center;
     margin-top: 20px;

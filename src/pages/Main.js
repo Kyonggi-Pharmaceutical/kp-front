@@ -167,7 +167,7 @@ function Main() {
                                     <thead>
                                     <tr>
                                         <th colSpan={3} className="text-center">
-                                            <h3>일간 사용자 랭킹</h3>
+                                            <h4>일간 사용자 랭킹</h4>
                                         </th>
                                     </tr>
                                     <tr>
@@ -192,7 +192,7 @@ function Main() {
                                     <thead>
                                     <tr>
                                         <th colSpan={3} className="text-center">
-                                            <h3>주간 사용자 랭킹</h3>
+                                            <h4>주간 사용자 랭킹</h4>
                                         </th>
                                     </tr>
                                     <tr>
@@ -217,7 +217,7 @@ function Main() {
                                     <thead>
                                     <tr>
                                         <th colSpan={3} className="text-center">
-                                            <h3>월간 사용자 랭킹</h3>
+                                            <h4>월간 사용자 랭킹</h4>
                                         </th>
                                     </tr>
                                     <tr>
