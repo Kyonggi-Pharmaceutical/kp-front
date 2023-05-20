@@ -163,7 +163,7 @@ function Main() {
                     <Row>
                         <Col>
                             {currentTableIndex === 0 && (
-                                <Table striped hover borderless className={"main-col-box table-no-cursor ranking-table-container"}>
+                                <Table striped hover borderless className={"table-col-box table-no-cursor ranking-table-container"}>
                                     <thead>
                                     <tr>
                                         <th colSpan={3} className="text-center">
@@ -188,7 +188,7 @@ function Main() {
                                 </Table>
                             )}
                             {currentTableIndex === 1 && (
-                                <Table striped hover borderless className={"main-col-box table-no-cursor ranking-table-container"}>
+                                <Table striped hover borderless className={"table-col-box table-no-cursor ranking-table-container"}>
                                     <thead>
                                     <tr>
                                         <th colSpan={3} className="text-center">
@@ -213,7 +213,7 @@ function Main() {
                                 </Table>
                             )}
                             {currentTableIndex === 2 && (
-                                <Table striped hover borderless className={"main-col-box table-no-cursor ranking-table-container"}>
+                                <Table striped hover borderless className={"table-col-box table-no-cursor ranking-table-container"}>
                                     <thead>
                                     <tr>
                                         <th colSpan={3} className="text-center">
