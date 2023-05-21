@@ -5,6 +5,7 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import {getUserInfo} from "../../api/user/getUserInfo";
 import "./DailyProgress.css";
+import "./WeeklyProgress.css";
 import {useNavigate} from "react-router-dom";
 import {getUserDailyProgressesUpToLastWeek} from "../../api/activity/getUserDailyProgressesUpToLastWeek";
 
@@ -45,21 +46,55 @@ export default function WeeklyProgress({isLogin}) {
         initUserinfo()
     }, []);
 
+    const renderGrid = () => {
+        const weekDays = getPastWeekDays();
+        return (
+            <div className="grid-container">
+                {weekDays.map((day) => {
+                    const progress = userWeeklyProgresses.find((p) => p.date === day);
+                    return (
+                        <div className="grid-item" key={day}>
+                            <div className="grid-item-content">
+                                <p style={{fontSize: '3px', fontWeight: 'bold', marginBottom: '10px'}}>{day}</p>
+                                {progress ? (
+                                    <span className="grid-item-check">{progress.isCheck ? 'O' : 'X'}</span>
+                                ) : (
+                                    <span className="grid-item-check"></span>
+                                )}
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+        );
+    };
+
+    const getPastWeekDays = () => {
+        const weekDays = [];
+        const today = new Date();
+        for (let i = 6; i >= 0; i--) {
+            const pastDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
+            const formattedDate = formatDate(pastDate);
+            weekDays.push(formattedDate);
+        }
+        return weekDays;
+    };
+
+
+    const formatDate = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
     return (
         <div className="main-bg">
             <div className="main">
                 <Container>
                     <Row>
                         <h3>최근 7일간의 진척도</h3>
-                        <div className="start-page">
-                            {userWeeklyProgresses.map((progress, index) => (
-                                <div key={index}>
-                                    <p>
-                                        <strong>{index + 1}. {progress.date}, {progress.type}, {progress.isCheck.toString()}</strong>
-                                    </p>
-                                </div>
-                            ))}
-                        </div>
+                        <div className="start-page">{renderGrid()}</div>
                     </Row>
                     <Row>
                         <Col className="d-flex justify-content-center" style={{marginTop: '40px'}}>
