@@ -3,10 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
 import stress from '../pages/StressSurvey';
 import Checkbox from "../components/CheckBox";
-<<<<<<< HEAD
-=======
 import Button from "react-bootstrap/Button";
->>>>>>> origin/develop
 
 
 
@@ -25,7 +22,7 @@ export default function DailyGoal(info) {
     return (
 
         <div className="main-bg">
-            <div className="result-page">
+            <div className="main">
                 <h3 style={{margin: "25px", color: "#E63A35", fontWeight: "bolder", fontSize: "40px", marginBottom: "40px"}}>일일 목표관리</h3>
                 <p>기본 생활관리</p>
                 <p>수면 7~8시간</p><Checkbox checked={complete} onChange={setComplete} />
