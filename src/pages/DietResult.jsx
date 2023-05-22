@@ -29,36 +29,42 @@ function ExerciseList({info}) {
             const response = await fetch(`/api/v1/health/printDailyProgress`);
             const data = await response.json();
             return data;
+
         } catch (error) {
             console.error('Failed to fetch daily progress:', error);
             return false;
         }
     };
 
+    useEffect(() => {
+        fetchInitialData();
+    }, []);
+
+    const fetchInitialData = async () => {
+        try {
+            const response = await fetchDailyProgressAPI();
+            setIsCheck(response);
+        } catch (error) {
+            console.error('Failed to fetch initial data:', error);
+        }
+    };
+
     const handleClick = async () => {
-
-        const responses = await fetchDailyProgressAPI()
-        if(responses.isCheck ==true)
-        {
-            setIsCheck(true);
+        if (isCheck) {
             alert('이미 체크하셨습니다!');
+            return;
+        }
 
-        }else {
-            if (!isCheck) {
-                try {
-                    setIsCheck(true);
-                    const response = await saveDailyChecked({isCheck: true});
-                    if (response) {
-                        alert('전송되었습니다!');
-                    } else {
-                        alert('전송에 실패했습니다!');
-                    }
-                } catch (error) {
-                    console.error('Failed to fetch user info:', error);
-                }
+        try {
+            setIsCheck(true);
+            const saveResponse = await saveDailyChecked({isCheck: true});
+            if (saveResponse) {
+                alert('전송되었습니다!');
             } else {
-                alert('이미 체크하셨습니다!');
+                alert('전송에 실패했습니다!');
             }
+        } catch (error) {
+            console.error('Failed to fetch user info:', error);
         }
     };
 
@@ -75,33 +81,59 @@ function ExerciseList({info}) {
 
         fetchDailyProgress();
     }, []);
-    const renderTileContent = ({ date }) => {
+    const renderTileContent = ({date}) => {
         const dateString = moment(date).format('YYYY-MM-DD');
         const isChecked = trueDates.find((progress) => progress.date === dateString && progress.isCheck);
-
         return isChecked ? <div className="dot"></div> : null;
     };
     return (
-        <div>
-            <p>{`${username}`}님,</p>
-            {Array.isArray(exerciseList) &&
-                exerciseList.map((exercise) => (
-                    <div key={exercise.id}>
-                        <p>Name: {exercise.name}</p>
-                        <p>Type: {exercise.type}</p>
-                        <p>Cal: {exercise.cal}</p>
+        <div className="center-container">
+            <div className="result-form">
+                <div className="username">
+                    <p>{`${username}`}님,</p>
+                </div>
+                <div className="content">
+                    <div className="calendar-container">
+                        <Calendar
+                            onChange={handleDateChange}
+                            value={selectedDate}
+                            locale="en-EN"
+                            tileContent={renderTileContent}
+                        />
+                        <div className="exercise-list">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Cal</th>
+                                    <th>Time</th>
+                                    <th>Checkbox</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {Array.isArray(exerciseList) &&
+                                    exerciseList.map((exercise) => (
+                                        <tr className="exercise-item" key={exercise.id}>
+                                            <td>{exercise.name}</td>
+                                            <td>{exercise.type}</td>
+                                            <td>{exercise.cal}</td>
+                                            <td>{exercise.time}</td>
+                                            <td>
+                                                <input
+                                                    className="checkbox-custom"
+                                                    type="checkbox"
+                                                    checked={isCheck}
+                                                    onClick={handleClick}
+                                                />
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                ))}
-            <div>
-                <input type="checkbox" checked={isCheck} onChange={handleClick}/>
-            </div>
-            <div>
-                <Calendar
-                    onChange={handleDateChange}
-                    value={selectedDate}
-                    locale="en-EN"
-                    tileContent={renderTileContent}
-                />
+                </div>
             </div>
         </div>
     );

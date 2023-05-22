@@ -1,6 +1,79 @@
 .dot {
     width: 8px;
     height: 8px;
-    background-color: red;
+    background-color: orange;
     border-radius: 50%;
+    position: relative;
+    left: 50%;
+    top: 30%;
+    transform: translate(-50%, -50%);
+}
+
+
+.result-form {
+    display: flex;
+    justify-content: space-between;
+    margin: 40px;
+    padding: 20px;
+    width: 70%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+}
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.username {
+    margin-bottom: 20px;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 10px; /* Adjust the margin-bottom value as needed */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+    vertical-align: middle;
+}
+
+th {
+    background-color: #f8f8f8;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-custom {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-left: 5px;
+}
+.exercise-list {
+    width: 50%; /* Adjust the width as needed */
+
+    margin-top: 50px;
+}
+.calendar-container {
+    width: 50%;
+
 }
