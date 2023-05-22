@@ -1,4 +1,4 @@
-.main-col-box{
+.main-col-box {
     padding: 10px 0px;
     text-align: center;
     background: #F2F3F5;
@@ -7,7 +7,62 @@
     cursor: pointer;
 }
 
-.main-col-box p{
+.main-col-box p {
     font-size: 30px;
     font-weight: bold;
+}
+
+.greeting {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.greeting-text {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.health-message {
+    font-size: 16px;
+    color: #777;
+}
+
+.table-no-cursor {
+    cursor: default;
+}
+
+.table-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.table-button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 10px 20px;
+    margin-right: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.table-button span {
+    display: flex;
+    align-items: center;
+}
+
+.table-button.active {
+    background-color: #333;
+    color: #fff;
+}
+
+.ranking-table-container {
+    overflow-y: auto;
+    height: 500px;
 }
