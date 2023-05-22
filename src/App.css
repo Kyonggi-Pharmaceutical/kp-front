@@ -282,3 +282,28 @@ input:focus {
     font-weight: bolder;
 
 }
+
+.userinfo-table{
+    margin-left: 100px;
+    width: 500px;
+    fontSize: 40px;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+}
+
+.userinfo-table td{
+    border-bottom: 1px solid #444444;
+    border-left: 1px solid #444444;
+    padding: 10px;
+}
+
+.userinfo-table th {
+    width: 100px;
+    border-bottom: 1px solid #444444;
+    border-left: 1px solid #444444;
+    padding: 10px;
+}
+
+.userinfo-table th:first-child, td:first-child {
+    border-left: none;
+}
