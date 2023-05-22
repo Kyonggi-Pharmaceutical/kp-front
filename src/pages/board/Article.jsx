@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import '../Main.css'
 import {RiDeleteBin6Line} from "react-icons/ri";
 import {TfiPencilAlt} from "react-icons/tfi";
-import {FcLike} from "react-icons/fc"
+import {AiOutlineLike} from "react-icons/ai"
 import {useLocation, useNavigate} from "react-router-dom";
 import {getArticleDetail} from "../../api/board/article/getArticleDetail";
 import {AiOutlineUser} from "react-icons/ai";
@@ -97,8 +97,12 @@ function Article() {
     };
 
     const postLikeApi = async (articleId) => {
-        console.log(articleId);
-        await postLike(articleId);
+        //isLiked 수정해야함
+        if(isLiked === false){
+            console.log(articleId);
+            await postLike(articleId);
+            setIsLiked(true);
+        }
     };
 
     return (
@@ -121,33 +125,42 @@ function Article() {
                                     <th style={{width: "15%"}}>작성자</th>
                                     <td style={{width: "25%"}}>{article.username}</td>
                                     <th style={{width: "30%"}}></th>
-                                    <td style={{width: "10%"}} className="icon-btn"
-                                        onClick={() => postLikeApi(article.id)}>
-                                        <FcLike size={20}/>{likeCount}</td>
+                                    <td style={{width: "10%"}}>
+                                        <AiOutlineLike size={20}/> {likeCount}</td>
                                     <th style={{width: "10%"}}><span className="icon-btn"
-                                                                     onClick={() => modifyArticle()}>수정<TfiPencilAlt
+                                                                     onClick={() => modifyArticle()}>수정 <TfiPencilAlt
                                         size={20}/></span></th>
                                     <th style={{width: "10%"}}><span className="icon-btn"
-                                                                     onClick={() => delArticle(article.id)}>삭제<RiDeleteBin6Line
+                                                                     onClick={() => delArticle(article.id)}>삭제 <RiDeleteBin6Line
                                         size={20}/></span></th>
                                 </> : (
                                     <>
                                         <th style={{width: "15%"}}>작성자</th>
                                         <td style={{width: "65%"}}>{article.username}</td>
-                                        <td style={{width: "10%"}} className="icon-btn"
-                                            onClick={() => postLikeApi(article.id)}>
-                                            <FcLike size={20}/>{likeCount}</td>
+                                        <td style={{width: "10%"}}>
+                                            <AiOutlineLike size={20}/> {likeCount}</td>
                                         <td style={{width: "10%"}}></td>
                                     </>
                                 )
                         }
 
                     </tr>
-                    <tr style={{borderBottom: "4px solid black"}}>
-                        <td td style={{width: "100%", minHeight: "300px"}} colSpan={3}>
+                    <tr>
+                        <td td style={{width: "100%", minHeight: "300px"}} colSpan={6}>
                             <div style={{minHeight: "300px", padding: "10px"}}>
                                 {article.description}
                             </div>
+                        </td>
+                    </tr>
+                    <tr style={{borderBottom: "4px solid black"}}>
+                        <td style={{ padding: "20px", textAlign: "center" }} colSpan={6} className="icon-btn">
+                            {
+                                isLiked ? (
+                                    <img src="/icon/likeon.png" style={{ width: "40px" }} onClick={() => postLikeApi(article.id)}/>
+                                ) : (
+                                    <img src="/icon/likeoff.png" style={{ width: "40px" }} onClick={() => postLikeApi(article.id)}/>
+                                )
+                            }
                         </td>
                     </tr>
                     </tbody>

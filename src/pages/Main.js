@@ -17,7 +17,7 @@ function Main() {
 
     const board = () => {
         if(info.nickname){
-            navigate("/board");
+            window.location.replace('/board');
         }else{
             alert('로그인하세요!');
             navigate('/');
