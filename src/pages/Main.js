@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from "react-bootstrap/Table";
+import './Main1.css'
 import './Main.css'
 import {getDailyHealthMessage} from "../api/main/getDailyHealthMessage";
 import {getUserInfo} from "../api/user/getUserInfo";
@@ -86,6 +87,7 @@ function Main() {
     };
 
     return (
+        <div className = "main-container">
         <div className="main-bg">
             <div className="main">
                 {
@@ -265,6 +267,7 @@ function Main() {
                     </Row>
                 </Container>
             </div>
+        </div>
         </div>
     );
 }
