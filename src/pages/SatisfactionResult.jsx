@@ -53,6 +53,7 @@ export default function SatisfactionResult({info, setUserInfo, healthGoal, setHe
                 })}
                 <Button className="button-custom" variant="outline-danger" onClick={DailyGoal}>새 솔루션으로 일일 목표 관리하기</Button>
             </div>
+
         )
     }
 
