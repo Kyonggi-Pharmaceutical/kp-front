@@ -1,6 +1,5 @@
 import React from 'react';
 import { useRef } from 'react';
-import React from 'react';
 import useScript from '../hooks/useScript';
 
 // https://github.com/anthonyjgrove/react-google-login/issues/502
