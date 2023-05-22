@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/Col';
 import './Main.css'
 import { HiOutlineClipboardList } from 'react-icons/hi';
 import {getDailyHealthMessage} from "../api/getDailyHealthMessage";
-import {getUserInfo} from "../api/getUserInfo";
+import {getUserInfo} from "../api/user/getUserInfo";
 
 function Main() {
     let navigate = useNavigate();
@@ -15,6 +15,15 @@ function Main() {
         navigate("/survey");
     }
 
+    const board = () => {
+        if(info.nickname){
+            window.location.replace('/board');
+        }else{
+            alert('로그인하세요!');
+            navigate('/');
+        }
+
+    }
 
     const [info, setInfo] = useState({
         nickname: '',
@@ -47,8 +56,9 @@ function Main() {
     return (
         <div className="main-bg">
             <div className="main">
-                <p>안녕하세요, {info.nickname === null ? info.fullName : info.nickname}님! {dailyHealthMessage}</p>
-
+                {
+                    info.fullName ? <p>안녕하세요, {info.nickname === null ? info.fullName : info.nickname}님! {dailyHealthMessage}</p> : <></>
+                }
                 <Container>
                     <Row>
                         <Col>
@@ -58,9 +68,9 @@ function Main() {
                             </div>
                         </Col>
                         <Col>
-                            <div className="main-col-box">
+                            <div className="main-col-box" onClick={board}>
                                 <HiOutlineClipboardList size="200"></HiOutlineClipboardList>
-                                <p>~~</p>
+                                <p>게시판</p>
                             </div>
                         </Col>
                     </Row>
