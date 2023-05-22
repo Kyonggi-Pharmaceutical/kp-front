@@ -57,7 +57,13 @@ export default function WeeklyProgress({isLogin}) {
                             <div className="grid-item-content">
                                 <p style={{fontSize: '3px', fontWeight: 'bold', marginBottom: '10px'}}>{day}</p>
                                 {progress ? (
-                                    <span className="grid-item-check">{progress.isCheck ? 'O' : 'X'}</span>
+                                    progress.isCheck ? (
+                                        <img src={process.env.PUBLIC_URL + '/img/dailyProgressTrue.png'} alt="check"
+                                             className="grid-item-image"/>
+                                    ) : (
+                                        <img src={process.env.PUBLIC_URL + '/img/dailyProgressFalse.png'} alt="cross"
+                                             className="grid-item-image"/>
+                                    )
                                 ) : (
                                     <span className="grid-item-check"></span>
                                 )}
