@@ -4,17 +4,28 @@ import '../Main.css'
 import Accordion from 'react-bootstrap/Accordion'
 import './Board.css'
 import Button from "react-bootstrap/Button";
-import {FcLike} from "react-icons/fc"
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import ToggleButton from 'react-bootstrap/ToggleButton';
+import {AiOutlineLike} from "react-icons/ai"
 import {useNavigate} from "react-router-dom";
 import {getArticlesByCategory} from "../../api/board/article/getArticlesByCategory";
-
-
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
+import {getMonthMBTI} from "../../api/board/rank/getMonthMBTI";
+import {getMonthALL} from "../../api/board/rank/getMonthAll";
 
 function Board() {
     const [stressArticles, setStressArticles] = useState([]);
     const [activityArticles, setActivityArticles] = useState([]);
     const [boardId, setBoardId] = useState(0);
     const [likeCount, setLikeCount] = useState({});
+
+    const [dayALL, setDayALL] = useState([]);
+    const [dayMBTI, setDayMBTI] = useState([]);
+    const [weekALL, setWeekALL] = useState([]);
+    const [weekMBTI, setWeekMBTI] = useState([]);
+    const [monthALL, setMonthALL] = useState([]);
+    const [monthMBTI, setMonthMBTI] = useState([]);
 
     useEffect(() => {
         async function fetchData() {
@@ -35,6 +46,9 @@ function Board() {
             setLikeCount(likeCounts);
             setActivityArticles(data1);
             setStressArticles(data2);
+
+            setMonthMBTI( await getMonthMBTI());
+            setMonthALL( await getMonthALL());
         }
 
         fetchData();
@@ -112,7 +126,7 @@ function Board() {
                                                 <p style={{width: "70%"}}
                                                    className="accordion-title">{item.title}</p>
                                                 <p style={{width: "12%", textAlign: "center", marginTop: "16px"}}>
-                                                    <FcLike size="20" color="black"/>{likeCount[item.id]}</p>
+                                                    <AiOutlineLike size="20"/> {likeCount[item.id]}</p>
                                                 <p style={{
                                                     width: "15%",
                                                     textAlign: "center",
@@ -152,7 +166,7 @@ function Board() {
                                                 <p style={{width: "70%"}}
                                                    className="accordion-title">{item.title}</p>
                                                 <p style={{width: "12%", textAlign: "center", marginTop: "16px"}}>
-                                                    <FcLike size="20" color="black"/> {likeCount[item.id]}</p>
+                                                    <AiOutlineLike  size="20"/> {likeCount[item.id]}</p>
                                                 <p style={{
                                                     width: "15%",
                                                     textAlign: "center",
@@ -174,10 +188,109 @@ function Board() {
                         }
                     </div>
                 </div>
-                <div className="rank">
-                    rank
-                </div>
+                <Rank dayMBTI={dayMBTI} dayALL={dayALL} weekMBTI={weekMBTI} weekALL={weekALL} monthMBTI={monthMBTI} monthALL={monthALL}/>
             </div>
+        </div>
+    );
+}
+
+function Rank({dayMBTI, dayALL, weekMBTI, weekALL, monthMBTI, monthALL}) {
+    const [medal, setMedal] = useState({1: '/icon/first.png', 2: '/icon/second.png', 3: '/icon/third.png'});
+
+    const [radioValue, setRadioValue] = useState('1');
+    const radios = [
+        { name: 'MBTI', value: '1' },
+        { name: 'ALL', value: '2' },
+    ];
+
+    return (
+        <div className="rank" style={{display: "flex", flexDirection: "column"}}>
+            <Tabs
+                defaultActiveKey="daily"
+                id="justify-tab-example"
+                className="mb-3"
+                justify
+            >
+                <Tab eventKey="daily" title={<span className="rank-title">Daily</span>} >
+                    {radioValue == 1 ? (
+                        <>
+                            <h3 className="rank-small-title">MBTI</h3>
+                            {dayMBTI.map((item) => (
+                                <div className="rank-map" key={item.rank}>
+                                    <img src={medal[item.rank]} width="30px" /> {item.mbti}
+                                </div>
+                            ))}
+                        </>
+                    ) : (
+                        <>
+                            <h3 className="rank-small-title">ALL</h3>
+                            {dayALL.map((item) => (
+                                <div className="rank-map" key={item.rank}>
+                                    <img src={medal[item.rank]} width="30px" /> {item.nickname}
+                                </div>
+                            ))}
+                        </>
+                    )}
+                </Tab>
+                <Tab eventKey="weekly" title={<span className="rank-title">Weekly</span>}>
+                    {radioValue == 1 ? (
+                        <>
+                            <h3 className="rank-small-title">MBTI</h3>
+                            {weekMBTI.map((item) => (
+                                <div className="rank-map" key={item.rank}>
+                                    <img src={medal[item.rank]} width="30px" /> {item.mbti}
+                                </div>
+                            ))}
+                        </>
+                    ) : (
+                        <>
+                            <h3 className="rank-small-title">ALL</h3>
+                            {weekALL.map((item) => (
+                                <div className="rank-map" key={item.rank}>
+                                    <img src={medal[item.rank]} width="30px" /> {item.nickname}
+                                </div>
+                            ))}
+                        </>
+                    )}
+                </Tab>
+                <Tab eventKey="monthly" title={<span className="rank-title">Monthly</span>}>
+                    {radioValue == 1 ? (
+                        <>
+                            <h3 className="rank-small-title">MBTI</h3>
+                            {monthMBTI.map((item) => (
+                                <div className="rank-map" key={item.rank}>
+                                    <img src={medal[item.rank]} width="30px" /> {item.mbti}
+                                </div>
+                            ))}
+                        </>
+                    ) : (
+                        <>
+                            <h3 className="rank-small-title">ALL</h3>
+                            {monthALL.map((item) => (
+                                <div className="rank-map" key={item.rank}>
+                                    <img src={medal[item.rank]} width="30px" /> {item.nickname}
+                                </div>
+                            ))}
+                        </>
+                    )}
+                </Tab>
+            </Tabs>
+            <ButtonGroup style={{display: "flex", justifyContent: "center", marginTop: "auto"}}>
+                {radios.map((radio, idx) => (
+                    <ToggleButton
+                        key={idx}
+                        id={`radio-${idx}`}
+                        type="radio"
+                        variant="outline-success"
+                        name="radio"
+                        value={radio.value}
+                        checked={radioValue === radio.value}
+                        onChange={(e) => setRadioValue(e.currentTarget.value)}
+                    >
+                        {radio.name}
+                    </ToggleButton>
+                ))}
+            </ButtonGroup>
         </div>
     );
 }
