@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Logout from "./pages/Logout";
 import SignUp from "./pages/SignUp";
 import MyPage from "./pages/MyPage"
+import DailyProgress from "./pages/progress/DailyProgress"
 import { getUserInfo } from './api/user/getUserInfo';
 import StartPage from "./pages/StartPage";
 import StressSurvey from "./pages/StressSurvey";
@@ -21,6 +22,7 @@ import Board from "./pages/board/Board";
 import Article from "./pages/board/Article";
 import CreatedArticle from "./pages/board/CreatedArticle";
 import ModifyArticle from "./pages/board/ModifyArticle";
+import WeeklyProgress from "./pages/progress/WeeklyProgress";
 
 function App(){
     const [isLogin, setIsLogin] = useState(false);
@@ -76,6 +78,8 @@ function App(){
                 <Route path="/logout" element={<Logout />} />
                 <Route path="/signup" element={<SignUp isLogin={isLogin}/>}/>
                 <Route path="/mypage" element={isLogin ? <MyPage isLogin={isLogin} /> : <Navigate to="/" />} />
+                <Route path="/today" element={isLogin ? <DailyProgress isLogin={isLogin} /> : <Navigate to="/" />} />
+                <Route path="/weekly-my-progress" element={isLogin ? <WeeklyProgress isLogin={isLogin} /> : <Navigate to="/" />} />
                 <Route path="/survey" element={isLogin ? <StartPage isLogin={isLogin} info={info}/>: <Navigate to="/" />} />
                 <Route path="/stressSurvey" element={<StressSurvey month={month} stressResult={StressResult}/>}/>
                 <Route path="/stressResult" element={<StressResult info={info} setUserInfo={setUserInfo} healthGoal={healthGoal} setHealthGoal={setHealthGoal}/>}/>
