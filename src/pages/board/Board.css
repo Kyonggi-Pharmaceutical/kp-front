@@ -1,13 +1,3 @@
-.main-bgs {
-    display: flex;
-    justify-content: space-between;
-    align-items: stretch;
-    width: calc(100% - 40px); /* 좌우 여백 고려하여 너비 설정 */
-    margin: 0 auto;
-    height: calc(100% - 40px); /* 상하 여백 고려하여 높이 설정 */
-}
-
-
 .board-rank{
     margin: 0 auto;
     border-radius: 20px;
