@@ -37,7 +37,6 @@
     padding: 10px;
     text-align: center;
 }
-
 span.bold-size {
     display: flex;
     align-items: center;
@@ -91,7 +90,7 @@ span.bold-size {
     float: left;
     width: 300px; /* 사이드바의 너비 */
     top: 100px;
-    left: 20px;
+    left: 0;
 }
 .health-image {
     display: block;
