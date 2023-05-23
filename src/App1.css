@@ -1,0 +1,99 @@
+
+.title-header {
+    align-items: center;
+    padding: 10px;
+}
+.title span {
+    font-family: 'Roboto', sans-serif;
+  font-size: 40px;
+    font-weight: bold;
+    color: white;
+    display:block;
+    margin-bottom: -5px;
+    text-align: center;
+
+}
+
+.navbar {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+}
+.menu-bar {
+    margin-top:5px;
+    color: white;
+}
+
+.menu-bar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-bar li {
+    display: block;
+    text-decoration: none; /* Remove underline */
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+}
+span.bold-size {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    padding: 10px;
+    margin-bottom: -10px;
+    text-align: center;
+    font-size: 30px;
+}
+.li-span {
+    display: block;
+    font-size: 16px;
+    text-align: center;
+}
+.menu-bar li:hover span {
+    color: #EAEAEA;
+}
+
+.nav-list li:hover a {
+    color: #EAEAEA;
+}
+.nav-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 80px;
+}
+
+.nav-list li {
+    padding: 10px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.nav-list li a {
+    text-decoration: none;
+    display: block;
+    color: white;
+}
+
+.app-container {
+    background: #6A84B7;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.sidebar-container {
+    position: fixed;
+    float: left;
+    width: 300px; /* 사이드바의 너비 */
+    top: 100px;
+    left: 0;
+}
+.health-image {
+    display: block;
+    height: auto;
+    margin: 0 auto 6px;
+}

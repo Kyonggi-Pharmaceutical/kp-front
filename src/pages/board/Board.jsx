@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from "axios"
 import '../Main.css'
+import '../Main1.css'
 import Accordion from 'react-bootstrap/Accordion'
 import './Board.css'
 import Button from "react-bootstrap/Button";
@@ -89,7 +90,8 @@ function Board() {
     }
 
     return (
-        <div className="main-bg">
+        <div className="main-container">
+        <div className="main-bgs">
             <div className="board-rank">
                 <div className="board">
                     <div style={{marginBottom: "20px"}}>
@@ -190,6 +192,7 @@ function Board() {
                 </div>
                 <Rank dayMBTI={dayMBTI} dayALL={dayALL} weekMBTI={weekMBTI} weekALL={weekALL} monthMBTI={monthMBTI} monthALL={monthALL}/>
             </div>
+        </div>
         </div>
     );
 }
