@@ -1,7 +1,21 @@
-.main-bg{
+.main-bg {
     padding-top: 200px;
 }
+
 .main-col-box {
+    padding: 10px 0;
+    margin-bottom: 10px;
+    text-align: center;
+    background: #F2F3F5;
+    border-radius: 20px;
+}
+
+.main-col-box p {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.main-col-clickable-box {
     padding: 10px 0px;
     text-align: center;
     background: #F2F3F5;
@@ -10,12 +24,7 @@
     transition: background-color 0.3s ease;
 }
 
-.main-col-box p {
-    font-size: 30px;
-    font-weight: bold;
-}
-
-.main-col-box:hover {
+.main-col-clickable-box:hover {
     background: #e3e4e5;
 }
 
@@ -97,6 +106,7 @@
     overflow-y: auto;
     height: 500px;
 }
+
 .google-login-btn {
     display: inline-block;
     position: relative;
@@ -164,7 +174,3 @@
 .google-login-btn:active span {
     padding: 14px 26px;
 }
-
-
-
-

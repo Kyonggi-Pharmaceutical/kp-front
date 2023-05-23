@@ -3,16 +3,16 @@ import {useNavigate} from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Table from "react-bootstrap/Table";
 import './Main1.css'
 import './Main.css'
 import {getDailyHealthMessage} from "../api/main/getDailyHealthMessage";
 import {getUserInfo} from "../api/user/getUserInfo";
 import {HiOutlineClipboardList} from "react-icons/hi";
-import {TbBarbell, TbYoga} from "react-icons/tb";
 import {getAllRanking} from "../api/main/getAllRanking";
+import MainRank from "./main/MainRank";
+import WeeklyProgress from "./progress/WeeklyProgress";
 
-function Main() {
+function Main({isLogin}) {
     let navigate = useNavigate();
 
     const survey = () => {
@@ -42,7 +42,6 @@ function Main() {
     const [dailyAllRanking, setDailyAllRanking] = useState([]);
     const [weeklyAllRanking, setWeeklyAllRanking] = useState([]);
     const [monthlyAllRanking, setMonthlyAllRanking] = useState([]);
-    const [currentTableIndex, setCurrentTableIndex] = useState(0);
 
     useEffect(() => {
         const initUserinfo = async () => {
@@ -82,192 +81,45 @@ function Main() {
         fetchAllRanking()
     }, []);
 
-    const handleTableButtonClick = (index) => {
-        setCurrentTableIndex(index);
-    };
-
     return (
-        <div className = "main-container">
-        <div className="main-bg">
-            <div className="main">
-                {
-                    info.fullName ? (
-                        <div className="greeting">
-                            <p className="greeting-text">
-                                안녕하세요, {info.nickname ? info.nickname : info.fullName}님!
-                            </p>
-                            <p className="health-message">{dailyHealthMessage}</p>
-                        </div>
-                    ) : (
-                        <div className="greeting" style={{marginTop: '120px', marginBottom: '120px'}}>
-                            <p className="greeting-text">여러분의 건강을 책임지는 16Healthcare 입니다.</p>
-                            <p className="greeting-text">MBTI에 따른 맞춤형 운동 및 스트레스 관리 방법을 추천받아보세요!</p>
-                            <p className="health-message">우측 상단에 로그인 버튼을 눌러 건강관리를 시작해볼까요?</p>
-                        </div>
-                    )
-                }
+        <div className="main-container">
+            <div className="main-bg">
+                <div className="main">
+                    <Container>
+                        <Row>
+                            <Col>
+                                <div className="main-col-box">
+                                    {/*<p className="health-message">{dailyHealthMessage}</p>*/}
+                                    <p>TODO 1. 오늘의 건강 메시지 표시 할 공간</p>
+                                </div>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col style={{maxWidth: '70%'}}>
+                                <div className="main-col-box" style={{height: '53%'}}>
+                                    <p></p>
+                                    <p>TODO 2. 맞춤형 솔루션 표시 할 공간</p>
+                                </div>
+                                {info.healthcareType === null ? (
+                                    <div className="main-col-box" onClick={survey}>
+                                        <HiOutlineClipboardList size="200"></HiOutlineClipboardList>
+                                        <p>문진하기</p>
+                                    </div>
+                                ) : (
+                                    <div className="main-col-box">
+                                        <WeeklyProgress isLogin={isLogin}/>
+                                    </div>
+                                )}
+                            </Col>
 
-                {info.healthcareType === 'STRESS' && (
-                    <Container>
-                        <Row>
-                            <Col>
-                                <div className="main-col-box" onClick={today}>
-                                    <TbYoga size="200"></TbYoga>
-                                    <p>오늘의 활동 체크</p>
-                                </div>
-                            </Col>
-                            <Col>
-                                <div className="main-col-box" onClick={board}>
-                                    <HiOutlineClipboardList size="200"></HiOutlineClipboardList>
-                                    <p>게시판</p>
-                                </div>
+                            <Col style={{maxWidth: '30%'}}>
+                                <MainRank dayALL={dailyAllRanking} weekALL={weeklyAllRanking}
+                                          monthALL={monthlyAllRanking}/>
                             </Col>
                         </Row>
                     </Container>
-                )}
-                {info.healthcareType === 'HEALTH' && (
-                    <Container>
-                        <Row>
-                            <Col>
-                                <div className="main-col-box" onClick={today}>
-                                    <TbBarbell size="200"></TbBarbell>
-                                    <p>오늘의 운동 체크</p>
-                                </div>
-                            </Col>
-                            <Col>
-                                <div className="main-col-box" onClick={board}>
-                                    <HiOutlineClipboardList size="200"></HiOutlineClipboardList>
-                                    <p>게시판</p>
-                                </div>
-                            </Col>
-                        </Row>
-                    </Container>
-                )}
-                {info.healthcareType === null && (
-                    <Container>
-                        <Row>
-                            <Col>
-                                <div className="main-col-box" onClick={survey}>
-                                    <HiOutlineClipboardList size="200"></HiOutlineClipboardList>
-                                    <p>문진하기</p>
-                                </div>
-                            </Col>
-                            <Col>
-                                <div className="main-col-box" onClick={board}>
-                                    <HiOutlineClipboardList size="200"></HiOutlineClipboardList>
-                                    <p>게시판</p>
-                                </div>
-                            </Col>
-                        </Row>
-                    </Container>
-                )}
-                <Container style={{marginTop: '20px'}}>
-                    <Row>
-                        <Col>
-                            {currentTableIndex === 0 && (
-                                <Table striped hover borderless className={"table-col-box table-no-cursor ranking-table-container"}>
-                                    <thead>
-                                    <tr>
-                                        <th colSpan={3} className="text-center">
-                                            <h4>일간 사용자 랭킹</h4>
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th>순위</th>
-                                        <th>닉네임</th>
-                                        <th>진척도</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {dailyAllRanking.map((user, index) => (
-                                        <tr key={user.rank}>
-                                            <td>{user.rank}</td>
-                                            <td>{user.nickname}</td>
-                                            <td>{user.progressRate}</td>
-                                        </tr>
-                                    ))}
-                                    </tbody>
-                                </Table>
-                            )}
-                            {currentTableIndex === 1 && (
-                                <Table striped hover borderless className={"table-col-box table-no-cursor ranking-table-container"}>
-                                    <thead>
-                                    <tr>
-                                        <th colSpan={3} className="text-center">
-                                            <h4>주간 사용자 랭킹</h4>
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th>순위</th>
-                                        <th>닉네임</th>
-                                        <th>진척도</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {weeklyAllRanking.map((user, index) => (
-                                        <tr key={user.rank}>
-                                            <td>{user.rank}</td>
-                                            <td>{user.nickname}</td>
-                                            <td>{user.progressRate}</td>
-                                        </tr>
-                                    ))}
-                                    </tbody>
-                                </Table>
-                            )}
-                            {currentTableIndex === 2 && (
-                                <Table striped hover borderless className={"table-col-box table-no-cursor ranking-table-container"}>
-                                    <thead>
-                                    <tr>
-                                        <th colSpan={3} className="text-center">
-                                            <h4>월간 사용자 랭킹</h4>
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th>순위</th>
-                                        <th>닉네임</th>
-                                        <th>진척도</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {monthlyAllRanking.map((user, index) => (
-                                        <tr key={user.rank}>
-                                            <td>{user.rank}</td>
-                                            <td>{user.nickname}</td>
-                                            <td>{user.progressRate}</td>
-                                        </tr>
-                                    ))}
-                                    </tbody>
-                                </Table>
-                            )}
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                            <div className="table-buttons">
-                                <button
-                                    className={`table-button ${currentTableIndex === 0 ? 'active' : ''}`}
-                                    onClick={() => handleTableButtonClick(0)}
-                                >
-                                    <span>일간</span>
-                                </button>
-                                <button
-                                    className={`table-button ${currentTableIndex === 1 ? 'active' : ''}`}
-                                    onClick={() => handleTableButtonClick(1)}
-                                >
-                                    <span>주간</span>
-                                </button>
-                                <button
-                                    className={`table-button ${currentTableIndex === 2 ? 'active' : ''}`}
-                                    onClick={() => handleTableButtonClick(2)}
-                                >
-                                    <span>월간</span>
-                                </button>
-                            </div>
-                        </Col>
-                    </Row>
-                </Container>
+                </div>
             </div>
-        </div>
         </div>
     );
 }

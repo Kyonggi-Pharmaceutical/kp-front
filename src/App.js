@@ -103,7 +103,7 @@ function App() {
             </div>
             <div className="main-container">
                 <Routes>
-                    <Route path="/" element={<Main/>}/>
+                    <Route path="/" element={<Main isLogin={isLogin} setIsLogin={setIsLogin}/>}/>
                     <Route path="/main2" element={<Main2/>}/>
                     <Route path="/login" element={<Login isLogin={isLogin} setIsLogin={setIsLogin}/>}/>
                     <Route path="/logout" element={<Logout/>}/>
