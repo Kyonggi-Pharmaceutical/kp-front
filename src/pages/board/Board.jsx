@@ -13,8 +13,8 @@ import {useNavigate} from "react-router-dom";
 import {getArticlesByCategory} from "../../api/board/article/getArticlesByCategory";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import {getMonthMBTI} from "../../api/board/rank/getMonthMBTI";
-import {getMonthALL} from "../../api/board/rank/getMonthAll";
+import {getMbtiRanking} from "../../api/board/getMbtiRanking";
+import {getAllRanking} from "../../api/main/getAllRanking";
 
 function Board() {
     const [stressArticles, setStressArticles] = useState([]);
@@ -49,8 +49,12 @@ function Board() {
             setActivityArticles(data1);
             setStressArticles(data2);
 
-            setMonthMBTI( await getMonthMBTI());
-            setMonthALL( await getMonthALL());
+            setDayMBTI( await getMbtiRanking('daily'));
+            setDayALL( await getAllRanking('daily'));
+            setWeekMBTI( await getMbtiRanking('weekly'));
+            setWeekALL( await getAllRanking('weekly'));
+            setMonthMBTI( await getMbtiRanking('monthly'));
+            setMonthALL( await getAllRanking('monthly'));
         }
 
         fetchData();
@@ -91,8 +95,8 @@ function Board() {
     }
 
     return (
-        <div className="main-container">
-        <div className="main-bgs">
+
+        <div className="main-bgs" style={{height: "80%", width: "90%"}}>
             <div className="board-rank">
                 <div className="board">
                     <div style={{marginBottom: "20px"}}>
@@ -105,7 +109,7 @@ function Board() {
                         <span><Button variant="outline-danger" style={{float: "right"}}
                                       onClick={navigateToCreatedArticle}>게시글 작성</Button></span>
                     </div>
-                    <div>
+                    <div style={{textAlign: "left"}}>
                         {
                             activity ? (
                                 activityArticles && activityArticles.map((item) => (
@@ -193,7 +197,7 @@ function Board() {
                 </div>
                 <Rank dayMBTI={dayMBTI} dayALL={dayALL} weekMBTI={weekMBTI} weekALL={weekALL} monthMBTI={monthMBTI} monthALL={monthALL}/>
             </div>
-        </div>
+
         </div>
     );
 }

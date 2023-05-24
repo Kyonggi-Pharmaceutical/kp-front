@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import '../Main.css'
+import '../Main1.css'
 import {RiDeleteBin6Line} from "react-icons/ri";
 import {TfiPencilAlt} from "react-icons/tfi";
 import {AiOutlineLike} from "react-icons/ai"
@@ -112,78 +113,77 @@ function Article() {
     const navigateToBoard = () => {
         navigate('/board');
     };
-
     return (
-        <div className="main-bg">
-            <div className="main">
-                {
-                    article.boardId === 0 ? <h3 className="small-title" onClick={navigateToBoard}>체중관리</h3> :
-                        <h3 className="small-title" onClick={navigateToBoard}>스트레스관리</h3>
-                }
-                <table style={{width: "90%", margin: "20px auto"}}>
-                    <tbody>
-                    <tr style={{borderTop: "4px solid black", borderBottom: "1px solid lightgray"}}>
-                        <th style={{width: "15%"}}>제목</th>
-                        <td style={{width: "85%", textAlign: "left"}} colSpan={4}>{article.title}</td>
-                    </tr>
-                    <tr style={{borderBottom: "2px solid lightgray"}}>
-                        {
-                            userId === article.userId ?
-                                <>
-                                    <th style={{width: "15%"}}>작성자</th>
-                                    <td style={{width: "15%"}}>{article.username}</td>
-                                    <th style={{width: "30%"}}></th>
-                                    <td style={{width: "10%"}}>
-                                        <AiOutlineLike size={20}/> {likeCount}</td>
-                                    <th style={{width: "10%"}}><span className="icon-btn"
-                                                                     onClick={() => modifyArticle()}>수정 <TfiPencilAlt
-                                        size={20}/></span></th>
-                                    <th style={{width: "10%"}}><span className="icon-btn"
-                                                                     onClick={() => delArticle(article.id)}>삭제 <RiDeleteBin6Line
-                                        size={20}/></span></th>
-                                </> : (
+            <div className="main-bgs" style={{height: "80%", width: "70%"}}>
+                <div className="article-box">
+                    {
+                        article.boardId === 0 ? <h3 className="small-title" onClick={navigateToBoard}>체중관리</h3> :
+                            <h3 className="small-title" onClick={navigateToBoard}>스트레스관리</h3>
+                    }
+                    <table style={{width: "90%", margin: "20px auto"}}>
+                        <tbody>
+                        <tr style={{borderTop: "4px solid black", borderBottom: "1px solid lightgray"}}>
+                            <th style={{width: "15%"}}>제목</th>
+                            <td style={{width: "85%", textAlign: "left"}} colSpan={4}>{article.title}</td>
+                        </tr>
+                        <tr style={{borderBottom: "2px solid lightgray"}}>
+                            {
+                                userId === article.userId ?
                                     <>
                                         <th style={{width: "15%"}}>작성자</th>
-                                        <td style={{width: "65%", textAlign: "center"}}>{article.username}</td>
+                                        <td style={{width: "15%", textAlign: "left"}}>{article.username}</td>
+                                        <th style={{width: "30%"}}></th>
                                         <td style={{width: "10%"}}>
                                             <AiOutlineLike size={20}/> {likeCount}</td>
-                                        <td style={{width: "10%"}}></td>
-                                    </>
-                                )
-                        }
-
-                    </tr>
-                    <tr>
-                        <td td style={{width: "100%", minHeight: "300px", borderBottom: "none"}} colSpan={6}>
-                            <div style={{minHeight: "300px", padding: "10px", textAlign: "left"}}>
-                                {article.description}
-                            </div>
-                        </td>
-                    </tr>
-                    <tr style={{borderBottom: "4px solid black"}}>
-                        <td style={{ padding: "20px", textAlign: "center" }} colSpan={6} className="icon-btn">
-                            {
-                                isLiked ? (
-                                    <img src="/icon/likeon.png" style={{ width: "40px" }} onClick={() => delLike(article.id)}/>
-                                ) : (
-                                    <img src="/icon/likeoff.png" style={{ width: "40px" }} onClick={() => postLikeApi(article.id)}/>
-                                )
+                                        <th style={{width: "10%"}}><span className="icon-btn"
+                                                                         onClick={() => modifyArticle()}>수정 <TfiPencilAlt
+                                            size={20}/></span></th>
+                                        <th style={{width: "10%"}}><span className="icon-btn"
+                                                                         onClick={() => delArticle(article.id)}>삭제 <RiDeleteBin6Line
+                                            size={20}/></span></th>
+                                    </> : (
+                                        <>
+                                            <th style={{width: "15%"}}>작성자</th>
+                                            <td style={{width: "65%", textAlign: "center"}}>{article.username}</td>
+                                            <td style={{width: "10%"}}>
+                                                <AiOutlineLike size={20}/> {likeCount}</td>
+                                            <td style={{width: "10%"}}></td>
+                                        </>
+                                    )
                             }
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <form className="comment-input">
-                    <input type="text" placeholder="댓글을 입력하세요" name="description" onChange={handleInputChange}
-                           value={comment.description}/>
-                    <div className="comment-btn" onClick={commentSubmit}>등록</div>
-                </form>
-                <div className="comment-list">
-                    <h5>Comment</h5>
-                    <CommentSection comments={comments} userId={userId} setNewComment={setNewComment}/>
+
+                        </tr>
+                        <tr>
+                            <td td style={{width: "100%", minHeight: "300px", borderBottom: "none"}} colSpan={6}>
+                                <div style={{minHeight: "300px", padding: "10px", textAlign: "left"}}>
+                                    {article.description}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr style={{borderBottom: "4px solid black"}}>
+                            <td style={{ padding: "20px", textAlign: "center" }} colSpan={6} className="icon-btn">
+                                {
+                                    isLiked ? (
+                                        <img src="/icon/likeon.png" style={{ width: "40px" }} onClick={() => delLike(article.id)}/>
+                                    ) : (
+                                        <img src="/icon/likeoff.png" style={{ width: "40px" }} onClick={() => postLikeApi(article.id)}/>
+                                    )
+                                }
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <form className="comment-input">
+                        <input type="text" placeholder="댓글을 입력하세요" name="description" onChange={handleInputChange}
+                               value={comment.description}/>
+                        <div className="comment-btn" onClick={commentSubmit}>등록</div>
+                    </form>
+                    <div className="comment-list">
+                        <h3 style={{textAlign: "left", marginBottom: "20px"}}>Comment</h3>
+                        <CommentSection comments={comments} userId={userId} setNewComment={setNewComment}/>
+                    </div>
                 </div>
             </div>
-        </div>
     );
 }
 
@@ -223,7 +223,7 @@ function CommentSection({comments, userId, setNewComment}) {
     };
     return (
         comments && comments.map((item) => (
-            <div className="comment" key={item.id}>
+            <div className="comment" key={item.id} style={{textAlign: "left"}}>
                 <div className="profile-image">
                     <AiOutlineUser className="user-icon"/>
                 </div>

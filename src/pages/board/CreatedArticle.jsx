@@ -41,9 +41,12 @@ function CreatedArticle() {
     };
 
     return (
-        <div className="main-bg">
-            <div className="main">
-                <h3 className="small-title">카테고리</h3>
+        <div className="main-bg" style={{height: "80%", width: "70%"}}>
+            <div className="article-box">
+                {
+                    location.state.value === 0 ? <h3 className="small-title" onClick={navigateToBoard}>체중관리</h3> :
+                        <h3 className="small-title" onClick={navigateToBoard}>스트레스관리</h3>
+                }
                 <table style={{width: "90%", margin: "20px auto"}}>
                     <tbody>
                     <tr style={{borderTop: "4px solid black", borderBottom: "1px solid lightgray"}}>
