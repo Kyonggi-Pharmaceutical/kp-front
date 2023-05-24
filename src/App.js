@@ -24,7 +24,7 @@ import Article from "./pages/board/Article";
 import CreatedArticle from "./pages/board/CreatedArticle";
 import ModifyArticle from "./pages/board/ModifyArticle";
 import WeeklyProgress from "./pages/progress/WeeklyProgress";
-import Main2 from "./pages/Main2";
+import Main2 from "./pages/BeforeLogin";
 
 function App() {
     const [isLogin, setIsLogin] = useState(false);
@@ -65,16 +65,18 @@ function App() {
             <div className="sidebar-container">
                 <div className="title-header">
                     <div className="title">
-                            <img src={healthIcon} alt="Health Icon" className="health-image"/>
+                        <img src={healthIcon} alt="Health Icon" className="health-image"/>
+                        <div className="title-font">
                             <span className="title-text">16HEALTH</span>
                             <span className="title-text">CARE</span>
+                        </div>
                     </div>
                 </div>
                 <nav className="navbar">
                     <div className="menu-bar">
                         <ul>
                             <li>
-                                <Link to="/main2" style={{textDecoration: "none", color: "white"}}>
+                                <Link to="/" style={{textDecoration: "none", color: "white"}}>
                                 <span className="bold-size">H O M E</span>
                                 <span className="li-span">메 인</span></Link>
                             </li>
@@ -103,8 +105,8 @@ function App() {
             </div>
             <div className="main-container">
                 <Routes>
-                    <Route path="/" element={<Main isLogin={isLogin} setIsLogin={setIsLogin}/>}/>
-                    <Route path="/main2" element={<Main2/>}/>
+                    <Route path="/" element={<Main2/>}/>
+                    <Route path="/main" element={<Main isLogin={isLogin} setIsLogin={setIsLogin}/>}/>
                     <Route path="/login" element={<Login isLogin={isLogin} setIsLogin={setIsLogin}/>}/>
                     <Route path="/logout" element={<Logout/>}/>
                     <Route path="/signup" element={<SignUp isLogin={isLogin}/>}/>

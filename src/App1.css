@@ -1,38 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 .title-header {
-
-    display: flex;
-    justify-content: flex-start;
     align-items: center;
     padding: 10px;
 }
-
-
-.title {
+.title span {
     font-family: 'Roboto', sans-serif;
-    font-size: 20px;
+  font-size: 40px;
     font-weight: bold;
     color: white;
-    margin-top: 15px;
-}
-.title span{
     display:block;
     margin-bottom: -5px;
     text-align: center;
-}
-
-.pill-emoji {
-    margin-bottom: 5px;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
 
 }
+
 .navbar {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    margin-top: 50px;
 }
 .menu-bar {
     margin-top:5px;
@@ -46,7 +31,6 @@
 }
 
 .menu-bar li {
-    font-family: 'Roboto', sans-serif;
     display: block;
     text-decoration: none; /* Remove underline */
     font-weight: bold;
@@ -57,16 +41,15 @@ span.bold-size {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Roboto', sans-serif;
     font-weight: bold;
     padding: 10px;
-    margin-bottom: 3px;
+    margin-bottom: -10px;
     text-align: center;
-    font-size: 17px;
+    font-size: 30px;
 }
-li-span {
+.li-span {
     display: block;
-    font-size: 5px;
+    font-size: 16px;
     text-align: center;
 }
 .menu-bar li:hover span {
@@ -79,27 +62,23 @@ li-span {
 .nav-list {
     list-style: none;
     padding: 0;
-    margin-top: 10px;
+    margin-top: 80px;
 }
 
 .nav-list li {
     padding: 10px;
     font-weight: bold;
-    font-size: 12px;
+    font-size: 20px;
 }
 
 .nav-list li a {
     text-decoration: none;
     display: block;
     color: white;
-    font-family: 'Roboto', sans-serif;
 }
 
 .app-container {
     background: #6A84B7;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     position: fixed;
     top: 0;
     left: 0;
@@ -107,14 +86,14 @@ li-span {
     bottom: 0;
 }
 .sidebar-container {
-    width: 14%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    position: fixed;
+    float: left;
+    width: 300px; /* 사이드바의 너비 */
+    top: 100px;
+    left: 0;
 }
 .health-image {
     display: block;
+    height: auto;
     margin: 0 auto 6px;
 }
