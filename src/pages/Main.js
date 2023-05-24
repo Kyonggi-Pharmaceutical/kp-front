@@ -91,7 +91,7 @@ function Main({isLogin}) {
                                         <p>문진하기</p>
                                     </div>
                                 ) : (
-                                    <div className="main-col-box">
+                                    <div className="main-col-box" style={{height: '45%'}}>
                                         <WeeklyProgress isLogin={isLogin}/>
                                     </div>
                                 )}
