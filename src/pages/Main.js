@@ -19,20 +19,6 @@ function Main({isLogin}) {
         navigate("/survey");
     }
 
-    const board = () => {
-        if (info.nickname) {
-            window.location.replace('/board');
-        } else {
-            alert('로그인하세요!');
-            navigate('/');
-        }
-    }
-
-    const today = () => {
-        navigate("/today");
-    }
-
-
     const [info, setInfo] = useState({
         nickname: '',
         fullName: '',
@@ -83,14 +69,13 @@ function Main({isLogin}) {
 
     return (
         <div className="main-container">
-            <div className="main-bg">
+            <div className="main-bgs">
                 <div className="main">
                     <Container>
                         <Row>
                             <Col>
                                 <div className="main-col-box">
-                                    {/*<p className="health-message">{dailyHealthMessage}</p>*/}
-                                    <p>TODO 1. 오늘의 건강 메시지 표시 할 공간</p>
+                                    <p className="health-message" style={{fontSize: '30px'}}>{dailyHealthMessage}</p>
                                 </div>
                             </Col>
                         </Row>
