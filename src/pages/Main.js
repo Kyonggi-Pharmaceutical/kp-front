@@ -16,13 +16,12 @@ function Main() {
     }
 
     const board = () => {
-        if(info.nickname){
+        if(info.nickname && info.fullName){
             window.location.replace('/board');
         }else{
-            alert('로그인하세요!');
+            alert('로그인/회원가입이 필요한 서비스입니다!');
             navigate('/');
         }
-
     }
 
     const [info, setInfo] = useState({

@@ -27,10 +27,7 @@ export default function MyPage({ isLogin }) {
   });
 
   useEffect(() => {
-    if (!isLogin)
-      alert("no");
-
-    const initUserinfo = async () => {
+      const initUserinfo = async () => {
       const newinfo = await getUserInfo();
       setInfo(newinfo);
     };

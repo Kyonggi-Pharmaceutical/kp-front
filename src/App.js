@@ -75,7 +75,7 @@ function App(){
                 <Route path="/login" element={<Login isLogin={isLogin} setIsLogin={setIsLogin}/>} />
                 <Route path="/logout" element={<Logout />} />
                 <Route path="/signup" element={<SignUp isLogin={isLogin}/>}/>
-                <Route path="/mypage" element={isLogin ? <MyPage isLogin={isLogin} /> : <Navigate to="/" />} />
+                <Route path="/mypage" element={<MyPage isLogin={isLogin} />} />
                 <Route path="/survey" element={isLogin ? <StartPage isLogin={isLogin} info={info}/>: <Navigate to="/" />} />
                 <Route path="/stressSurvey" element={<StressSurvey month={month} stressResult={StressResult}/>}/>
                 <Route path="/stressResult" element={<StressResult info={info} setUserInfo={setUserInfo} healthGoal={healthGoal} setHealthGoal={setHealthGoal}/>}/>
@@ -86,8 +86,8 @@ function App(){
                 <Route path="/satisfactionResult" element={<SatisfactionResult info={info} />}/>
                 <Route path="/board" element={<Board />}/>
                 <Route path="/article" element={<Article />}/>
-                <Route path="/createdArticle" element={<CreatedArticle/>}/>
-                <Route path="/modifyArticle" element={<ModifyArticle/>}/>
+                <Route path="/createdArticle" element={<CreatedArticle />}/>
+                <Route path="/modifyArticle" element={<ModifyArticle />}/>
             </Routes>
         </div>)
 }

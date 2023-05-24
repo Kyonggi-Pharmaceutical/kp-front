@@ -43,10 +43,19 @@
 }
 
 .rank-small-title{
-    margin: 10px;
+    margin: 5px;
     color: #E63A35;
     font-weight: bolder;
-    font-size: 35px;
+    font-size: 30px;
+}
+
+.ranking-box{
+    overflow: scroll;
+}
+
+.ranking-box::-webkit-scrollbar{
+    width: 0;
+    height: 0;
 }
 
 .rank-map {

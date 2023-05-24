@@ -48,12 +48,12 @@ function CreatedArticle() {
                     <tbody>
                     <tr style={{borderTop: "4px solid black", borderBottom: "1px solid lightgray"}}>
                         <th style={{width: "15%"}}>제목</th>
-                        <td style={{width: "85%"}} colSpan={2}><input type="text" name="title" onChange={handleInputChange} value={article.title}/></td>
+                        <td style={{width: "85%"}} colSpan={2}><input type="text" name="title" onChange={handleInputChange} value={article.title} placeholder="제목을 입력하세요" style={{width: "100%", border: "none"}}/></td>
                     </tr>
                     <tr style={{borderBottom: "2px solid lightgray"}}>
                         <th style={{width: "15%"}}>작성자</th>
-                        <td style={{width: "25%"}} onChange={handleInputChange} name="username" value={article.username}>{user.nickname}</td>
-                        <th style={{width: "60%"}}></th>
+                        <td style={{width: "10%"}} onChange={handleInputChange} name="username" value={article.username}>{user.nickname}</td>
+                        <td style={{width: "65%"}}></td>
                     </tr>
                     <tr style={{borderBottom: "4px solid black"}}>
                         <td style={{width: "100%", minHeight: "300px"}} colSpan={3}>

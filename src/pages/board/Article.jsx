@@ -16,6 +16,8 @@ import {putComment} from "../../api/board/comment/putComment";
 import {deleteComment} from "../../api/board/comment/deleteComment";
 import {postLike} from "../../api/board/like/postLike";
 import {getLikeCount} from "../../api/board/like/getLikesCount";
+import {getMaintainLikes} from "../../api/board/like/getMaintainLikes";
+import {deleteLike} from "../../api/board/like/deleteLike";
 
 function Article() {
     const navigate = useNavigate();
@@ -30,7 +32,7 @@ function Article() {
 
     useEffect(() => {
         fetchLikeCount();
-    }, []);
+    }, [isLiked]);
 
     const fetchLikeCount = async () => {
         const count = await getLikeCount(articleId);
@@ -46,8 +48,9 @@ function Article() {
             setArticle(articleData);
             const commentData = await getComments(articleId);
             setComments(commentData);
+            const isLikeData = await getMaintainLikes(articleId);
+            setIsLiked(isLikeData);
         }
-
         fetchData();
     }, []);
 
@@ -97,33 +100,38 @@ function Article() {
     };
 
     const postLikeApi = async (articleId) => {
-        //isLiked 수정해야함
-        if(isLiked === false){
-            console.log(articleId);
-            await postLike(articleId);
-            setIsLiked(true);
-        }
+        await postLike(articleId);
+        setIsLiked(true);
+    };
+
+    const delLike = (articleId) => {
+        deleteLike(articleId);
+        setIsLiked(false);
+    };
+
+    const navigateToBoard = () => {
+        navigate('/board');
     };
 
     return (
         <div className="main-bg">
             <div className="main">
                 {
-                    article.boardId === 0 ? <h3 className="small-title">체중관리</h3> :
-                        <h3 className="small-title">스트레스관리</h3>
+                    article.boardId === 0 ? <h3 className="small-title" onClick={navigateToBoard}>체중관리</h3> :
+                        <h3 className="small-title" onClick={navigateToBoard}>스트레스관리</h3>
                 }
                 <table style={{width: "90%", margin: "20px auto"}}>
                     <tbody>
                     <tr style={{borderTop: "4px solid black", borderBottom: "1px solid lightgray"}}>
                         <th style={{width: "15%"}}>제목</th>
-                        <td style={{width: "85%"}} colSpan={4}>{article.title}</td>
+                        <td style={{width: "85%", textAlign: "left"}} colSpan={4}>{article.title}</td>
                     </tr>
                     <tr style={{borderBottom: "2px solid lightgray"}}>
                         {
                             userId === article.userId ?
                                 <>
                                     <th style={{width: "15%"}}>작성자</th>
-                                    <td style={{width: "25%"}}>{article.username}</td>
+                                    <td style={{width: "15%"}}>{article.username}</td>
                                     <th style={{width: "30%"}}></th>
                                     <td style={{width: "10%"}}>
                                         <AiOutlineLike size={20}/> {likeCount}</td>
@@ -136,7 +144,7 @@ function Article() {
                                 </> : (
                                     <>
                                         <th style={{width: "15%"}}>작성자</th>
-                                        <td style={{width: "65%"}}>{article.username}</td>
+                                        <td style={{width: "65%", textAlign: "center"}}>{article.username}</td>
                                         <td style={{width: "10%"}}>
                                             <AiOutlineLike size={20}/> {likeCount}</td>
                                         <td style={{width: "10%"}}></td>
@@ -146,8 +154,8 @@ function Article() {
 
                     </tr>
                     <tr>
-                        <td td style={{width: "100%", minHeight: "300px"}} colSpan={6}>
-                            <div style={{minHeight: "300px", padding: "10px"}}>
+                        <td td style={{width: "100%", minHeight: "300px", borderBottom: "none"}} colSpan={6}>
+                            <div style={{minHeight: "300px", padding: "10px", textAlign: "left"}}>
                                 {article.description}
                             </div>
                         </td>
@@ -156,7 +164,7 @@ function Article() {
                         <td style={{ padding: "20px", textAlign: "center" }} colSpan={6} className="icon-btn">
                             {
                                 isLiked ? (
-                                    <img src="/icon/likeon.png" style={{ width: "40px" }} onClick={() => postLikeApi(article.id)}/>
+                                    <img src="/icon/likeon.png" style={{ width: "40px" }} onClick={() => delLike(article.id)}/>
                                 ) : (
                                     <img src="/icon/likeoff.png" style={{ width: "40px" }} onClick={() => postLikeApi(article.id)}/>
                                 )
