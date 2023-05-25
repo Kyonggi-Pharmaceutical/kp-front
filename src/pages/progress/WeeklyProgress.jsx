@@ -1,37 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
-import {getUserInfo} from "../../api/user/getUserInfo";
-import "./DailyProgress.css";
 import "./WeeklyProgress.css";
-import {useNavigate} from "react-router-dom";
 import {getUserDailyProgressesUpToLastWeek} from "../../api/activity/getUserDailyProgressesUpToLastWeek";
 
-export default function WeeklyProgress({isLogin}) {
-    let navigate = useNavigate();
-
-    const main = () => {
-        navigate("/");
-    }
-
-    const [info, setInfo] = useState({
-        nickname: '',
-        fullName: '',
-        healthcareType: '',
-    });
-
+export default function WeeklyProgress({isLogin, refresh}) {
     const [userWeeklyProgresses, setWeeklyProgresses] = useState([]);
 
     useEffect(() => {
-
-
-        const initUserinfo = async () => {
-            const newInfo = await getUserInfo();
-            setInfo(newInfo);
-            console.log("###" + newInfo.fullName);
-        };
 
         const fetchWeeklyProgresses = async () => {
             try {
@@ -43,7 +19,6 @@ export default function WeeklyProgress({isLogin}) {
         };
 
         fetchWeeklyProgresses()
-        initUserinfo()
     }, []);
 
     const renderGrid = () => {

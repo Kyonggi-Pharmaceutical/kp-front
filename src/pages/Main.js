@@ -7,10 +7,16 @@ import './Main1.css'
 import './Main.css'
 import {getDailyHealthMessage} from "../api/main/getDailyHealthMessage";
 import {getUserInfo} from "../api/user/getUserInfo";
-import {HiOutlineClipboardList} from "react-icons/hi";
+import {HiOutlineCheckCircle, HiOutlineClipboardList, HiOutlineXCircle} from "react-icons/hi";
 import {getAllRanking} from "../api/main/getAllRanking";
 import MainRank from "./main/MainRank";
 import WeeklyProgress from "./progress/WeeklyProgress";
+import Modal from "react-bootstrap/Modal";
+import {putUserDailyProgress} from "../api/activity/putUserDailyProgress";
+import {getUserActivitySolutions} from "../api/activity/getUserActivitySolutions";
+import Button from "react-bootstrap/Button";
+import {getUserDailyProgressesUpToLastWeek} from "../api/activity/getUserDailyProgressesUpToLastWeek";
+import {getUserTodayProgressChecked} from "../api/progress/getUserTodayProgressChecked";
 
 function Main({isLogin}) {
     let navigate = useNavigate();
@@ -28,6 +34,15 @@ function Main({isLogin}) {
     const [dailyAllRanking, setDailyAllRanking] = useState([]);
     const [weeklyAllRanking, setWeeklyAllRanking] = useState([]);
     const [monthlyAllRanking, setMonthlyAllRanking] = useState([]);
+    const [showBeforeCheckModal, setShowBeforeCheckModal] = useState(false);
+    const [showAfterCheckModal, setShowAfterCheckModal] = useState(false);
+    const [dailyProgressDone, setDailyProgressDone] = useState(false);
+    const [userActivitySolutions, setUserActivitySolutions] = useState([]);
+    const [refreshWeeklyProgress, setRefreshWeeklyProgress] = useState(false);
+
+    const handleRefreshWeeklyProgress = () => {
+        setRefreshWeeklyProgress(prev => !prev);
+    };
 
     useEffect(() => {
         const initUserinfo = async () => {
@@ -43,7 +58,7 @@ function Main({isLogin}) {
                 setDailyHealthMessage(newMessage.content)
             } catch (e) {
                 console.error(e.message)
-                setDailyHealthMessage('설문을 완료하고, 맞춤형 건강 메시지를 받아보세요!')
+                setDailyHealthMessage('문진을 완료하고, 맞춤형 건강 관리 솔루션을 받아보세요!')
             }
         }
 
@@ -61,11 +76,41 @@ function Main({isLogin}) {
             }
         };
 
+        const fetchUserActivitySolutions = async () => {
+            try {
+                const activitySolutions = await getUserActivitySolutions();
+                setUserActivitySolutions(activitySolutions);
+            } catch (error) {
+                console.error('Failed to fetch user activity solutions:', error);
+            }
+        };
 
+        const fetchWeeklyProgresses = async () => {
+            try {
+                const today = await getUserTodayProgressChecked();
+                setShowBeforeCheckModal(!today.check)
+            } catch (error) {
+                console.error('Failed to fetch user activity solutions:', error);
+            }
+        };
+
+        fetchUserActivitySolutions()
         initDailyHealthMessage()
         initUserinfo()
         fetchAllRanking()
+        fetchWeeklyProgresses()
     }, []);
+
+    const putDailyProgress = async (done) => {
+        setDailyProgressDone(done)
+        setShowBeforeCheckModal(false);
+        setShowAfterCheckModal(true);
+        await putUserDailyProgress(done);
+        setTimeout(() => {
+            setShowAfterCheckModal(false);
+            handleRefreshWeeklyProgress();
+        }, 3000);
+    };
 
     return (
         <div className="main-container">
@@ -80,19 +125,24 @@ function Main({isLogin}) {
                             </Col>
                         </Row>
                         <Row>
-                            <Col style={{maxWidth: '70%'}}>
-                                <div className="main-col-box" style={{height: '53%'}}>
-                                    <p></p>
-                                    <p>TODO 2. 맞춤형 솔루션 표시 할 공간</p>
-                                </div>
+                            <Col style={{maxWidth: '70%', width: '750px'}}>
                                 {info.healthcareType === null ? (
-                                    <div className="main-col-box" onClick={survey}>
-                                        <HiOutlineClipboardList size="200"></HiOutlineClipboardList>
+                                    <div className="main-col-clickable-box" style={{height: '100%'}} onClick={survey}>
+                                        <HiOutlineClipboardList size="400"></HiOutlineClipboardList>
                                         <p>문진하기</p>
                                     </div>
                                 ) : (
-                                    <div className="main-col-box" style={{height: '45%'}}>
-                                        <WeeklyProgress isLogin={isLogin}/>
+                                    <div>
+                                        <div className="main-col-box" style={{height: '53%'}}>
+                                            <p></p>
+                                            <p>TODO 2. 맞춤형 솔루션 표시 할 공간</p>
+                                        </div>
+                                        <div className="main-col-box" style={{height: '45%'}}>
+                                            <WeeklyProgress
+                                                isLogin={isLogin}
+                                                key={refreshWeeklyProgress}
+                                            />
+                                        </div>
                                     </div>
                                 )}
                             </Col>
@@ -105,6 +155,67 @@ function Main({isLogin}) {
                     </Container>
                 </div>
             </div>
+            <Modal show={showBeforeCheckModal} onHide={() => setShowBeforeCheckModal(false)} backdrop="static">
+                <Modal.Body>
+                    <Container>
+                        <Row>
+                            <h3>일일 진척도 체크</h3>
+                            <div className="start-page">
+                                <p>
+                                    <strong>
+                                        {`${info.lastName} ${info.firstName}`.replace(/\s+/g, '')}
+                                    </strong>
+                                    님의{' '}
+                                    {info.healthcareType === 'STRESS' ? '스트레스' : '건강'}
+                                    관리 솔루션 입니다
+                                </p>
+
+                                {userActivitySolutions.map((activity, index) => (
+                                    <div key={index}>
+                                        <p>
+                                            <strong>
+                                                {index + 1}. {activity.name}
+                                            </strong>
+                                        </p>
+                                    </div>
+                                ))}
+                                <p>달성하셨나요?</p>
+                            </div>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <div
+                                    className="daily-progress-col-box"
+                                    onClick={() => putDailyProgress(true)}
+                                >
+                                    <HiOutlineCheckCircle size="200"/>
+                                    <p>YES</p>
+                                </div>
+                            </Col>
+                            <Col>
+                                <div
+                                    className="daily-progress-col-box"
+                                    onClick={() => putDailyProgress(false)}
+                                >
+                                    <HiOutlineXCircle size="200"/>
+                                    <p>NO</p>
+                                </div>
+                            </Col>
+                        </Row>
+                    </Container>
+                </Modal.Body>
+            </Modal>
+            <Modal show={showAfterCheckModal} onHide={() => setShowAfterCheckModal(false)} backdrop="static">
+                <Modal.Body>
+                    {dailyProgressDone ? (
+                        <img style={{width: '300px', height: '300px'}}
+                             src={process.env.PUBLIC_URL + '/img/dailyProgressTrue.png'} alt="Default Image"/>
+                    ) : (
+                        <img style={{width: '300px', height: '300px'}}
+                             src={process.env.PUBLIC_URL + '/img/dailyProgressFalse.png'} alt="Default Image"/>
+                    )}
+                </Modal.Body>
+            </Modal>
         </div>
     );
 }

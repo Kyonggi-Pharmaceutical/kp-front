@@ -9,7 +9,6 @@ import Login from "./pages/Login";
 import Logout from "./pages/Logout";
 import SignUp from "./pages/SignUp";
 import MyPage from "./pages/MyPage"
-import DailyProgress from "./pages/progress/DailyProgress"
 import {getUserInfo} from './api/user/getUserInfo';
 import StartPage from "./pages/StartPage";
 import StressSurvey from "./pages/StressSurvey";
@@ -76,7 +75,7 @@ function App() {
                     <div className="menu-bar">
                         <ul>
                             <li>
-                                <Link to="/" style={{textDecoration: "none", color: "white"}}>
+                                <Link to="/main" style={{textDecoration: "none", color: "white"}}>
                                 <span className="bold-size">H O M E</span>
                                 <span className="li-span">메 인</span></Link>
                             </li>
@@ -106,12 +105,11 @@ function App() {
             <div className="main-container">
                 <Routes>
                     <Route path="/" element={<Main2/>}/>
-                    <Route path="/main" element={<Main isLogin={isLogin} setIsLogin={setIsLogin}/>}/>
+                    <Route path="/main" element={isLogin ? <Main isLogin={isLogin} setIsLogin={setIsLogin}/> : <Navigate to="/"/>}/>
                     <Route path="/login" element={<Login isLogin={isLogin} setIsLogin={setIsLogin}/>}/>
                     <Route path="/logout" element={<Logout/>}/>
                     <Route path="/signup" element={<SignUp isLogin={isLogin}/>}/>
                     <Route path="/mypage" element={isLogin ? <MyPage isLogin={isLogin}/> : <Navigate to="/"/>}/>
-                    <Route path="/today" element={isLogin ? <DailyProgress isLogin={isLogin}/> : <Navigate to="/"/>}/>
                     <Route path="/weekly-my-progress"
                            element={isLogin ? <WeeklyProgress isLogin={isLogin}/> : <Navigate to="/"/>}/>
                     <Route path="/survey"
