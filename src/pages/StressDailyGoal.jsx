@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
 import stress from '../pages/StressSurvey';
+import styles from './StressSurvey.css';
 
 export default function StressDailyGoal({info}) {
     const username = info.lastName + info.firstName;

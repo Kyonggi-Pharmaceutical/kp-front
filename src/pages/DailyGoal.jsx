@@ -15,15 +15,18 @@ export default function DailyGoal(info) {
     const SatisfactionSurvey = () => {
         navigate("/satisfactionSurvey");
     }
+    const Main = () => {
+        navigate("/main");
+    }
 
     useEffect( ()=>{
     }, [info]);
 
     return (
 
-        <div className="main-bg">
-            <div className="main">
-                <h3 style={{margin: "25px", color: "#E63A35", fontWeight: "bolder", fontSize: "40px", marginBottom: "40px"}}>일일 목표관리</h3>
+        <div className="stressResult-bg">
+            <div className="stressResult">
+                <div className="smallTitle">일일 목표관리</div>
                 <p>기본 생활관리</p>
                 <p>수면 7~8시간</p><Checkbox checked={complete} onChange={setComplete} />
                 <p>간단한 외출 또는 운동</p><Checkbox checked={complete} onChange={setComplete} />
@@ -35,7 +38,7 @@ export default function DailyGoal(info) {
                 <p>자신과 대화 하며 현재 기분을 적어보기 </p><Checkbox checked={complete} onChange={setComplete} />
 
                 <div style={{textAlign: "center"}}>
-                    <Button className="button-custom" variant="outline-danger" size="lg" onClick={SatisfactionSurvey}>월간 만족도 조사</Button>
+                    <Button className="daily-button" onClick={Main}>메인화면으로 가기</Button>
                 </div>
             </div>
         </div>
