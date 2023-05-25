@@ -307,3 +307,9 @@ input:focus {
 .userinfo-table th:first-child, td:first-child {
     border-left: none;
 }
+.small-title{
+    margin-bottom:20px;
+    font-weight: bold;
+    color: #6A84B7;
+}
+

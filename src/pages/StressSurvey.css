@@ -4,10 +4,11 @@ body {
     overflow-y: auto;
     font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
 }
-.small-title{
+.smallTitle{
     margin-bottom:20px;
     font-weight: bold;
     color: #6A84B7;
+    font-size: 30px;
 }
 #question{
     background: white;
@@ -208,4 +209,24 @@ button {
 .survey-form::-webkit-scrollbar{
     width: 0;
     height: 0;
+}
+.stressResult-bg{
+
+    width: 1000px;
+}
+.stressResult{
+    border-style: solid;
+    border-color: #6A84B7;
+    border-radius: 20px;
+    margin: 20px auto;
+    padding: 20px;
+    text-align: center;
+    width: 800px;
+    background-color: #ffffff;
+
+}
+
+.daily-button{
+    background-color: #6A84B7;
+    width: 400px;
 }

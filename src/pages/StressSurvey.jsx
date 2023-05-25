@@ -52,7 +52,7 @@ export default function StressSurvey({month, stressResult}){
                 <section>
                     {!loading && (
                         <>
-                            <div id className={styles.slider} ref={slideRef}>
+                            <div className={styles.slider} ref={slideRef}>
                                 {Questions.map((item, idx) => {
                                     return (
                                         <div

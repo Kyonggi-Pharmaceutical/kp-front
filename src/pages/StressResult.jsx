@@ -9,6 +9,7 @@ import { useLocation } from "react-router-dom";
 import stress from '../pages/StressSurvey';
 import MBTI from "../api/Mbti/../Mbti";
 import Activity from "../api/Activity/../Activity";
+import styles from './StressSurvey.css';
 import Button from 'react-bootstrap/Button';
 console.log(MBTI);
 console.log(Activity);
@@ -42,9 +43,9 @@ export default function StressResult({info, setUserInfo, healthGoal, setHealthGo
 
     return (
 
-        <div className="main-bg">
-            <div className="main">
-                <h3 className="small-title">설문 결과</h3>
+        <div className="stressResult-bg">
+            <div className="stressResult">
+                <div className="smallTitle">설문 결과</div>
                 <p>ENFP {`${info.lastName} ${info.firstName}`}님의 스트레스 지수는 {value}점입니다.</p>
                 {MBTI.map((item) => {
                     return (
@@ -62,7 +63,7 @@ export default function StressResult({info, setUserInfo, healthGoal, setHealthGo
                     submitData.activity = activityList.type;
                 })}
                 <div style={{textAlign: "center"}}>
-                    <Button className="button-custom" variant="outline-danger" size="lg" onClick={DailyGoal}>일일 목표 관리하기</Button>
+                    <Button className="daily-button" onClick={DailyGoal}>일일 목표 확인</Button>
                 </div>
 
             </div>
