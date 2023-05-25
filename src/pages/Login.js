@@ -1,19 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import GoogleLogin from '../components/GoogleLogin';
-import { useForm } from "react-hook-form";
 import { postLoginToken } from '../api/user/postLoginToken';
+import Carousel from 'react-bootstrap/Carousel';
+import {getUserInfo} from "../api/user/getUserInfo";
 
 function Login({ isLogin, setIsLogin }) {
     const navigate = useNavigate();
-    const {register, handleSubmit} = useForm();
-
-    //입력 데이터가 잘 들어오는지 확인*
-    const onSubmit = (data) => {
-        console.log(data);
-    };
-
+    const [info, setInfo] = useState({
+        nickname: null,
+        mbti: null,
+    });
     //구글 소셜 로그인 성공 여부 확인
     // https://stackoverflow.com/questions/49819183/react-what-is-the-best-way-to-handle-login-and-authentication
     const onGoogleSignIn = async res => {
@@ -26,20 +24,66 @@ function Login({ isLogin, setIsLogin }) {
     useEffect(() => {
         if (!isLogin) return;
         //navigate('/mypage');
-        window.location.replace("/");
+        const initUserinfo = async () => {
+            const newinfo = await getUserInfo();
+            setInfo(newinfo);
+        };
+        initUserinfo();
+        if((info.mbti === null) && (info.nickname === null)){
+            navigate("/signup")
+        }else{
+            window.location.replace("/");
+        }
     }, [isLogin]);
 
-    //로그인 창 보여줌(form, input, button, 소셜 로그인 버튼) *
     return (
-        <div className="main-bg">
-            <div className="login-page">
-                <h3 className="small-title">로그인</h3>
-                <form onSubmit={handleSubmit(onSubmit)} style={{textAlign: "center"}}>
-                    <input className="input-box" type="text" placeholder="Username" {...register("username")}/>
-                    <input className="input-box" type="password" placeholder="Password" {...register("password")}/>
-                    <button type="submit" className="submit-btn">로그인</button>
-                    <GoogleLogin onGoogleSignIn={onGoogleSignIn} text="로그인" />
-                </form>
+        <div className="main-container">
+            <div className="main-bgs" style={{borderRadius: "20px", boxShadow: "0 5px 7px rgba(0, 0, 0, 0.5)", padding: "50px", height: "80%"}}>
+                <h5 style={{fontWeight: "bold", color: "#E63A35"}}>로그인해서 많은 서비스를 이용해보세요</h5>
+                <div style={{width: "90%", height: "90%", margin: "0 auto"}}>
+                    <Carousel variant="dark" style={{borderRadius: "20px", boxShadow: "0 1px 2px rgba(0, 0, 0, 0.5)", overflow: "hidden"}}>
+                        <Carousel.Item interval={3000}>
+                            <img
+                                className="d-block w-100"
+                                src="/img/user_main.png"
+                                alt="First slide"
+                            />
+                            <Carousel.Caption>
+                                <h3>사용자 메인페이지</h3>
+                                <p>맞춤 서비스를 체험해보세요</p>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                        <Carousel.Item interval={3000}>
+                            <img
+                                className="d-block w-100"
+                                src="/img/exercise.png"
+                                alt="Second slide"
+                            />
+
+                            <Carousel.Caption>
+                                <h3>운동 솔루션</h3>
+                                <p>목적에 맞는 솔루션을 제공합니다</p>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                        <Carousel.Item interval={3000}>
+                            <img
+                                className="d-block w-100"
+                                src="/img/community.png"
+                                alt="Third slide"
+                            />
+
+                            <Carousel.Caption>
+                                <h3>커뮤니티</h3>
+                                <p>정보를 공유하며 토론 해보세요</p>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                    </Carousel>
+                </div>
+                <div style={{width: "100%", display: "flex", justifyContent: "center", margin: "20px"}}>
+                    <div style={{padding: "5px", border: "1px solid lightgrey", borderRadius: "10px"}}>
+                        <GoogleLogin onGoogleSignIn={onGoogleSignIn} text="로그인" />
+                    </div>
+                </div>
             </div>
         </div>
     );

@@ -7,6 +7,7 @@ import Button from "react-bootstrap/Button";
 import Modal from 'react-bootstrap/Modal';
 import {updateUserInfo} from "../api/user/updateUserInfo";
 import {withdrawalApi} from "../api/user/withdrawalApi";
+import "./MyPage.css"
 
 export default function MyPage({ isLogin }) {
   const [update, setUpdate] = useState(true);
@@ -47,26 +48,28 @@ export default function MyPage({ isLogin }) {
     };
 
   return (
-    <div className="main-bg">
-        <Modal show={show} onHide={handleClose} animation={false} size="lg" centered>
-            <Modal.Header closeButton>
-                <Modal.Title style={{color: "#E63A35"}}><strong>회원 탈퇴</strong></Modal.Title>
-            </Modal.Header>
-            <Modal.Body style={{fontSize: "25px"}}>정말 회원을 탈퇴하시겠습니까?</Modal.Body>
-            <Modal.Footer>
-                <Button variant="danger" onClick={handleClose}>
-                    확인
-                </Button>
-            </Modal.Footer>
-        </Modal>
-      <div className="main">
-        <h3 className="small-title">My Page</h3>
-        <div>
-        {
-          update ? <MyPageTrue info={info} updateStateFalse={updateStateFalse} handleShow={handleShow}/> : <MyPageFalse info={info} update={update} setUpdate={setUpdate} setInfo={setInfo}/>
-        }
+    <div className="main-bgs" style={{width: "40%", height: "75%"}}>
+        <div className="article-box">
+            <Modal show={show} onHide={handleClose} animation={false} size="lg" centered>
+                <Modal.Header closeButton>
+                    <Modal.Title style={{color: "#E63A35"}}><strong>회원 탈퇴</strong></Modal.Title>
+                </Modal.Header>
+                <Modal.Body style={{fontSize: "25px"}}>정말 회원을 탈퇴하시겠습니까?</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="danger" onClick={handleClose}>
+                        확인
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            <div className="main">
+                <h3 className="small-title">My Page</h3>
+                <div>
+                    {
+                        update ? <MyPageTrue info={info} updateStateFalse={updateStateFalse} handleShow={handleShow}/> : <MyPageFalse info={info} update={update} setUpdate={setUpdate} setInfo={setInfo}/>
+                    }
+                </div>
+            </div>
         </div>
-      </div>
     </div>
   );
 }
@@ -74,44 +77,51 @@ export default function MyPage({ isLogin }) {
 function MyPageTrue({info, updateStateFalse, handleShow}){
 
   return (
-      <Table striped bordered hover variant="light">
-          <tbody>
-          <tr>
-            <th>프로필</th>
-            <td><img src={info.profileImageUrl}/></td>
-          </tr>
-          <tr>
-            <th>이름</th>
-            <td>{info.lastName}{info.firstName}</td>
-          </tr>
-          <tr>
-              <th>MBTI</th>
-              <td>{info.mbti}</td>
-          </tr>
-          <tr>
-            <th>닉네임</th>
-            <td>{info.nickname}</td>
-          </tr>
-          <tr>
-            <th>이메일</th>
-            <td>{info.email}</td>
-          </tr>
-          <tr>
-            <th>성별</th>
-            <td>{info.gender}</td>
-          </tr>
-          <tr>
-            <th>키</th>
-            <td>{info.height}</td>
-          </tr>
-          <tr>
-            <th>몸무게</th>
-            <td>{info.weight}</td>
-          </tr>
-          </tbody>
-          <Button variant="outline-danger" size="lg" onClick={updateStateFalse}>정보 변경</Button>
-          <Button variant="outline-danger" size="lg" onClick={handleShow}>회원 탈퇴</Button>
-      </Table>
+      <>
+          <Table striped bordered hover variant="light" className="mypage-table">
+              <tbody>
+              <tr>
+                  <td colSpan={2}><img src={info.profileImageUrl}/></td>
+              </tr>
+              <tr>
+                  <th style={{width: "20%"}}>이름</th>
+                  <td style={{textAlign: "left", paddingLeft: "30px"}}>{info.lastName}{info.firstName}</td>
+              </tr>
+              <tr>
+                  <th>MBTI</th>
+                  <td style={{textAlign: "left", paddingLeft: "30px"}}>{info.mbti}</td>
+              </tr>
+              <tr>
+                  <th>닉네임</th>
+                  <td style={{textAlign: "left", paddingLeft: "30px"}}>{info.nickname}</td>
+              </tr>
+              <tr>
+                  <th>이메일</th>
+                  <td style={{textAlign: "left", paddingLeft: "30px"}}>{info.email}</td>
+              </tr>
+              <tr>
+                  <th>성별</th>
+                  <td style={{textAlign: "left", paddingLeft: "30px"}}>
+                      {
+                          info.gender === 'MALE' ? '남' : '여'
+                      }
+                  </td>
+              </tr>
+              <tr>
+                  <th>키</th>
+                  <td style={{textAlign: "left", paddingLeft: "30px"}}>{info.height}cm</td>
+              </tr>
+              <tr>
+                  <th>몸무게</th>
+                  <td style={{textAlign: "left", paddingLeft: "30px"}}>{info.weight}kg</td>
+              </tr>
+              </tbody>
+          </Table>
+          <div style={{marginTop: "10px"}}>
+              <Button variant="outline-danger" size="lg" onClick={updateStateFalse} style={{marginRight: "5px"}}>정보 변경</Button>
+              <Button variant="outline-danger" size="lg" onClick={handleShow} style={{marginLeft: "5px"}}>회원 탈퇴</Button>
+          </div>
+      </>
   );
 }
 
@@ -167,8 +177,12 @@ function MyPageFalse({info, update, setUpdate, setInfo}){
 
   return (
       <form onSubmit={onSubmit}>
-          <Table striped bordered hover variant="light">
+          <Table striped bordered hover variant="light" className="mypage-table">
               <tbody>
+              <tr>
+                  <th>프로필 미리보기</th>
+                  <td><img src={formData.profileImageUrl}/></td>
+              </tr>
               <tr>
                   <th>프로필</th>
                   <td><input onChange={handleInputChange} className="form-string-input" type="text" id="profileImageUrl" name="profileImageUrl" value={formData.profileImageUrl}/></td>
@@ -199,7 +213,7 @@ function MyPageFalse({info, update, setUpdate, setInfo}){
               </tr>
               </tbody>
           </Table>
-          <Button type="submit" variant="outline-danger" size="lg">변경하기</Button>
+          <Button type="submit" variant="outline-danger" size="lg" style={{marginTop: "10px"}}>변경하기</Button>
       </form>
   );
 }
