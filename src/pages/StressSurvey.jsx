@@ -11,6 +11,7 @@ export default function StressSurvey({month, stressResult}){
     const [num, setNum] = useState(0);
     const [currentSlide, setCurrentSlide] = useState(1);
     const [stress, setStress] = useState(0);
+    let [btnActive, setBtnActive] = useState("");
 
 
     const slideRef = createRef(null);
@@ -25,14 +26,20 @@ export default function StressSurvey({month, stressResult}){
 
     };
 
+    const toggleActive = (e) => {
+        setBtnActive((prev) => {
+            return e.target.value;
+        });
+    };
+
 
 
     useEffect(() => {
         let result = stress;
 
-        if (num > 8 && month == 0){ navigate("/stressResult?result="+result, {
+        if (num > 7 && month == 0){ navigate("/stressResult?result="+result, {
             state:{ value : parseInt(result) },
-        })}else if (num > 8 && month == 1){ navigate("/satisfactionResult?result="+result, {
+        })}else if (num > 7 && month == 1){ navigate("/satisfactionResult?result="+result, {
             state:{ value : parseInt(result) },
         })};
 
@@ -46,7 +53,7 @@ export default function StressSurvey({month, stressResult}){
                     {!loading && (
                         <>
                             <div id className={styles.slider} ref={slideRef}>
-                                {Questions.map((item) => {
+                                {Questions.map((item, idx) => {
                                     return (
                                         <div
                                             id='question'
@@ -81,45 +88,65 @@ export default function StressSurvey({month, stressResult}){
                                                     {item.question}
                                                 </p>
                                             </div>
-                                            <article
-                                                className={styles.mbti__btn__box}
+                                            <div
+                                                className={"mbti__btn__box"}
                                             >
                                                 <button
                                                     id='choose'
-                                                    className={styles.mbti__button}
-                                                    onClick={() => nextSlide(0)}
+                                                    value={idx}
+                                                    className={"mbti__button" + (idx == btnActive ? " active" : "")}
+                                                    onClick={(event) => {
+                                                        nextSlide(0);
+                                                        toggleActive(event);
+                                                    }}
                                                 >
                                                     {item.answers[0].content}
                                                 </button>
                                                 <button
                                                     id='choose'
-                                                    className={styles.mbti__button}
-                                                    onClick={() => nextSlide(1)}
+                                                    value={idx}
+                                                    className={"mbti__button" + (idx == btnActive ? " active" : "")}
+                                                    onClick={(event) => {
+                                                        nextSlide(1);
+                                                        toggleActive(event);
+                                                    }}
                                                 >
                                                     {item.answers[1].content}
                                                 </button>
                                                 <button
                                                     id='choose'
-                                                    className={styles.mbti__button}
-                                                    onClick={() => nextSlide(2)}
+                                                    value={idx}
+                                                    className={"mbti__button" + (idx == btnActive ? " active" : "")}
+                                                    onClick={(event) => {
+                                                        nextSlide(2);
+                                                        toggleActive(event);
+                                                    }}
                                                 >
                                                     {item.answers[2].content}
                                                 </button>
                                                 <button
                                                     id='choose'
-                                                    className={styles.mbti__button}
-                                                    onClick={() => nextSlide(3)}
+                                                    value={idx}
+                                                    className={"mbti__button" + (idx == btnActive ? " active" : "")}
+                                                    onClick={(event) => {
+                                                        nextSlide(3);
+                                                        toggleActive(event);
+                                                    }}
                                                 >
                                                     {item.answers[3].content}
                                                 </button>
                                                 <button
                                                     id='choose'
-                                                    className={styles.mbti__button}
-                                                    onClick={() => nextSlide(4)}
+                                                    value={idx}
+                                                    className={"mbti__button" + (idx == btnActive ? " active" : "")}
+                                                    onClick={(event) => {
+                                                        nextSlide(4);
+                                                        toggleActive(event);
+                                                    }}
                                                 >
                                                     {item.answers[4].content}
                                                 </button>
-                                            </article>
+                                            </div>
                                         </div>
                                     );
                                 })}
