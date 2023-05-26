@@ -35,6 +35,10 @@ function Main({isLogin}) {
         }
     }
 
+    const myPage = () => {
+        navigate("/mypage");
+    }
+
     const [info, setInfo] = useState({
         nickname: '',
         fullName: '',
@@ -345,7 +349,6 @@ function Main({isLogin}) {
                     </div>
                 </Modal.Body>
             </Modal>
-        </div>
         </div>
     );
 }

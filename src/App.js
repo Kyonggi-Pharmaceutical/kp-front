@@ -105,12 +105,8 @@ function App() {
             </div>
             <div className="main-container">
                 <Routes>
-                    <Route path="/" element={<Main2/>}/>
-                    <Route path="/main" element={isLogin ? <Main isLogin={isLogin} setIsLogin={setIsLogin}/> : <Navigate to="/"/>}/>
-                    <Route path="/login" element={<Login isLogin={isLogin} setIsLogin={setIsLogin}/>}/>
-                    <Route path="/logout" element={<Logout/>}/>
                     <Route path="/" element={<Main2 isLogin={isLogin} setIsLogin={setIsLogin}/>}/>
-                    <Route path="/main" element={<Main />}/>
+                    <Route path="/main" element={isLogin ? <Main isLogin={isLogin} setIsLogin={setIsLogin}/> : <Navigate to="/"/>}/>
                     <Route path="/signup" element={<SignUp isLogin={isLogin}/>}/>
                     <Route path="/mypage" element={isLogin ? <MyPage isLogin={isLogin}/> : <Navigate to="/"/>}/>
                     <Route path="/Mine" element={<Mine/>}/>

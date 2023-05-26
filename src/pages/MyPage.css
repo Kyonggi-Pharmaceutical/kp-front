@@ -1,5 +1,6 @@
 .mypage-table{
     width: 70%;
+    min-width: 300px;
     margin: 0 auto;
     borderCollapse: collapse;
     borderRadius: 20px;
