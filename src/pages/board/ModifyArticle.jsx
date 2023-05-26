@@ -48,7 +48,7 @@ function ModifyArticle() {
                     <tbody>
                     <tr style={{borderTop: "4px solid black", borderBottom: "1px solid lightgray"}}>
                         <th style={{width: "15%"}}>제목</th>
-                        <td style={{width: "85%"}} colSpan={2}><input type="text" name="title" onChange={handleInputChange} value={article.title}/></td>
+                        <td style={{width: "85%"}} colSpan={2}><input type="text" name="title" onChange={handleInputChange} value={article.title} style={{width: "100%", border: "none"}}/></td>
                     </tr>
                     <tr style={{borderBottom: "2px solid lightgray"}}>
                         <th style={{width: "15%"}}>작성자</th>

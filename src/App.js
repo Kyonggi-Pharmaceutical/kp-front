@@ -5,8 +5,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Routes, Route, Link, Navigate} from "react-router-dom";
 import healthIcon from './images/health.png';
 import Main from "./pages/Main";
-import Login from "./pages/Login";
-import Logout from "./pages/Logout";
 import SignUp from "./pages/SignUp";
 import MyPage from "./pages/MyPage"
 import DailyProgress from "./pages/progress/DailyProgress"
@@ -29,19 +27,19 @@ import Main2 from "./pages/BeforeLogin";
 function App() {
     const [isLogin, setIsLogin] = useState(false);
     const [info, setUserInfo] = useState({
-        nickname: "",
-        gender: "",
-        dateOfBirth: "",
-        height: 0.0,
-        weight: 0.0,
-        mbti: "",
+        nickname: null,
+        gender: null,
+        dateOfBirth: null,
+        height: null,
+        weight: null,
+        mbti: null,
         isSmoking: null,
         isAlcohol: null,
         HealthcareType: null,
-        profileImageUrl: '',
-        email: '',
-        firstName: '',
-        lastName: '',
+        profileImageUrl: null,
+        email: null,
+        firstName: null,
+        lastName: null,
     });
     const [healthGoal, setHealthGoal] = useState({
         userId: '',
@@ -81,7 +79,7 @@ function App() {
                                 <span className="li-span">메 인</span></Link>
                             </li>
                             <li>
-                                <Link to="/board" style={{textDecoration: "none", color: "white"}}>
+                                <Link to={isLogin ? "/board" : "/"} style={{textDecoration: "none", color: "white"}}>
                                 <span className="bold-size">B O A R D</span>
                                 <span className="li-span">게시판</span></Link>
                             </li>
@@ -97,22 +95,22 @@ function App() {
                         {isLogin ? (
                             <li><Link to="/mypage">My Page</Link></li>
                         ) : (
-                            <li><Link to="/login">Log In</Link></li>
+                            null
                         )}
-                        <li><Link to="/signup">Sign Up</Link></li>
+                        {
+                            isLogin ? null : <li><Link to="/signup">Sign Up</Link></li>
+                        }
                     </ul>
                 </nav>
             </div>
             <div className="main-container">
                 <Routes>
-                    <Route path="/" element={<Main2/>}/>
-                    <Route path="/main" element={<Main/>}/>
-                    <Route path="/login" element={<Login isLogin={isLogin} setIsLogin={setIsLogin}/>}/>
-                    <Route path="/logout" element={<Logout/>}/>
+                    <Route path="/" element={<Main2 isLogin={isLogin} setIsLogin={setIsLogin}/>}/>
+                    <Route path="/main" element={<Main />}/>
                     <Route path="/signup" element={<SignUp isLogin={isLogin}/>}/>
                     <Route path="/mypage" element={isLogin ? <MyPage isLogin={isLogin}/> : <Navigate to="/"/>}/>
                     <Route path="/today" element={isLogin ? <DailyProgress isLogin={isLogin}/> : <Navigate to="/"/>}/>
-                    <Route path="/weekly-my-progress"
+                    <Route path="/eekly-my-progress"
                            element={isLogin ? <WeeklyProgress isLogin={isLogin}/> : <Navigate to="/"/>}/>
                     <Route path="/survey"
                            element={isLogin ? <StartPage isLogin={isLogin} info={info}/> : <Navigate to="/"/>}/>
@@ -126,7 +124,7 @@ function App() {
                     <Route path="/satisfactionSurvey"
                            element={<SatisfactionSurvey month={month} info={info} healthGoal={healthGoal}/>}/>
                     <Route path="/satisfactionResult" element={<SatisfactionResult info={info}/>}/>
-                    <Route path="/board" element={<Board/>}/>
+                    <Route path="/board" element={ <Board/>}/>
                     <Route path="/article" element={<Article/>}/>
                     <Route path="/createdArticle" element={<CreatedArticle/>}/>
                     <Route path="/modifyArticle" element={<ModifyArticle/>}/>

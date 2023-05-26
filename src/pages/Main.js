@@ -34,8 +34,8 @@ function Main() {
 
 
     const [info, setInfo] = useState({
-        nickname: '',
-        fullName: '',
+        nickname: null,
+        fullName: null,
         healthcareType: '',
     });
     const [dailyHealthMessage, setDailyHealthMessage] = useState('');

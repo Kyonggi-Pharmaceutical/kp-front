@@ -31,16 +31,18 @@ function Article() {
     const [isLiked, setIsLiked] = useState(false);
     const [likeCount, setLikeCount] = useState(0);
 
-    useEffect(() => {
-        fetchLikeCount();
-    }, [isLiked]);
-
     const fetchLikeCount = async () => {
         const count = await getLikeCount(articleId);
         if (count !== null) {
             setLikeCount(count);
         }
     };
+
+    useEffect(() => {
+        fetchLikeCount();
+    }, [isLiked]);
+
+
     useEffect(() => {
         async function fetchData() {
             const userIdData = await getUserId();
@@ -60,11 +62,8 @@ function Article() {
             const commentData = await getComments(articleId);
             setComments(commentData);
         }
-
-        if (newComment === true) {
-            fetchData();
-            setNewComment(false);
-        }
+        fetchData();
+        setNewComment(false);
     }, [newComment])
 
     const delArticle = (articleId) => {
@@ -237,8 +236,18 @@ function CommentSection({comments, userId, setNewComment}) {
                                 <span className="icon-btn" onClick={() => {
                                     delComment(item.articleId, item.id)
                                 }}><TiDeleteOutline size={20}/></span>
+                                <span>   </span>
+                                <span className="icon-btn" onClick={() => {
+                                    //댓글 좋아요 함수
+                                }}><AiOutlineLike size={20}/></span>
                             </h6>
-                        ) : (null)
+                        ) : (
+                            <h6 style={{float: "right"}}>
+                                <span className="icon-btn" onClick={() => {
+                                    //댓글 좋아요 함수
+                                }}><AiOutlineLike size={20}/></span>
+                            </h6>
+                        )
                     }
                     {
                         (item.userId === userId) && (item.id === modify) ? (

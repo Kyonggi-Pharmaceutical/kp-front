@@ -12,19 +12,19 @@ import "./MyPage.css"
 export default function MyPage({ isLogin }) {
   const [update, setUpdate] = useState(true);
   const [info, setInfo] = useState({
-    nickname: "",
-    gender: "",
-    dateOfBirth: "",
-    height: 0.0,
-    weight: 0.0,
-    mbti: "",
-    isSmoking: null,
-    isAlcohol: null,
-    HealthcareType: null,
-    profileImageUrl: '',
-      email: '',
-      firstName: '',
-      lastName: '',
+      nickname: null,
+      gender: null,
+      dateOfBirth: null,
+      height: null,
+      weight: null,
+      mbti: null,
+      isSmoking: null,
+      isAlcohol: null,
+      HealthcareType: null,
+      profileImageUrl: null,
+      email: null,
+      firstName: null,
+      lastName: null,
   });
 
   useEffect(() => {
@@ -85,23 +85,23 @@ function MyPageTrue({info, updateStateFalse, handleShow}){
               </tr>
               <tr>
                   <th style={{width: "20%"}}>이름</th>
-                  <td style={{textAlign: "left", paddingLeft: "30px"}}>{info.lastName}{info.firstName}</td>
+                  <td style={{textAlign: "left", paddingLeft: "20px"}}>{info.lastName}{info.firstName}</td>
               </tr>
               <tr>
                   <th>MBTI</th>
-                  <td style={{textAlign: "left", paddingLeft: "30px"}}>{info.mbti}</td>
+                  <td style={{textAlign: "left", paddingLeft: "20px"}}>{info.mbti}</td>
               </tr>
               <tr>
                   <th>닉네임</th>
-                  <td style={{textAlign: "left", paddingLeft: "30px"}}>{info.nickname}</td>
+                  <td style={{textAlign: "left", paddingLeft: "20px"}}>{info.nickname}</td>
               </tr>
               <tr>
                   <th>이메일</th>
-                  <td style={{textAlign: "left", paddingLeft: "30px"}}>{info.email}</td>
+                  <td style={{textAlign: "left", paddingLeft: "20px"}}>{info.email}</td>
               </tr>
               <tr>
                   <th>성별</th>
-                  <td style={{textAlign: "left", paddingLeft: "30px"}}>
+                  <td style={{textAlign: "left", paddingLeft: "20px"}}>
                       {
                           info.gender === 'MALE' ? '남' : '여'
                       }

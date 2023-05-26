@@ -55,8 +55,8 @@ function CreatedArticle() {
                     </tr>
                     <tr style={{borderBottom: "2px solid lightgray"}}>
                         <th style={{width: "15%"}}>작성자</th>
-                        <td style={{width: "10%"}} onChange={handleInputChange} name="username" value={article.username}>{user.nickname}</td>
-                        <td style={{width: "65%"}}></td>
+                        <td style={{width: "30%", textAlign: "left"}} onChange={handleInputChange} name="username" value={article.username}>{user.nickname}</td>
+                        <td style={{width: "55%"}}></td>
                     </tr>
                     <tr style={{borderBottom: "4px solid black"}}>
                         <td style={{width: "100%", minHeight: "300px"}} colSpan={3}>

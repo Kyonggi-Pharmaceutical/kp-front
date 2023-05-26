@@ -39,7 +39,7 @@ function Login({ isLogin, setIsLogin }) {
     return (
         <div className="main-container">
             <div className="main-bgs" style={{borderRadius: "20px", boxShadow: "0 5px 7px rgba(0, 0, 0, 0.5)", padding: "50px", height: "80%"}}>
-                <h5 style={{fontWeight: "bold", color: "#E63A35"}}>로그인해서 많은 서비스를 이용해보세요</h5>
+                <h5 style={{fontWeight: "bold", color: "#E63A35"}}>로그인하여 더 많은 서비스를 이용해보세요</h5>
                 <div style={{width: "90%", height: "90%", margin: "0 auto"}}>
                     <Carousel variant="dark" style={{borderRadius: "20px", boxShadow: "0 1px 2px rgba(0, 0, 0, 0.5)", overflow: "hidden"}}>
                         <Carousel.Item interval={3000}>
