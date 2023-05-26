@@ -191,11 +191,6 @@
     max-height: 400px;
 }
 
-.modal-dialog {
-    margin-top: 400px;
-    max-width: 600px;
-}
-
 .modal {
     background-color: rgba(0, 0, 0, 0.5);
 }

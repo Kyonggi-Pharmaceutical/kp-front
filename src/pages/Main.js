@@ -16,6 +16,8 @@ import {putUserDailyProgress} from "../api/activity/putUserDailyProgress";
 import {getUserActivitySolutions} from "../api/activity/getUserActivitySolutions";
 import {getUserTodayProgressChecked} from "../api/progress/getUserTodayProgressChecked";
 import {getExerciseInfo} from "../api/getExerciseInfo";
+import {getHealthGoal} from "../api/getHealthGoal";
+import {getStressGoal} from "../api/getStressGoal";
 
 function Main({isLogin}) {
     let navigate = useNavigate();
@@ -35,6 +37,7 @@ function Main({isLogin}) {
     const [monthlyAllRanking, setMonthlyAllRanking] = useState([]);
     const [showBeforeCheckModal, setShowBeforeCheckModal] = useState(false);
     const [showAfterCheckModal, setShowAfterCheckModal] = useState(false);
+    const [showMonthlyCheckModal, setShowMonthlyCheckModal] = useState(false);
     const [dailyProgressDone, setDailyProgressDone] = useState(false);
     const [userActivitySolutions, setUserActivitySolutions] = useState([]);
     const [userExerciseSolutions, setUserExerciseSolutions] = useState([]);
@@ -56,6 +59,7 @@ function Main({isLogin}) {
             const newinfo = await getUserInfo();
             setInfo(newinfo);
             console.log("###" + newinfo.fullName);
+            fetchGoal(newinfo.healthcareType);
         };
 
 
@@ -88,7 +92,7 @@ function Main({isLogin}) {
                 const activitySolutions = await getUserActivitySolutions();
                 setUserActivitySolutions(activitySolutions);
             } catch (error) {
-                console.error('Failed to fetch user activity solutions:', error);
+                console.error('Failed to fetchUserActivitySolutions:', error);
             }
         };
 
@@ -97,7 +101,7 @@ function Main({isLogin}) {
                 const exerciseSolutions = await getExerciseInfo();
                 setUserExerciseSolutions(exerciseSolutions);
             } catch (error) {
-                console.error('Failed to fetch user activity solutions:', error);
+                console.error('Failed to fetchUserExerciseSolutions:', error);
             }
         };
 
@@ -106,7 +110,7 @@ function Main({isLogin}) {
                 const today = await getUserTodayProgressChecked();
                 setShowBeforeCheckModal(!today.check)
             } catch (error) {
-                console.error('Failed to fetch user activity solutions:', error);
+                console.error('Failed to fetchWeeklyProgresses:', error);
             }
         };
 
@@ -116,7 +120,6 @@ function Main({isLogin}) {
         initUserinfo()
         fetchAllRanking()
         fetchWeeklyProgresses()
-        console.log(info.healthcareType)
     }, []);
 
     const putDailyProgress = async (done) => {
@@ -127,7 +130,38 @@ function Main({isLogin}) {
         setTimeout(() => {
             setShowAfterCheckModal(false);
             handleRefreshWeeklyProgress();
+            fetchGoal(info.healthcareType);
         }, 3000);
+    };
+
+
+    const fetchGoal = async (healthcareType) => {
+        try {
+            const today = await getUserTodayProgressChecked();
+            setShowBeforeCheckModal(!today.check)
+            if (healthcareType === 'HEALTH') {
+                const healthGoal = await getHealthGoal();
+                const endAt = new Date(healthGoal.endAt);
+                const isPast = endAt < new Date();
+                setShowMonthlyCheckModal(today.check && isPast)
+                setTimeout(() => {
+                    setShowMonthlyCheckModal(false);
+                    navigate("/satisfactionSurvey");
+                }, 5000);
+            }
+            if (healthcareType === 'STRESS') {
+                const stressGoal = await getStressGoal();
+                const endAt = new Date(stressGoal.endAt);
+                const isPast = endAt < new Date();
+                setShowMonthlyCheckModal(today.check && isPast)
+                setTimeout(() => {
+                    setShowMonthlyCheckModal(false);
+                    navigate("/satisfactionSurvey");
+                }, 5000);
+            }
+        } catch (error) {
+            console.error('Failed to fetchGoal:', error);
+        }
     };
 
     return (
@@ -160,7 +194,8 @@ function Main({isLogin}) {
                                                         <div key={index}>
                                                             <p style={{fontSize: '25px'}}>
                                                                 <strong>
-                                                                    {number[index + 1]} {exercise.name} (칼로리:{exercise.cal} / 시간:{exercise.time})
+                                                                    {number[index + 1]} {exercise.name} (칼로리:{exercise.cal} /
+                                                                    시간:{exercise.time})
                                                                 </strong>
                                                             </p>
                                                         </div>
@@ -259,6 +294,16 @@ function Main({isLogin}) {
                         <img style={{width: '300px', height: '300px'}}
                              src={process.env.PUBLIC_URL + '/img/dailyProgressFalse.png'} alt="Default Image"/>
                     )}
+                </Modal.Body>
+            </Modal>
+            <Modal show={showMonthlyCheckModal} onHide={() => setShowMonthlyCheckModal(false)} backdrop="static">
+                <Modal.Body>
+                    <div>
+                        <p>{(info.nickname === '') ? info.fullName : info.nickname }님! 축하합니다!</p>
+                        <p>이번 달 {(info.healthcareType === 'HEALTH') ? '건강' : '스트레스'} 관리 목표가 종료되었습니다.</p>
+                        <p>한달동안 {(info.healthcareType === 'HEALTH') ? '건강' : '스트레스'} 관리를 진행하면서, 변화된 부분이 있었나요?</p>
+                        <p>잠시 후에 만족도 조사 페이지로 이동됩니다.</p>
+                    </div>
                 </Modal.Body>
             </Modal>
         </div>
