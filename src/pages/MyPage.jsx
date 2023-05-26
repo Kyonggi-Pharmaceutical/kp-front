@@ -81,10 +81,10 @@ function MyPageTrue({info, updateStateFalse, handleShow}){
           <Table striped bordered hover variant="light" className="mypage-table">
               <tbody>
               <tr>
-                  <td colSpan={2}><img src={info.profileImageUrl}/></td>
+                  <td colSpan={2}><img src={info.profileImageUrl} width={"150px"} style={{borderRadius: "20px"}}/></td>
               </tr>
               <tr>
-                  <th style={{width: "20%"}}>이름</th>
+                  <th style={{width: "30%"}}>이름</th>
                   <td style={{textAlign: "left", paddingLeft: "20px"}}>{info.lastName}{info.firstName}</td>
               </tr>
               <tr>
@@ -109,11 +109,11 @@ function MyPageTrue({info, updateStateFalse, handleShow}){
               </tr>
               <tr>
                   <th>키</th>
-                  <td style={{textAlign: "left", paddingLeft: "30px"}}>{info.height}cm</td>
+                  <td style={{textAlign: "left", paddingLeft: "20px"}}>{info.height}cm</td>
               </tr>
               <tr>
                   <th>몸무게</th>
-                  <td style={{textAlign: "left", paddingLeft: "30px"}}>{info.weight}kg</td>
+                  <td style={{textAlign: "left", paddingLeft: "20px"}}>{info.weight}kg</td>
               </tr>
               </tbody>
           </Table>
@@ -180,8 +180,8 @@ function MyPageFalse({info, update, setUpdate, setInfo}){
           <Table striped bordered hover variant="light" className="mypage-table">
               <tbody>
               <tr>
-                  <th>프로필 미리보기</th>
-                  <td><img src={formData.profileImageUrl}/></td>
+                  <th style={{width: "30%"}}>프로필<br/>미리보기</th>
+                  <td><img src={formData.profileImageUrl} width={"100px"} style={{borderRadius: "20px"}}/></td>
               </tr>
               <tr>
                   <th>프로필</th>
