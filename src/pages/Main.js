@@ -172,9 +172,9 @@ function Main({isLogin}) {
 
                                 {userActivitySolutions.map((activity, index) => (
                                     <div key={index}>
-                                        <p>
+                                        <p style={{fontSize: '25px'}}>
                                             <strong>
-                                                {index + 1}. {activity.name}
+                                                ✅️ {activity.name}
                                             </strong>
                                         </p>
                                     </div>
