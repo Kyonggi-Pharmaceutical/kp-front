@@ -330,7 +330,7 @@ function Main({isLogin}) {
                     )}
                 </Modal.Body>
             </Modal>
-            <Modal show={true} onHide={() => setShowMonthlyCheckModal(false)} backdrop="static">
+            <Modal show={showMonthlyCheckModal} onHide={() => setShowMonthlyCheckModal(false)} backdrop="static">
                 <Modal.Body>
                     <div>
                         <h3>{(info.nickname === '') ? info.fullName : info.nickname }님, 축하합니다!</h3>
