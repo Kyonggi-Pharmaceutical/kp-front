@@ -13,7 +13,7 @@ export default function MainRank({ dayALL, weekALL, monthALL }) {
   return (
     <div className="main-rank" style={{ display: "flex", flexDirection: "column" }}>
       <h3 className="main-rank-small-title">유저 활동 랭킹</h3>
-      <Tabs defaultActiveKey="daily" id="justify-tab-example" className="mb-3" justify>
+      <Tabs defaultActiveKey="monthly" id="justify-tab-example" className="mb-3" justify>
         <Tab eventKey="daily" title={<span className="main-rank-title">Daily</span>}>
           <table className="main-rank-table">
             <tbody>
