@@ -160,7 +160,7 @@ function Main({isLogin}) {
                 setShowMonthlyCheckModal(today.check && isPast)
                 setTimeout(() => {
                     setShowMonthlyCheckModal(false);
-                    navigate("/satisfactionSurvey");
+                    navigate("/monthSurvey");
                 }, 5000);
             }
             if (healthcareType === 'STRESS') {
@@ -330,12 +330,12 @@ function Main({isLogin}) {
                     )}
                 </Modal.Body>
             </Modal>
-            <Modal show={showMonthlyCheckModal} onHide={() => setShowMonthlyCheckModal(false)} backdrop="static">
+            <Modal show={true} onHide={() => setShowMonthlyCheckModal(false)} backdrop="static">
                 <Modal.Body>
                     <div>
-                        <p>{(info.nickname === '') ? info.fullName : info.nickname }님! 축하합니다!</p>
-                        <p>이번 달 {(info.healthcareType === 'HEALTH') ? '건강' : '스트레스'} 관리 목표가 종료되었습니다.</p>
-                        <p>한달동안 {(info.healthcareType === 'HEALTH') ? '건강' : '스트레스'} 관리를 진행하면서, 변화된 부분이 있었나요?</p>
+                        <h3>{(info.nickname === '') ? info.fullName : info.nickname }님, 축하합니다!</h3>
+                        <p>이번 달 {(info.healthcareType === 'HEALTH') ? '건강' : '스트레스'} 관리 목표가 종료되었습니다 🎉🎉</p>
+                        <p><strong>한 달동안 {(info.healthcareType === 'HEALTH') ? '건강' : '스트레스'} 관리를 진행하면서, 변화된 부분이 있었나요?</strong></p>
                         <p>잠시 후에 만족도 조사 페이지로 이동됩니다.</p>
                     </div>
                 </Modal.Body>
