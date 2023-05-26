@@ -7,8 +7,10 @@
     justify-content: center;
     align-items: center;
 }
+
 .main-bgs {
     text-align: center;
+    display: flex;
 }
 
 
@@ -47,7 +49,173 @@
     color: #333;
 }
 
+.button-customizing {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: flex-start;
+}
+
 .health-message {
     font-size: 22px;
     color: #777;
+}
+
+.button-customizing {
+    top: 0;
+    left: 0;
+    margin-left: 600px;
+    margin-top: 250px;
+}
+
+.button-customizing button {
+    margin-right: 30px;
+    font-weight: bold;
+    background: none;
+    font-size: 30px;
+
+}
+
+.button-customizing button.selected {
+    color: #4F6EAA;
+}
+
+.article-container,
+.comment-container {
+    display: inline-block;
+    width: 1000px;
+    height: 100px;
+    margin-bottom: 40px;
+}
+
+.article-text{
+    font-size: 20px;
+}
+
+.p-size {
+    font-size: 20px;
+    color: gray;
+    position: fixed;
+    margin-top: -30px;
+}
+
+.section1,
+.section2,
+.section3,
+.section4 {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+.article-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.satisfied-btn {
+    background-color:  #4F6EAA;
+    color: white;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 30px;
+    font-weight: bold;
+    width: 200px;
+    height: 200px;
+    margin-right: 20px;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+.satisfied-btn:hover {
+    background-color: #d0d0d0;
+    cursor: pointer;
+}
+
+.dissatisfied-btn {
+    background-color: gray;
+    color: white;
+    border-radius: 10px;
+    padding: 10px 20px;
+    width: 200px;
+    height: 200px;
+    font-size: 30px;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.dissatisfied-btn:hover {
+    background-color: #d0d0d0;
+    cursor: pointer;
+}
+.h2-con{
+    margin-bottom: 40px;
+    font-weight: bold;
+}
+
+.de-con{
+    margin-top: 30px;
+    font-weight: bold;
+}
+
+.reason-section {
+    margin-top: 2rem;
+}
+
+.reason-select {
+    width: 280px;
+    height: 50px;
+    margin-bottom: 1rem;
+}
+
+.submit-btn {
+    padding: 10px 20px;
+    background-color: #4a90e2;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    margin-left: 30px;
+    height: 50px;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background-color: #356cb8;
+}
+
+.proceed-btn {
+    background-color: rosybrown;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.proceed-btn:hover {
+    background-color: #45a049;
+}
+
+.skip-btn {
+    background-color: darkolivegreen;
+    border-radius: 5px;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.skip-btn:hover {
+    background-color: #d32f2f;
 }

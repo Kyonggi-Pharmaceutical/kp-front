@@ -3,16 +3,23 @@ import {useNavigate} from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Table from "react-bootstrap/Table";
 import './Main1.css'
 import './Main.css'
 import {getDailyHealthMessage} from "../api/main/getDailyHealthMessage";
 import {getUserInfo} from "../api/user/getUserInfo";
-import {HiOutlineClipboardList} from "react-icons/hi";
-import {TbBarbell, TbYoga} from "react-icons/tb";
+import {HiOutlineCheckCircle, HiOutlineClipboardList, HiOutlineXCircle} from "react-icons/hi";
 import {getAllRanking} from "../api/main/getAllRanking";
+import MainRank from "./main/MainRank";
+import WeeklyProgress from "./progress/WeeklyProgress";
+import Modal from "react-bootstrap/Modal";
+import {putUserDailyProgress} from "../api/activity/putUserDailyProgress";
+import {getUserActivitySolutions} from "../api/activity/getUserActivitySolutions";
+import {getUserTodayProgressChecked} from "../api/progress/getUserTodayProgressChecked";
+import {getExerciseInfo} from "../api/getExerciseInfo";
+import {getHealthGoal} from "../api/getHealthGoal";
+import {getStressGoal} from "../api/getStressGoal";
 
-function Main() {
+function Main({isLogin}) {
     let navigate = useNavigate();
 
     const survey = () => {
@@ -28,27 +35,50 @@ function Main() {
         }
     }
 
-    const today = () => {
-        navigate("/today");
-    }
-
-
     const [info, setInfo] = useState({
-        nickname: null,
-        fullName: null,
+        nickname: '',
+        fullName: '',
         healthcareType: '',
+        bmi: {
+            value: '',
+            description: ''
+        }
     });
     const [dailyHealthMessage, setDailyHealthMessage] = useState('');
     const [dailyAllRanking, setDailyAllRanking] = useState([]);
     const [weeklyAllRanking, setWeeklyAllRanking] = useState([]);
     const [monthlyAllRanking, setMonthlyAllRanking] = useState([]);
-    const [currentTableIndex, setCurrentTableIndex] = useState(0);
+    const [showBeforeCheckModal, setShowBeforeCheckModal] = useState(false);
+    const [showAfterCheckModal, setShowAfterCheckModal] = useState(false);
+    const [showMonthlyCheckModal, setShowMonthlyCheckModal] = useState(false);
+    const [dailyProgressDone, setDailyProgressDone] = useState(false);
+    const [userActivitySolutions, setUserActivitySolutions] = useState([]);
+    const [userExerciseSolutions, setUserExerciseSolutions] = useState([]);
+    const [refreshWeeklyProgress, setRefreshWeeklyProgress] = useState(false);
+    const [number, setNumber] = useState({
+        1: "1️⃣",
+        2: "2️⃣",
+        3: "3️⃣",
+        4: "4️⃣",
+        5: "5️⃣",
+    });
+    const [isMinimized, setIsMinimized] = useState(false);
+
+    const handleMinimize = () => {
+        setIsMinimized(!isMinimized);
+    };
+
+
+    const handleRefreshWeeklyProgress = () => {
+        setRefreshWeeklyProgress(prev => !prev);
+    };
 
     useEffect(() => {
         const initUserinfo = async () => {
             const newinfo = await getUserInfo();
             setInfo(newinfo);
             console.log("###" + newinfo.fullName);
+            fetchGoal(newinfo.healthcareType);
         };
 
 
@@ -58,7 +88,7 @@ function Main() {
                 setDailyHealthMessage(newMessage.content)
             } catch (e) {
                 console.error(e.message)
-                setDailyHealthMessage('설문을 완료하고, 맞춤형 건강 메시지를 받아보세요!')
+                setDailyHealthMessage('문진을 완료하고, 맞춤형 건강 관리 솔루션을 받아보세요!')
             }
         }
 
@@ -76,198 +106,245 @@ function Main() {
             }
         };
 
+        const fetchUserActivitySolutions = async () => {
+            try {
+                const activitySolutions = await getUserActivitySolutions();
+                setUserActivitySolutions(activitySolutions);
+            } catch (error) {
+                console.error('Failed to fetchUserActivitySolutions:', error);
+            }
+        };
 
+        const fetchUserExerciseSolutions = async () => {
+            try {
+                const exerciseSolutions = await getExerciseInfo();
+                setUserExerciseSolutions(exerciseSolutions);
+            } catch (error) {
+                console.error('Failed to fetchUserExerciseSolutions:', error);
+            }
+        };
+
+        const fetchWeeklyProgresses = async () => {
+            try {
+                const today = await getUserTodayProgressChecked();
+                setShowBeforeCheckModal(!today.check)
+            } catch (error) {
+                console.error('Failed to fetchWeeklyProgresses:', error);
+            }
+        };
+
+        fetchUserActivitySolutions()
+        fetchUserExerciseSolutions()
         initDailyHealthMessage()
         initUserinfo()
         fetchAllRanking()
+        fetchWeeklyProgresses()
     }, []);
 
-    const handleTableButtonClick = (index) => {
-        setCurrentTableIndex(index);
+    const putDailyProgress = async (done) => {
+        setDailyProgressDone(done)
+        setShowBeforeCheckModal(false);
+        setShowAfterCheckModal(true);
+        await putUserDailyProgress(done);
+        setTimeout(() => {
+            setShowAfterCheckModal(false);
+            handleRefreshWeeklyProgress();
+            fetchGoal(info.healthcareType);
+        }, 3000);
+    };
+
+
+    const fetchGoal = async (healthcareType) => {
+        try {
+            const today = await getUserTodayProgressChecked();
+            setShowBeforeCheckModal(!today.check)
+            if (healthcareType === 'HEALTH') {
+                const healthGoal = await getHealthGoal();
+                const endAt = new Date(healthGoal.endAt);
+                const isPast = endAt < new Date();
+                setShowMonthlyCheckModal(today.check && isPast)
+                setTimeout(() => {
+                    setShowMonthlyCheckModal(false);
+                    navigate("/monthSurvey");
+                }, 5000);
+            }
+            if (healthcareType === 'STRESS') {
+                const stressGoal = await getStressGoal();
+                const endAt = new Date(stressGoal.endAt);
+                const isPast = endAt < new Date();
+                setShowMonthlyCheckModal(today.check && isPast)
+                setTimeout(() => {
+                    setShowMonthlyCheckModal(false);
+                    navigate("/satisfactionSurvey");
+                }, 5000);
+            }
+        } catch (error) {
+            console.error('Failed to fetchGoal:', error);
+        }
     };
 
     return (
-        <div className = "main-container">
-        <div className="main-bg">
-            <div className="main">
-                {
-                    info.fullName ? (
-                        <div className="greeting">
-                            <p className="greeting-text">
-                                안녕하세요, {info.nickname ? info.nickname : info.fullName}님!
-                            </p>
-                            <p className="health-message">{dailyHealthMessage}</p>
-                        </div>
-                    ) : (
-                        <div className="greeting" style={{marginTop: '120px', marginBottom: '120px'}}>
-                            <p className="greeting-text">여러분의 건강을 책임지는 16Healthcare 입니다.</p>
-                            <p className="greeting-text">MBTI에 따른 맞춤형 운동 및 스트레스 관리 방법을 추천받아보세요!</p>
-                            <p className="health-message">우측 상단에 로그인 버튼을 눌러 건강관리를 시작해볼까요?</p>
-                        </div>
-                    )
-                }
+        <div className="main-container">
+            <div className="main-bgs">
+                <div className="main">
+                    <Container>
+                        <Row>
+                            <Col>
+                                <div className="main-col-box">
+                                    <p className="health-message" style={{fontSize: '30px'}}>{dailyHealthMessage}</p>
+                                </div>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col style={{maxWidth: '70%', width: '750px'}}>
+                                {info.healthcareType === null ? (
+                                    <div className="main-col-clickable-box" style={{height: '100%'}} onClick={survey}>
+                                        <HiOutlineClipboardList size="400"></HiOutlineClipboardList>
+                                        <p>문진하기</p>
+                                    </div>
+                                ) : (
+                                    <div>
+                                        <div className="main-col-box" style={{height: '53%'}}>
+                                            {info.healthcareType === 'HEALTH' ? (
+                                                <div>
+                                                    <h3 className="text-center">오늘의 맞춤형 건강 관리 솔루션</h3>
+                                                    <p style={{fontSize: '25px'}}>ㅤ</p>
+                                                    {userExerciseSolutions.map((exercise, index) => (
+                                                        <div key={index}>
+                                                            <p style={{fontSize: '25px'}}>
+                                                                <strong>
+                                                                    {number[index + 1]} {exercise.name} (칼로리:{exercise.cal} /
+                                                                    시간:{exercise.time})
+                                                                </strong>
+                                                            </p>
+                                                        </div>
+                                                    ))}
+                                                    <p style={{fontSize: '25px'}}>ㅤ</p>
+                                                </div>
+                                            ) : (
+                                                <div>
+                                                    <h3 className="text-center">오늘의 맞춤형 스트레스 관리 솔루션</h3>
+                                                    {userActivitySolutions.map((activity, index) => (
+                                                        <div key={index}>
+                                                            <p style={{fontSize: '25px'}}>
+                                                                <strong>
+                                                                    {number[index + 1]} {activity.name}
+                                                                </strong>
+                                                            </p>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div className="main-col-box" style={{height: '45%'}}>
+                                            <WeeklyProgress
+                                                isLogin={isLogin}
+                                                key={refreshWeeklyProgress}
+                                            />
+                                        </div>
+                                    </div>
+                                )}
+                            </Col>
 
-                {info.healthcareType === 'STRESS' && (
-                    <Container>
-                        <Row>
-                            <Col>
-                                <div className="main-col-box" onClick={today}>
-                                    <TbYoga size="200"></TbYoga>
-                                    <p>오늘의 활동 체크</p>
-                                </div>
-                            </Col>
-                            <Col>
-                                <div className="main-col-box" onClick={board}>
-                                    <HiOutlineClipboardList size="200"></HiOutlineClipboardList>
-                                    <p>게시판</p>
-                                </div>
+                            <Col style={{maxWidth: '30%'}}>
+                                <MainRank dayALL={dailyAllRanking} weekALL={weeklyAllRanking}
+                                          monthALL={monthlyAllRanking}/>
                             </Col>
                         </Row>
                     </Container>
-                )}
-                {info.healthcareType === 'HEALTH' && (
-                    <Container>
-                        <Row>
-                            <Col>
-                                <div className="main-col-box" onClick={today}>
-                                    <TbBarbell size="200"></TbBarbell>
-                                    <p>오늘의 운동 체크</p>
-                                </div>
-                            </Col>
-                            <Col>
-                                <div className="main-col-box" onClick={board}>
-                                    <HiOutlineClipboardList size="200"></HiOutlineClipboardList>
-                                    <p>게시판</p>
-                                </div>
-                            </Col>
-                        </Row>
-                    </Container>
-                )}
-                {info.healthcareType === null && (
-                    <Container>
-                        <Row>
-                            <Col>
-                                <div className="main-col-box" onClick={survey}>
-                                    <HiOutlineClipboardList size="200"></HiOutlineClipboardList>
-                                    <p>문진하기</p>
-                                </div>
-                            </Col>
-                            <Col>
-                                <div className="main-col-box" onClick={board}>
-                                    <HiOutlineClipboardList size="200"></HiOutlineClipboardList>
-                                    <p>게시판</p>
-                                </div>
-                            </Col>
-                        </Row>
-                    </Container>
-                )}
-                <Container style={{marginTop: '20px'}}>
-                    <Row>
-                        <Col>
-                            {currentTableIndex === 0 && (
-                                <Table striped hover borderless className={"table-col-box table-no-cursor ranking-table-container"}>
-                                    <thead>
-                                    <tr>
-                                        <th colSpan={3} className="text-center">
-                                            <h4>일간 사용자 랭킹</h4>
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th>순위</th>
-                                        <th>닉네임</th>
-                                        <th>진척도</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {dailyAllRanking.map((user, index) => (
-                                        <tr key={user.rank}>
-                                            <td>{user.rank}</td>
-                                            <td>{user.nickname}</td>
-                                            <td>{user.progressRate}</td>
-                                        </tr>
-                                    ))}
-                                    </tbody>
-                                </Table>
-                            )}
-                            {currentTableIndex === 1 && (
-                                <Table striped hover borderless className={"table-col-box table-no-cursor ranking-table-container"}>
-                                    <thead>
-                                    <tr>
-                                        <th colSpan={3} className="text-center">
-                                            <h4>주간 사용자 랭킹</h4>
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th>순위</th>
-                                        <th>닉네임</th>
-                                        <th>진척도</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {weeklyAllRanking.map((user, index) => (
-                                        <tr key={user.rank}>
-                                            <td>{user.rank}</td>
-                                            <td>{user.nickname}</td>
-                                            <td>{user.progressRate}</td>
-                                        </tr>
-                                    ))}
-                                    </tbody>
-                                </Table>
-                            )}
-                            {currentTableIndex === 2 && (
-                                <Table striped hover borderless className={"table-col-box table-no-cursor ranking-table-container"}>
-                                    <thead>
-                                    <tr>
-                                        <th colSpan={3} className="text-center">
-                                            <h4>월간 사용자 랭킹</h4>
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th>순위</th>
-                                        <th>닉네임</th>
-                                        <th>진척도</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {monthlyAllRanking.map((user, index) => (
-                                        <tr key={user.rank}>
-                                            <td>{user.rank}</td>
-                                            <td>{user.nickname}</td>
-                                            <td>{user.progressRate}</td>
-                                        </tr>
-                                    ))}
-                                    </tbody>
-                                </Table>
-                            )}
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                            <div className="table-buttons">
-                                <button
-                                    className={`table-button ${currentTableIndex === 0 ? 'active' : ''}`}
-                                    onClick={() => handleTableButtonClick(0)}
-                                >
-                                    <span>일간</span>
-                                </button>
-                                <button
-                                    className={`table-button ${currentTableIndex === 1 ? 'active' : ''}`}
-                                    onClick={() => handleTableButtonClick(1)}
-                                >
-                                    <span>주간</span>
-                                </button>
-                                <button
-                                    className={`table-button ${currentTableIndex === 2 ? 'active' : ''}`}
-                                    onClick={() => handleTableButtonClick(2)}
-                                >
-                                    <span>월간</span>
-                                </button>
+                </div>
+                <div className="overlay-container">
+                    {!isMinimized && (
+                        <>
+                            <div className="overlay-content">
+                                <h3>현재 나의 상태</h3>
+                                <p>키: {info.height}, 몸무게: {info.weight}</p>
+                                <p>BMI 수치: {info.bmi.value} ({info.bmi.description})</p>
+                                <button onClick={myPage}>업데이트 하러가기</button>
                             </div>
-                        </Col>
-                    </Row>
-                </Container>
-
+                            <div className="overlay-minimize" onClick={handleMinimize}>
+                                <span>&#8722;</span>
+                            </div>
+                        </>
+                    )}
+                    {isMinimized && (
+                        <div className="overlay-minimized" onClick={handleMinimize}>
+                            <span>&#43;</span>
+                        </div>
+                    )}
+                </div>
             </div>
+            <Modal show={showBeforeCheckModal} onHide={() => setShowBeforeCheckModal(false)} backdrop="static">
+                <Modal.Body>
+                    <Container>
+                        <Row>
+                            <h3>일일 진척도 체크</h3>
+                            <div className="start-page">
+                                <p>
+                                    <strong>
+                                        {`${info.lastName} ${info.firstName}`.replace(/\s+/g, '')}
+                                    </strong>
+                                    님의{' '}
+                                    {info.healthcareType === 'STRESS' ? '스트레스' : '건강'}
+                                    관리 솔루션 입니다
+                                </p>
+
+                                {userActivitySolutions.map((activity, index) => (
+                                    <div key={index}>
+                                        <p style={{fontSize: '25px'}}>
+                                            <strong>
+                                                ✅️ {activity.name}
+                                            </strong>
+                                        </p>
+                                    </div>
+                                ))}
+                                <p>달성하셨나요?</p>
+                            </div>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <div
+                                    className="daily-progress-col-box"
+                                    onClick={() => putDailyProgress(true)}
+                                >
+                                    <HiOutlineCheckCircle size="200"/>
+                                    <p>YES</p>
+                                </div>
+                            </Col>
+                            <Col>
+                                <div
+                                    className="daily-progress-col-box"
+                                    onClick={() => putDailyProgress(false)}
+                                >
+                                    <HiOutlineXCircle size="200"/>
+                                    <p>NO</p>
+                                </div>
+                            </Col>
+                        </Row>
+                    </Container>
+                </Modal.Body>
+            </Modal>
+            <Modal show={showAfterCheckModal} onHide={() => setShowAfterCheckModal(false)} backdrop="static">
+                <Modal.Body>
+                    {dailyProgressDone ? (
+                        <img style={{width: '300px', height: '300px'}}
+                             src={process.env.PUBLIC_URL + '/img/dailyProgressTrue.png'} alt="Default Image"/>
+                    ) : (
+                        <img style={{width: '300px', height: '300px'}}
+                             src={process.env.PUBLIC_URL + '/img/dailyProgressFalse.png'} alt="Default Image"/>
+                    )}
+                </Modal.Body>
+            </Modal>
+            <Modal show={showMonthlyCheckModal} onHide={() => setShowMonthlyCheckModal(false)} backdrop="static">
+                <Modal.Body>
+                    <div>
+                        <h3>{(info.nickname === '') ? info.fullName : info.nickname }님, 축하합니다!</h3>
+                        <p>이번 달 {(info.healthcareType === 'HEALTH') ? '건강' : '스트레스'} 관리 목표가 종료되었습니다 🎉🎉</p>
+                        <p><strong>한 달동안 {(info.healthcareType === 'HEALTH') ? '건강' : '스트레스'} 관리를 진행하면서, 변화된 부분이 있었나요?</strong></p>
+                        <p>잠시 후에 만족도 조사 페이지로 이동됩니다.</p>
+                    </div>
+                </Modal.Body>
+            </Modal>
         </div>
         </div>
     );

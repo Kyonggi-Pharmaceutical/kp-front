@@ -7,7 +7,6 @@ import healthIcon from './images/health.png';
 import Main from "./pages/Main";
 import SignUp from "./pages/SignUp";
 import MyPage from "./pages/MyPage"
-import DailyProgress from "./pages/progress/DailyProgress"
 import {getUserInfo} from './api/user/getUserInfo';
 import StartPage from "./pages/StartPage";
 import StressSurvey from "./pages/StressSurvey";
@@ -23,23 +22,24 @@ import CreatedArticle from "./pages/board/CreatedArticle";
 import ModifyArticle from "./pages/board/ModifyArticle";
 import WeeklyProgress from "./pages/progress/WeeklyProgress";
 import Main2 from "./pages/BeforeLogin";
-
+import Mine from "./pages/GetMyCommunityByUser";
+import MonthSatisfySurvey from "./pages/SatisfySurvey";
 function App() {
     const [isLogin, setIsLogin] = useState(false);
     const [info, setUserInfo] = useState({
-        nickname: null,
-        gender: null,
-        dateOfBirth: null,
-        height: null,
-        weight: null,
-        mbti: null,
+        nickname: "",
+        gender: "",
+        dateOfBirth: "",
+        height: 0.0,
+        weight: 0.0,
+        mbti: "",
         isSmoking: null,
         isAlcohol: null,
         HealthcareType: null,
-        profileImageUrl: null,
-        email: null,
-        firstName: null,
-        lastName: null,
+        profileImageUrl: '',
+        email: '',
+        firstName: '',
+        lastName: '',
     });
     const [healthGoal, setHealthGoal] = useState({
         userId: '',
@@ -74,7 +74,7 @@ function App() {
                     <div className="menu-bar">
                         <ul>
                             <li>
-                                <Link to="/" style={{textDecoration: "none", color: "white"}}>
+                                <Link to="/main" style={{textDecoration: "none", color: "white"}}>
                                 <span className="bold-size">H O M E</span>
                                 <span className="li-span">메 인</span></Link>
                             </li>
@@ -84,7 +84,7 @@ function App() {
                                 <span className="li-span">게시판</span></Link>
                             </li>
                             <li>
-                                <Link to="/" style={{textDecoration: "none", color: "white"}}>
+                                <Link to="/Mine" style={{textDecoration: "none", color: "white"}}>
                                 <span className="bold-size">M I N E</span>
                                 <span className="li-span">나의 활동</span></Link>
                             </li>
@@ -105,12 +105,16 @@ function App() {
             </div>
             <div className="main-container">
                 <Routes>
+                    <Route path="/" element={<Main2/>}/>
+                    <Route path="/main" element={isLogin ? <Main isLogin={isLogin} setIsLogin={setIsLogin}/> : <Navigate to="/"/>}/>
+                    <Route path="/login" element={<Login isLogin={isLogin} setIsLogin={setIsLogin}/>}/>
+                    <Route path="/logout" element={<Logout/>}/>
                     <Route path="/" element={<Main2 isLogin={isLogin} setIsLogin={setIsLogin}/>}/>
                     <Route path="/main" element={<Main />}/>
                     <Route path="/signup" element={<SignUp isLogin={isLogin}/>}/>
                     <Route path="/mypage" element={isLogin ? <MyPage isLogin={isLogin}/> : <Navigate to="/"/>}/>
-                    <Route path="/today" element={isLogin ? <DailyProgress isLogin={isLogin}/> : <Navigate to="/"/>}/>
-                    <Route path="/eekly-my-progress"
+                    <Route path="/Mine" element={<Mine/>}/>
+                    <Route path="/weekly-my-progress"
                            element={isLogin ? <WeeklyProgress isLogin={isLogin}/> : <Navigate to="/"/>}/>
                     <Route path="/survey"
                            element={isLogin ? <StartPage isLogin={isLogin} info={info}/> : <Navigate to="/"/>}/>
@@ -124,10 +128,12 @@ function App() {
                     <Route path="/satisfactionSurvey"
                            element={<SatisfactionSurvey month={month} info={info} healthGoal={healthGoal}/>}/>
                     <Route path="/satisfactionResult" element={<SatisfactionResult info={info}/>}/>
-                    <Route path="/board" element={ <Board/>}/>
+                    <Route path="/board" element={<Board/>}/>
                     <Route path="/article" element={<Article/>}/>
                     <Route path="/createdArticle" element={<CreatedArticle/>}/>
                     <Route path="/modifyArticle" element={<ModifyArticle/>}/>
+                    <Route path="/monthSurvey" element={<MonthSatisfySurvey/>}/>
+
                 </Routes>
             </div>
         </div>
