@@ -14,9 +14,8 @@ import WeeklyProgress from "./progress/WeeklyProgress";
 import Modal from "react-bootstrap/Modal";
 import {putUserDailyProgress} from "../api/activity/putUserDailyProgress";
 import {getUserActivitySolutions} from "../api/activity/getUserActivitySolutions";
-import Button from "react-bootstrap/Button";
-import {getUserDailyProgressesUpToLastWeek} from "../api/activity/getUserDailyProgressesUpToLastWeek";
 import {getUserTodayProgressChecked} from "../api/progress/getUserTodayProgressChecked";
+import {getExerciseInfo} from "../api/getExerciseInfo";
 
 function Main({isLogin}) {
     let navigate = useNavigate();
@@ -38,7 +37,15 @@ function Main({isLogin}) {
     const [showAfterCheckModal, setShowAfterCheckModal] = useState(false);
     const [dailyProgressDone, setDailyProgressDone] = useState(false);
     const [userActivitySolutions, setUserActivitySolutions] = useState([]);
+    const [userExerciseSolutions, setUserExerciseSolutions] = useState([]);
     const [refreshWeeklyProgress, setRefreshWeeklyProgress] = useState(false);
+    const [number, setNumber] = useState({
+        1: "1️⃣",
+        2: "2️⃣",
+        3: "3️⃣",
+        4: "4️⃣",
+        5: "5️⃣",
+    });
 
     const handleRefreshWeeklyProgress = () => {
         setRefreshWeeklyProgress(prev => !prev);
@@ -85,6 +92,15 @@ function Main({isLogin}) {
             }
         };
 
+        const fetchUserExerciseSolutions = async () => {
+            try {
+                const exerciseSolutions = await getExerciseInfo();
+                setUserExerciseSolutions(exerciseSolutions);
+            } catch (error) {
+                console.error('Failed to fetch user activity solutions:', error);
+            }
+        };
+
         const fetchWeeklyProgresses = async () => {
             try {
                 const today = await getUserTodayProgressChecked();
@@ -95,10 +111,12 @@ function Main({isLogin}) {
         };
 
         fetchUserActivitySolutions()
+        fetchUserExerciseSolutions()
         initDailyHealthMessage()
         initUserinfo()
         fetchAllRanking()
         fetchWeeklyProgresses()
+        console.log(info.healthcareType)
     }, []);
 
     const putDailyProgress = async (done) => {
@@ -134,8 +152,35 @@ function Main({isLogin}) {
                                 ) : (
                                     <div>
                                         <div className="main-col-box" style={{height: '53%'}}>
-                                            <p></p>
-                                            <p>TODO 2. 맞춤형 솔루션 표시 할 공간</p>
+                                            {info.healthcareType === 'HEALTH' ? (
+                                                <div>
+                                                    <h3 className="text-center">오늘의 맞춤형 건강 관리 솔루션</h3>
+                                                    <p style={{fontSize: '25px'}}>ㅤ</p>
+                                                    {userExerciseSolutions.map((exercise, index) => (
+                                                        <div key={index}>
+                                                            <p style={{fontSize: '25px'}}>
+                                                                <strong>
+                                                                    {number[index + 1]} {exercise.name} (칼로리:{exercise.cal} / 시간:{exercise.time})
+                                                                </strong>
+                                                            </p>
+                                                        </div>
+                                                    ))}
+                                                    <p style={{fontSize: '25px'}}>ㅤ</p>
+                                                </div>
+                                            ) : (
+                                                <div>
+                                                    <h3 className="text-center">오늘의 맞춤형 스트레스 관리 솔루션</h3>
+                                                    {userActivitySolutions.map((activity, index) => (
+                                                        <div key={index}>
+                                                            <p style={{fontSize: '25px'}}>
+                                                                <strong>
+                                                                    {number[index + 1]} {activity.name}
+                                                                </strong>
+                                                            </p>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
                                         </div>
                                         <div className="main-col-box" style={{height: '45%'}}>
                                             <WeeklyProgress
