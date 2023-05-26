@@ -26,10 +26,18 @@ function Main({isLogin}) {
         navigate("/survey");
     }
 
+    const myPage = () => {
+        navigate("/mypage");
+    }
+
     const [info, setInfo] = useState({
         nickname: '',
         fullName: '',
         healthcareType: '',
+        bmi: {
+            value: '',
+            description: ''
+        }
     });
     const [dailyHealthMessage, setDailyHealthMessage] = useState('');
     const [dailyAllRanking, setDailyAllRanking] = useState([]);
@@ -49,6 +57,12 @@ function Main({isLogin}) {
         4: "4️⃣",
         5: "5️⃣",
     });
+    const [isMinimized, setIsMinimized] = useState(false);
+
+    const handleMinimize = () => {
+        setIsMinimized(!isMinimized);
+    };
+
 
     const handleRefreshWeeklyProgress = () => {
         setRefreshWeeklyProgress(prev => !prev);
@@ -233,6 +247,26 @@ function Main({isLogin}) {
                             </Col>
                         </Row>
                     </Container>
+                </div>
+                <div className="overlay-container">
+                    {!isMinimized && (
+                        <>
+                            <div className="overlay-content">
+                                <h3>현재 나의 상태</h3>
+                                <p>키: {info.height}, 몸무게: {info.weight}</p>
+                                <p>BMI 수치: {info.bmi.value} ({info.bmi.description})</p>
+                                <button onClick={myPage}>업데이트 하러가기</button>
+                            </div>
+                            <div className="overlay-minimize" onClick={handleMinimize}>
+                                <span>&#8722;</span>
+                            </div>
+                        </>
+                    )}
+                    {isMinimized && (
+                        <div className="overlay-minimized" onClick={handleMinimize}>
+                            <span>&#43;</span>
+                        </div>
+                    )}
                 </div>
             </div>
             <Modal show={showBeforeCheckModal} onHide={() => setShowBeforeCheckModal(false)} backdrop="static">
