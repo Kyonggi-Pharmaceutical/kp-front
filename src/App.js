@@ -25,7 +25,8 @@ import CreatedArticle from "./pages/board/CreatedArticle";
 import ModifyArticle from "./pages/board/ModifyArticle";
 import WeeklyProgress from "./pages/progress/WeeklyProgress";
 import Main2 from "./pages/BeforeLogin";
-
+import Mine from "./pages/GetMyCommunityByUser";
+import MonthSatisfySurvey from "./pages/SatisfySurvey";
 function App() {
     const [isLogin, setIsLogin] = useState(false);
     const [info, setUserInfo] = useState({
@@ -86,7 +87,7 @@ function App() {
                                 <span className="li-span">게시판</span></Link>
                             </li>
                             <li>
-                                <Link to="/" style={{textDecoration: "none", color: "white"}}>
+                                <Link to="/Mine" style={{textDecoration: "none", color: "white"}}>
                                 <span className="bold-size">M I N E</span>
                                 <span className="li-span">나의 활동</span></Link>
                             </li>
@@ -111,6 +112,7 @@ function App() {
                     <Route path="/logout" element={<Logout/>}/>
                     <Route path="/signup" element={<SignUp isLogin={isLogin}/>}/>
                     <Route path="/mypage" element={isLogin ? <MyPage isLogin={isLogin}/> : <Navigate to="/"/>}/>
+                    <Route path="/Mine" element={<Mine/>}/>
                     <Route path="/today" element={isLogin ? <DailyProgress isLogin={isLogin}/> : <Navigate to="/"/>}/>
                     <Route path="/weekly-my-progress"
                            element={isLogin ? <WeeklyProgress isLogin={isLogin}/> : <Navigate to="/"/>}/>
@@ -130,6 +132,8 @@ function App() {
                     <Route path="/article" element={<Article/>}/>
                     <Route path="/createdArticle" element={<CreatedArticle/>}/>
                     <Route path="/modifyArticle" element={<ModifyArticle/>}/>
+                    <Route path="/monthSurvey" element={<MonthSatisfySurvey/>}/>
+
                 </Routes>
             </div>
         </div>
