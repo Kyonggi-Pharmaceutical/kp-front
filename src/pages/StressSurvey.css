@@ -83,6 +83,15 @@ button {
     border-radius: 6px;
     border-color: #d0d0d0;
     font-weight: 600;
+
+    &.active{
+         color: #fff;
+         background-color: #ed6174;
+         transform: scale(0.95);
+         transition: 100ms;
+         border: none;
+
+     }
 }
 
 .mbti__button:active {
