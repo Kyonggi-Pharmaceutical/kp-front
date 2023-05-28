@@ -87,14 +87,12 @@ button {
     &.active{
          color: #fff;
          background-color: #ed6174;
-         transform: scale(0.95);
-         transition: 100ms;
          border: none;
 
      }
 }
 
-.mbti__button:active {
+.mbti__button active {
     color: #fff;
     background-color: #ed6174;
     transform: scale(0.95);
