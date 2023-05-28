@@ -3,14 +3,22 @@ import {getMyArticle} from "../api/getMyArticle";
 import {getMyComment} from "../api/getMyComment";
 import {getMyLikeForArticle} from "../api/getMyLikeForArticle";
 import {getMyLikeForComment} from "../api/getMyLikeForComment";
+import { useNavigate } from 'react-router-dom';
 import './Main1.css'
+import './myCommunity.css'
+import {getArticleDetail} from "../api/board/article/getArticleDetail";
+import { useLocation } from "react-router-dom";
+import {getComments} from "../api/board/comment/getComments";
 
-function GetMyCommunityByUser() {
+function MyCommunity() {
+    const navigate = useNavigate();
     const [articles, setArticles] = useState([]);
     const [comments, setComments] = useState([]);
     const [likeForArticle, setLikeForArticle] = useState([]);
     const [likesForComment, setLikeForComment] = useState([]);
     const [selectedTab, setSelectedTab] = useState('articles');
+    const location = useLocation();
+    const articleId = location.state?.value;
     useEffect(() => {
         const fetchArticles = async () => {
             try {
@@ -54,9 +62,15 @@ function GetMyCommunityByUser() {
         fetchLikesForComment();
     }, []);
 
-    if (articles.length === 0 || comments.length === 0 || likeForArticle.length === 0 || likesForComment.length === 0) {
-        return <div className="main-container">Loading...</div>;
-    }
+    const handleArticleClick = async (articleId) => {
+        try {
+            const articleData = await getArticleDetail(articleId);
+            navigate("/article", {state: {value: articleData.id}});
+        } catch (error) {
+            console.error('Failed to fetch article details:', error);
+        }
+    };
+
     const handleTabClick = (tab) => {
         setSelectedTab(tab);
     };
@@ -95,60 +109,75 @@ function GetMyCommunityByUser() {
                     <div className="list-customizing">
                         {selectedTab === 'articles' && (
                             <div className="section1">
-                                <p className="p-size">찾은 게시글 목록 {articles.length}개</p>
-                                <div className="swiper-container">
-                                    <div className="swiper-wrapper">
-                                        {articles.map((article) => (
-                                            <div key={article.id} className="swiper-slide">
-                                                <div className="article-container">
-                                                    <div className="article-info">
-                                                        <div className="article-text">
-                                                            <p>제목: {article.title}</p>
-                                                            <p>내용: {article.description}</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
+                                <div className="p-container">
+                                    <p className="p-size">찾은 게시글 목록 {articles.length}개</p>
                                 </div>
+                                {articles.map((article) => (
+                                    <div key={article.id} className="article-container">
+                                        <div className="article-info">
+                                            <div className="article-text">
+                                                <p>제목: {article.title}</p>
+                                                <p>내용: {article.description}</p>
+                                            </div>
+                                        </div>
+                                        <button className="btn-cos" onClick={() => handleArticleClick(article.id)}>
+                                            게시물로 이동
+                                        </button>
+                                    </div>
+                                ))}
                             </div>
                         )}
                         {selectedTab === 'comments' && (
                             <div className="section2">
-                                <p className="p-size">찾은 댓글 목록 {comments.length}개</p>
+                                <div className="p-container">
+                                    <p className="p-size">찾은 댓글 목록 {comments.length}개</p>
+                                </div>
                                 {comments.map((comment) => (
                                     <div key={comment.id} className="comment-container">
-                                        <div className="article-text">
-                                            <p>내용 : {comment.description}</p>
+                                        <div className="article-info">
+                                            <div className="article-text">
+                                                <p>내용 : {comment.description}</p>
+                                            </div>
                                         </div>
+                                        <button className="btn-cos"
+                                                onClick={() => handleArticleClick(comment.articleId)}>
+                                            게시물로 이동
+                                        </button>
                                     </div>
                                 ))}
                             </div>
                         )}
                         {selectedTab === 'likedArticles' && (
                             <div className="section3">
-                                <p className="p-size">좋아요한 게시물 목록 {likeForArticle.length}개</p>
-                                {likeForArticle
-                                    .map((article) => (
-                                        <div key={article.id} className="article-container">
-                                            <div className="article-info">
-                                                <div className="article-text">
-                                                    <p>제목 : {article.title}</p>
-                                                    <p>내용 : {article.description}</p>
-                                                </div>
+                                <div className="p-container">
+                                    <p className="p-size">좋아요한 게시물 목록 {likeForArticle.length}개</p>
+                                </div>
+                                {likeForArticle.map((article) => (
+                                    <div key={article.id} className="article-container">
+                                        <div className="article-info">
+                                            <div className="article-text">
+                                                <p>제목 : {article.title}</p>
+                                                <p>내용 : {article.description}</p>
                                             </div>
                                         </div>
-                                    ))}
+                                        <button className="btn-cos" onClick={() => handleArticleClick(article.id)}>
+                                            게시물로 이동
+                                        </button>
+                                    </div>
+                                ))}
                             </div>
                         )}
                         {selectedTab === 'likedComments' && (
                             <div className="section4">
-                                <p className="p-size">좋아요한 댓글 목록 {likesForComment.length}개</p>
+                                <div className="p-container">
+                                    <p className="p-size">좋아요한 댓글 목록 {likesForComment.length}개</p>
+                                </div>
                                 {likesForComment.map((comment) => (
                                     <div key={comment.id} className="comment-container">
-                                        <div className="article-text">
-                                            <p>내용 : {comment.description}</p>
+                                        <div className="article-info">
+                                            <div className="article-text">
+                                                <p>내용 : {comment.description}</p>
+                                            </div>
                                         </div>
                                     </div>
                                 ))}
@@ -161,4 +190,4 @@ function GetMyCommunityByUser() {
     );
 }
 
-export default GetMyCommunityByUser;
+export default MyCommunity;
