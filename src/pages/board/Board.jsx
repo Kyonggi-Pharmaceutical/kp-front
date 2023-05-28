@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from "axios"
+import {Navigate} from "react-router-dom";
 import '../Main.css'
 import '../Main1.css'
 import Accordion from 'react-bootstrap/Accordion'
@@ -12,8 +13,8 @@ import {useNavigate} from "react-router-dom";
 import {getArticlesByCategory} from "../../api/board/article/getArticlesByCategory";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import {getMonthMBTI} from "../../api/board/rank/getMonthMBTI";
-import {getMonthALL} from "../../api/board/rank/getMonthAll";
+import {getMbtiRanking} from "../../api/board/getMbtiRanking";
+import {getAllRanking} from "../../api/main/getAllRanking";
 
 function Board() {
     const [stressArticles, setStressArticles] = useState([]);
@@ -48,8 +49,12 @@ function Board() {
             setActivityArticles(data1);
             setStressArticles(data2);
 
-            setMonthMBTI( await getMonthMBTI());
-            setMonthALL( await getMonthALL());
+            setDayMBTI( await getMbtiRanking('daily'));
+            setDayALL( await getAllRanking('daily'));
+            setWeekMBTI( await getMbtiRanking('weekly'));
+            setWeekALL( await getAllRanking('weekly'));
+            setMonthMBTI( await getMbtiRanking('monthly'));
+            setMonthALL( await getAllRanking('monthly'));
         }
 
         fetchData();
@@ -90,21 +95,21 @@ function Board() {
     }
 
     return (
-        <div className="main-container">
-        <div className="main-bgs">
+
+        <div className="main-bgs" style={{height: "80%", width: "90%"}}>
             <div className="board-rank">
                 <div className="board">
                     <div style={{marginBottom: "20px"}}>
-                        <div style={{display: "inline"}}><span
+                        <div style={{display: "inline", cursor: "pointer"}}><span
                             className={activity ? "category category-selected" : "category"}
                             onClick={selectAcitivity}>체중관리</span></div>
-                        <div style={{display: "inline"}}><span
+                        <div style={{display: "inline", cursor: "pointer"}}><span
                             className={stress ? "category category-selected" : "category"}
                             onClick={selectStress}>스트레스관리</span></div>
                         <span><Button variant="outline-danger" style={{float: "right"}}
                                       onClick={navigateToCreatedArticle}>게시글 작성</Button></span>
                     </div>
-                    <div>
+                    <div style={{textAlign: "left"}}>
                         {
                             activity ? (
                                 activityArticles && activityArticles.map((item) => (
@@ -192,7 +197,7 @@ function Board() {
                 </div>
                 <Rank dayMBTI={dayMBTI} dayALL={dayALL} weekMBTI={weekMBTI} weekALL={weekALL} monthMBTI={monthMBTI} monthALL={monthALL}/>
             </div>
-        </div>
+
         </div>
     );
 }
@@ -216,65 +221,119 @@ function Rank({dayMBTI, dayALL, weekMBTI, weekALL, monthMBTI, monthALL}) {
             >
                 <Tab eventKey="daily" title={<span className="rank-title">Daily</span>} >
                     {radioValue == 1 ? (
-                        <>
-                            <h3 className="rank-small-title">MBTI</h3>
-                            {dayMBTI.map((item) => (
-                                <div className="rank-map" key={item.rank}>
-                                    <img src={medal[item.rank]} width="30px" /> {item.mbti}
-                                </div>
-                            ))}
-                        </>
+                        <table>
+                            {dayMBTI.map((item, index) => {
+                                if(index<10){
+                                    return <>
+                                        <tr key={item.rank}>
+                                            <td>
+                                                {
+                                                    item.rank < 4 ? (<img src={medal[item.rank]} width="30px" />) : (<div style={{width: "30px", display: "inline-block", textAlign: "center"}}>{item.rank}</div>)
+                                                }
+                                            </td>
+                                            <td>{item.mbti}</td>
+                                            <td>{item.progressRate}%</td>
+                                        </tr>
+                                    </>
+                                }
+                            })}
+                        </table>
                     ) : (
-                        <>
-                            <h3 className="rank-small-title">ALL</h3>
-                            {dayALL.map((item) => (
-                                <div className="rank-map" key={item.rank}>
-                                    <img src={medal[item.rank]} width="30px" /> {item.nickname}
-                                </div>
-                            ))}
-                        </>
+                        <table>
+                            {dayALL.map((item, index) => {
+                                if(index<10){
+                                    return <>
+                                        <tr key={item.rank}>
+                                            <td>
+                                                {
+                                                    item.rank < 4 ? (<img src={medal[item.rank]} width="30px" />) : (<div style={{width: "30px", display: "inline-block", textAlign: "center"}}>{item.rank}</div>)
+                                                }
+                                            </td>
+                                            <td>{item.nickname}</td>
+                                            <td>{item.progressRate}%</td>
+                                        </tr>
+                                    </>
+                                }
+                            })}
+                        </table>
                     )}
                 </Tab>
                 <Tab eventKey="weekly" title={<span className="rank-title">Weekly</span>}>
                     {radioValue == 1 ? (
-                        <>
-                            <h3 className="rank-small-title">MBTI</h3>
-                            {weekMBTI.map((item) => (
-                                <div className="rank-map" key={item.rank}>
-                                    <img src={medal[item.rank]} width="30px" /> {item.mbti}
-                                </div>
-                            ))}
-                        </>
+                        <table>
+                            {weekMBTI.map((item, index) => {
+                                if(index<10){
+                                    return <>
+                                        <tr key={item.rank}>
+                                            <td>
+                                                {
+                                                    item.rank < 4 ? (<img src={medal[item.rank]} width="30px" />) : (<div style={{width: "30px", display: "inline-block", textAlign: "center"}}>{item.rank}</div>)
+                                                }
+                                            </td>
+                                            <td>{item.mbti}</td>
+                                            <td>{item.progressRate}%</td>
+                                        </tr>
+                                    </>
+                                }
+                            })}
+                        </table>
                     ) : (
-                        <>
-                            <h3 className="rank-small-title">ALL</h3>
-                            {weekALL.map((item) => (
-                                <div className="rank-map" key={item.rank}>
-                                    <img src={medal[item.rank]} width="30px" /> {item.nickname}
-                                </div>
-                            ))}
-                        </>
+                        <table>
+                            {weekALL.map((item, index) => {
+                                if(index<10){
+                                    return <>
+                                        <tr key={item.rank}>
+                                            <td>
+                                                {
+                                                    item.rank < 4 ? (<img src={medal[item.rank]} width="30px" />) : (<div style={{width: "30px", display: "inline-block", textAlign: "center"}}>{item.rank}</div>)
+                                                }
+                                            </td>
+                                            <td>{item.nickname}</td>
+                                            <td>{item.progressRate}%</td>
+                                        </tr>
+                                    </>
+                                }
+                            })}
+                        </table>
                     )}
                 </Tab>
                 <Tab eventKey="monthly" title={<span className="rank-title">Monthly</span>}>
                     {radioValue == 1 ? (
-                        <>
-                            <h3 className="rank-small-title">MBTI</h3>
-                            {monthMBTI.map((item) => (
-                                <div className="rank-map" key={item.rank}>
-                                    <img src={medal[item.rank]} width="30px" /> {item.mbti}
-                                </div>
-                            ))}
-                        </>
+                        <table>
+                            {monthMBTI.map((item, index) => {
+                                if(index<10){
+                                    return <>
+                                        <tr key={item.rank}>
+                                            <td>
+                                                {
+                                                    item.rank < 4 ? (<img src={medal[item.rank]} width="30px" />) : (<div style={{width: "30px", display: "inline-block", textAlign: "center"}}>{item.rank}</div>)
+                                                }
+                                            </td>
+                                            <td>{item.mbti}</td>
+                                            <td>{item.progressRate}%</td>
+                                        </tr>
+                                    </>
+                                }
+                            })}
+                        </table>
                     ) : (
-                        <>
-                            <h3 className="rank-small-title">ALL</h3>
-                            {monthALL.map((item) => (
-                                <div className="rank-map" key={item.rank}>
-                                    <img src={medal[item.rank]} width="30px" /> {item.nickname}
-                                </div>
-                            ))}
-                        </>
+                        <table>
+                            {monthALL.map((item, index) => {
+                                if(index<10){
+                                    return <>
+                                        <tr key={item.rank}>
+                                            <td>
+                                                {
+                                                    item.rank < 4 ? (<img src={medal[item.rank]} width="30px" />) : (<div style={{width: "30px", display: "inline-block", textAlign: "center"}}>{item.rank}</div>)
+                                                }
+                                            </td>
+                                            <td>{item.nickname}</td>
+                                            <td>{item.progressRate}%</td>
+                                        </tr>
+                                    </>
+                                }
+                            })}
+                        </table>
                     )}
                 </Tab>
             </Tabs>

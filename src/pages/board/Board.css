@@ -1,10 +1,12 @@
 .board-rank{
     margin: 0 auto;
     border-radius: 20px;
-    width: 1300px;
+    width: 100%;
+    min-width: 500px;
     height: 100%;
     padding: 20px;
     overflow: auto;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.5);
 }
 
 .board-rank::-webkit-scrollbar{
@@ -17,10 +19,11 @@
     margin: 0 auto;
     border-radius: 20px;
     width: 73%;
-    height: 550px;
+    height: 100%;
     padding: 20px;
     float: left;
     overflow: auto;
+    box-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.5);
 }
 .board::-webkit-scrollbar{
     width: 0;
@@ -32,9 +35,10 @@
     margin-left: 5px;
     border-radius: 20px;
     width: 25%;
-    height: 550px;
+    height: 100%;
     padding: 20px;
     float: right;
+    box-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.5);
 }
 
 .rank-title{
@@ -42,11 +46,20 @@
     font-size: 15px;
 }
 
-.rank-small-title{
-    margin: 10px;
+.small-title{
+    margin: 5px;
     color: #E63A35;
     font-weight: bolder;
-    font-size: 35px;
+    font-size: 40px;
+}
+
+.ranking-box{
+    overflow: scroll;
+}
+
+.ranking-box::-webkit-scrollbar{
+    width: 0;
+    height: 0;
 }
 
 .rank-map {
@@ -86,6 +99,23 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.article-box{
+    background-color: white;
+    margin: 0 auto;
+    border-radius: 20px;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    float: left;
+    overflow: auto;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.5);
+}
+
+.article-box::-webkit-scrollbar{
+    width: 0px;
+    height: 0px;
 }
 
 .comment-input{

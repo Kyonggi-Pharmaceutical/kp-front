@@ -38,14 +38,17 @@ function ModifyArticle() {
     };
 
     return (
-        <div className="main-bg">
-            <div className="main">
-                <h3 className="small-title">카테고리</h3>
+        <div className="main-bgs" style={{height: "80%", width: "70%"}}>
+            <div className="article-box">
+                {
+                    article.boardId === 0 ? <h3 className="small-title" >체중관리</h3> :
+                        <h3 className="small-title" >스트레스관리</h3>
+                }
                 <table style={{width: "90%", margin: "20px auto"}}>
                     <tbody>
                     <tr style={{borderTop: "4px solid black", borderBottom: "1px solid lightgray"}}>
                         <th style={{width: "15%"}}>제목</th>
-                        <td style={{width: "85%"}} colSpan={2}><input type="text" name="title" onChange={handleInputChange} value={article.title}/></td>
+                        <td style={{width: "85%"}} colSpan={2}><input type="text" name="title" onChange={handleInputChange} value={article.title} style={{width: "100%", border: "none"}}/></td>
                     </tr>
                     <tr style={{borderBottom: "2px solid lightgray"}}>
                         <th style={{width: "15%"}}>작성자</th>

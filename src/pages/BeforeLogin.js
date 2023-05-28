@@ -1,7 +1,35 @@
-import { Link } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import "./Main1.css";
-function BeforeLogin() {
+import React, {useEffect, useState} from "react";
+import GoogleLogin from '../components/GoogleLogin'
+import { postLoginToken } from '../api/user/postLoginToken';
+import {getUserInfo} from "../api/user/getUserInfo";
 
+function BeforeLogin({ isLogin, setIsLogin }) {
+    const navigate = useNavigate();
+    const [info, setInfo] = useState({
+        nickname: '',
+        mbti: '',
+    });
+
+    const onGoogleSignIn = async res => {
+        const { credential } = res;
+        const result = await postLoginToken(credential, setIsLogin);
+        setIsLogin(result);
+    };
+
+    useEffect(() => {
+        const initUserinfo = async () => {
+            const newinfo = await getUserInfo();
+            setInfo(newinfo);
+        };
+        initUserinfo();
+        if(isLogin === true){
+            if(info.mbti == null){
+                navigate('/signup');
+            }
+        }
+    }, [isLogin]);
 
     return (
         <div className="main-container">
@@ -17,10 +45,10 @@ function BeforeLogin() {
                         <p className="greeting-text">MBTI에 따른 맞춤형 운동 및 스트레스 관리 방법을 추천받아보세요!</p>
                         <p className="health-message">하단에 시작하기 버튼을 눌러 건강관리를 시작해볼까요?</p>
                     </div>
-                    <div className="button-container">
-                        <Link to="/login">
-                            <button className="login-button">시작하기</button>
-                        </Link>
+                    <div style={{width: "100%", display: "flex", justifyContent: "center", margin: "20px"}}>
+                        <div style={{padding: "5px", borderRadius: "10px"}}>
+                            <GoogleLogin onGoogleSignIn={onGoogleSignIn} text="로그인" />
+                        </div>
                     </div>
                 </div>
             </div>

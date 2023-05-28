@@ -1,4 +1,17 @@
 .main-col-box {
+    padding: 10px 0;
+    margin-bottom: 10px;
+    text-align: center;
+    background: #F2F3F5;
+    border-radius: 20px;
+}
+
+.main-col-box p {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.main-col-clickable-box {
     padding: 10px 0px;
     text-align: center;
     background: #F2F3F5;
@@ -7,12 +20,12 @@
     transition: background-color 0.3s ease;
 }
 
-.main-col-box p {
+.main-col-clickable-box p {
     font-size: 30px;
     font-weight: bold;
 }
 
-.main-col-box:hover {
+.main-col-clickable-box:hover {
     background: #e3e4e5;
 }
 
@@ -40,8 +53,7 @@
 }
 
 .health-message {
-    font-size: 22px;
-    color: #777;
+    color: #E63A35;
 }
 
 .table-col-box {
@@ -94,6 +106,7 @@
     overflow-y: auto;
     height: 500px;
 }
+
 .google-login-btn {
     display: inline-block;
     position: relative;
@@ -162,6 +175,119 @@
     padding: 14px 26px;
 }
 
+.modal-content {
+    background-color: #fff;
+}
+
+.modal-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal-body img {
+    max-width: 100%;
+    max-height: 400px;
+}
+
+.modal {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.daily-progress-button {
+    background-color: #E63A35;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    width: 200px;
+    border-radius: 50px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.daily-progress-button:hover {
+    background-color: #C32722;
+}
+
+.daily-progress-button:focus {
+    outline: none;
+}
+
+.daily-progress-col-box {
+    padding: 10px 0px;
+    text-align: center;
+    background: #F2F3F5;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.daily-progress-col-box p {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.daily-progress-col-box:hover {
+    background: #e3e4e5;
+}
+
+.overlay-container {
+    position: fixed;
+    bottom: -150px;
+    right: 20px;
+    width: 300px;
+    height: 400px;
+}
+
+.overlay-content {
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.overlay-content p {
+    margin-bottom: 10px;
+}
+
+.overlay-content button {
+    background-color: #F2F3F5;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.minimize-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    color: #000000;
+    font-size: 14px;
+    cursor: pointer;
+}
 
 
+.overlay-minimize {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
 
+.overlay-minimized span {
+    font-size: 24px;
+    line-height: 1;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.overlay-minimize span {
+    font-size: 20px;
+    line-height: 1;
+}

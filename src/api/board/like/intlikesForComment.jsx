@@ -1,17 +1,17 @@
 import axios from "axios";
 
 const API_URL = process.env.REACT_APP_API_URL;
-const path = '/api/v1/ranking/mbti/monthly';
 
-export async function getMonthMBTI() {
+export async function intLikeForComment(commentId) {
+    const path = `/api/v1/comments/${commentId}/intLikes`;
 
     try {
         const response = await axios.get(`${API_URL}${path}`, {
             withCredentials: true,
         });
-        return response.data; // 데이터 반환
+        console.log(response.data);
+        return response.data;
     } catch (error) {
         console.log(error);
-        return []; // 에러 발생 시 빈 배열 반환
     }
 }
