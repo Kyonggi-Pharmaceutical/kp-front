@@ -1,6 +1,7 @@
 import React, {createRef, useEffect, useRef, useState} from 'react';
 import { useNavigate } from "react-router-dom";
 import { putStressPoint } from '../api/stresses/putStressPoint'
+import { postStressGoal } from "../api/stresses/postStressGoal";
 import styles from './StressSurvey.css';
 import Questions from "../api/StressQuestion/../StressQuestion";
 import {getValue} from "@testing-library/user-event/dist/utils";
@@ -154,6 +155,15 @@ export default function StressSurvey({month, stressResult}){
         let result = stress;
 
         putStressPoint(result).then(r => result);
+        try {
+            const response = postStressGoal();;
+            if (response.ok) {
+                console.log('User StressGoal created');
+            }
+        } catch (error) {
+            console.log(error);
+            alert('API 요청이 실패했습니다. 다시 시도해주세요.');
+        }
 
         if (num > 8 && month == 0){ navigate("/stressResult?result="+result, {
             state:{ value : parseInt(result) },

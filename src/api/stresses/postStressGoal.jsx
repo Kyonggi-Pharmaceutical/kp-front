@@ -1,7 +1,6 @@
-export const postStressInfo = async weightGoal => {
+export const postStressGoal = async () => {
     const API_URL = process.env.REACT_APP_API_URL;
-    const path = '/api/v1/activity/userSolution';
-    const currentDate = new Date();
+    const path = '/api/v1/stresses/stress-goal';
     try {
         const response = await fetch(`${API_URL}${path}`, {
             method: 'POST',
@@ -10,15 +9,12 @@ export const postStressInfo = async weightGoal => {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                weightGoal,
-                startAt: currentDate.toISOString(), // 시작 날짜를 현재 날짜로 설정합니다.
-            }),
+            body: JSON.stringify(),
         });
         if (!response.ok) throw new Error('bad server condition');
         return true;
     } catch (e) {
-        console.error('postLoginToken Error: ', e.message);
+        console.error('saveUserExercises Error: ', e.message);
         return false;
     }
-};
+}
