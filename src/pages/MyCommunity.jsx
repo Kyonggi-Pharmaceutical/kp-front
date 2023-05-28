@@ -3,12 +3,11 @@ import {getMyArticle} from "../api/getMyArticle";
 import {getMyComment} from "../api/getMyComment";
 import {getMyLikeForArticle} from "../api/getMyLikeForArticle";
 import {getMyLikeForComment} from "../api/getMyLikeForComment";
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import './Main1.css'
 import './myCommunity.css'
 import {getArticleDetail} from "../api/board/article/getArticleDetail";
-import { useLocation } from "react-router-dom";
-import {getComments} from "../api/board/comment/getComments";
+
 
 function MyCommunity() {
     const navigate = useNavigate();
@@ -17,8 +16,8 @@ function MyCommunity() {
     const [likeForArticle, setLikeForArticle] = useState([]);
     const [likesForComment, setLikeForComment] = useState([]);
     const [selectedTab, setSelectedTab] = useState('articles');
-    const location = useLocation();
-    const articleId = location.state?.value;
+
+
     useEffect(() => {
         const fetchArticles = async () => {
             try {
@@ -113,18 +112,19 @@ function MyCommunity() {
                                     <p className="p-size">찾은 게시글 목록 {articles.length}개</p>
                                 </div>
                                 {articles.map((article) => (
-                                    <div key={article.id} className="article-container">
-                                        <div className="article-info">
-                                            <div className="article-text">
-                                                <p>제목: {article.title}</p>
-                                                <p>내용: {article.description}</p>
+                                    <div>
+                                        <div key={article.id} className="article-container">
+                                            <div className="text-info">
+                                                <p className="article-text">제목: {article.title}</p>
+                                                <p className="article-text">내용: {article.description}</p>
                                             </div>
                                         </div>
                                         <button className="btn-cos" onClick={() => handleArticleClick(article.id)}>
-                                            게시물로 이동
+                                            더보기
                                         </button>
                                     </div>
                                 ))}
+
                             </div>
                         )}
                         {selectedTab === 'comments' && (
@@ -133,15 +133,14 @@ function MyCommunity() {
                                     <p className="p-size">찾은 댓글 목록 {comments.length}개</p>
                                 </div>
                                 {comments.map((comment) => (
-                                    <div key={comment.id} className="comment-container">
-                                        <div className="article-info">
-                                            <div className="article-text">
-                                                <p>내용 : {comment.description}</p>
-                                            </div>
+                                    <div>
+                                        <div key={comment.id} className="comment-container">
+                                            <p className="article-text">내용 : {comment.description}</p>
+
                                         </div>
                                         <button className="btn-cos"
                                                 onClick={() => handleArticleClick(comment.articleId)}>
-                                            게시물로 이동
+                                            더보기
                                         </button>
                                     </div>
                                 ))}
@@ -150,18 +149,17 @@ function MyCommunity() {
                         {selectedTab === 'likedArticles' && (
                             <div className="section3">
                                 <div className="p-container">
-                                    <p className="p-size">좋아요한 게시물 목록 {likeForArticle.length}개</p>
+                                    <p className="p-size">좋아요한 게시물 목록{likeForArticle.length}개</p>
                                 </div>
                                 {likeForArticle.map((article) => (
-                                    <div key={article.id} className="article-container">
-                                        <div className="article-info">
-                                            <div className="article-text">
-                                                <p>제목 : {article.title}</p>
-                                                <p>내용 : {article.description}</p>
-                                            </div>
+                                    <div>
+                                        <div key={article.id} className="article-container">
+                                            <p className="article-text">제목 : {article.title}</p>
+                                            <p className="article-text">내용 : {article.description}</p>
+
                                         </div>
                                         <button className="btn-cos" onClick={() => handleArticleClick(article.id)}>
-                                            게시물로 이동
+                                            더보기
                                         </button>
                                     </div>
                                 ))}
@@ -173,11 +171,9 @@ function MyCommunity() {
                                     <p className="p-size">좋아요한 댓글 목록 {likesForComment.length}개</p>
                                 </div>
                                 {likesForComment.map((comment) => (
-                                    <div key={comment.id} className="comment-container">
-                                        <div className="article-info">
-                                            <div className="article-text">
-                                                <p>내용 : {comment.description}</p>
-                                            </div>
+                                    <div>
+                                        <div key={comment.id} className="comment-container">
+                                            <p className="article-text">내용 : {comment.description}</p>
                                         </div>
                                     </div>
                                 ))}
