@@ -203,17 +203,17 @@ button {
     font-size: 30px;
 }
 
-.survey-form{
+.stress-survey-form{
     background-color: white;
     margin: 0 auto;
     border-radius: 20px;
-    width: 1000px;
+    width: 800px;
     height: 550px;
     padding: 20px;
     overflow: auto;
 }
 
-.survey-form::-webkit-scrollbar{
+.stress-survey-form::-webkit-scrollbar{
     width: 0;
     height: 0;
 }

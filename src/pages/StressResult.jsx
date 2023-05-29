@@ -11,6 +11,9 @@ import MBTI from "../api/Mbti/../Mbti";
 import Activity from "../api/Activity/../Activity";
 import styles from './StressSurvey.css';
 import Button from 'react-bootstrap/Button';
+import Main from "./Main";
+import {putStressPoint} from "../api/stresses/putStressPoint";
+import {getUserInfo} from "../api/user/getUserInfo";
 console.log(MBTI);
 
 
@@ -39,6 +42,8 @@ export default function StressResult({info, setUserInfo, healthGoal, setHealthGo
                 console.error('Failed to fetchUserActivitySolutions:', error);
             }
         };
+        const stressPoint = await getUserInfo();
+        setUserInfo(stressPoint);
 
         await fetchUserActivitySolutions();
 
@@ -71,10 +76,8 @@ export default function StressResult({info, setUserInfo, healthGoal, setHealthGo
                         )
                     })}
                 <p>{value}점의 스트레스는 현상유지가 필요합니다.</p>
-                <p>유형은 사회적지지 추구, 정서적 대처, 소망적 사고에 해당하는 스트레스 대처방식을 자주 효과적으로 사용합니다.</p>
-
                 <div style={{textAlign: "center"}}>
-                    <Button className="daily-button" onClick={DailyGoal}>일일 목표 확인</Button>
+                    <Button className="daily-button" onClick={Main}>일일 목표 확인</Button>
                 </div>
 
             </div>

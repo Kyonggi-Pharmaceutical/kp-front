@@ -13,18 +13,18 @@ export default function StressSurvey({month, stressResult}){
     const [num, setNum] = useState(0);
     const [currentSlide, setCurrentSlide] = useState(1);
     const [stress, setStress] = useState(0);
-    let [btnActive, setBtnActive] = useState("");
-    let [btnActive1, setBtnActive1] = useState("");
-    let [btnActive2, setBtnActive2] = useState("");
-    let [btnActive3, setBtnActive3] = useState("");
-    let [btnActive4, setBtnActive4] = useState("");
-    let [btnActive5, setBtnActive5] = useState("");
-    let [btnActive6, setBtnActive6] = useState("");
-    let [btnActive7, setBtnActive7] = useState("");
-    let [btnActive8, setBtnActive8] = useState("");
+    let [btnActive, setBtnActive] = useState();
+    let [btnActive1, setBtnActive1] = useState();
+    let [btnActive2, setBtnActive2] = useState();
+    let [btnActive3, setBtnActive3] = useState();
+    let [btnActive4, setBtnActive4] = useState();
+    let [btnActive5, setBtnActive5] = useState();
+    let [btnActive6, setBtnActive6] = useState();
+    let [btnActive7, setBtnActive7] = useState();
+    let [btnActive8, setBtnActive8] = useState();
 
 
-    let data = ["매우 아니다", "아니다", "보통", "그렇다", "매우 그렇다"];
+    const data = ["매우 아니다", "아니다", "보통", "그렇다", "매우 그렇다"];
     const buttonRef = useRef({
         isDoubleClick: false
     });
@@ -59,9 +59,20 @@ export default function StressSurvey({month, stressResult}){
     const navigate = useNavigate();
 
     const nextSlide = (idx) => {
+        console.log(num);
+        if((idx == btnActive) && buttonRef.current.isDoubleClick){
+            return;
+        }
+
+
+        console.log(num);
+
         setStress(stress + idx);
         setNum(num + 1);
         setCurrentSlide(currentSlide + 1);
+
+
+
         // slideRef.current.style.transform += 'translateX(-100vw)';
     };
 
@@ -76,13 +87,13 @@ export default function StressSurvey({month, stressResult}){
     };
 
     const toggleActive1 = (event) => {
-        if(buttonRef1.current.isDoubleClick2){
+        if(buttonRef1.current.isDoubleClick1){
             return;
         }
         setBtnActive1((prev) => {
             return event.target.value;
         });
-        buttonRef1.current.isDoubleClick2 = true;
+        buttonRef1.current.isDoubleClick1 = true;
     };
 
     const toggleActive2 = (event) => {
@@ -114,7 +125,7 @@ export default function StressSurvey({month, stressResult}){
         buttonRef4.current.isDoubleClick4 = true;
     };
     const toggleActive5 = (event) => {
-        if(buttonRef5.current.isDoubleClick2){
+        if(buttonRef5.current.isDoubleClick5){
             return;
         }
         setBtnActive5((prev) => {
@@ -165,18 +176,18 @@ export default function StressSurvey({month, stressResult}){
             alert('API 요청이 실패했습니다. 다시 시도해주세요.');
         }
 
-        if (num > 8 && month == 0){ navigate("/stressResult?result="+result, {
+        if (num > 7 && month == 0){ navigate("/stressResult?result="+result, {
             state:{ value : parseInt(result) },
         })}else if (num > 7 && month == 1){ navigate("/satisfactionResult?result="+result, {
-            state:{ value : parseInt(result) },
+            state:{ value : parseInt(stress) },
         })};
 
     }, [currentSlide]);
 
     return (
-        <div className="main-bg">
-            <div className="survey-form">
-                <h3 className="small-title">문진하기<FiEdit2 /></h3>
+        <div className="main-bg" style={{height:"550px"}}>
+            <div className="stress-survey-form">
+                <h3 className="small-title" style={{color: "#ed6174", marginBottom: "40px", marginTop: "20px"}}>문진하기<FiEdit2 /></h3>
                 <section>
                     {!loading && (
                         <>
@@ -501,7 +512,7 @@ export default function StressSurvey({month, stressResult}){
                                                         ref={buttonRef5}
                                                         className={"mbti__button" + (idx == btnActive5 ? " active" : "")}
                                                         onClick={(event) => {
-                                                            nextSlide(idx);
+                                                            nextSlide(6);
                                                             toggleActive5(event);
                                                         }}
                                                     >
@@ -556,7 +567,7 @@ export default function StressSurvey({month, stressResult}){
                                                         ref={buttonRef6}
                                                         className={"mbti__button" + (idx == btnActive6 ? " active" : "")}
                                                         onClick={(event) => {
-                                                            nextSlide(idx);
+                                                            nextSlide(7);
                                                             toggleActive6(event);
                                                         }}
                                                     >
@@ -611,7 +622,7 @@ export default function StressSurvey({month, stressResult}){
                                                         ref={buttonRef7}
                                                         className={"mbti__button" + (idx == btnActive7 ? " active" : "")}
                                                         onClick={(event) => {
-                                                            nextSlide(idx);
+                                                            nextSlide(8);
                                                             toggleActive7(event);
                                                         }}
                                                     >
@@ -666,7 +677,7 @@ export default function StressSurvey({month, stressResult}){
                                                         ref={buttonRef8}
                                                         className={"mbti__button" + (idx == btnActive8 ? " active" : "")}
                                                         onClick={(event) => {
-                                                            nextSlide(idx);
+                                                            nextSlide(9);
                                                             toggleActive8(event);
                                                         }}
                                                     >
@@ -676,6 +687,11 @@ export default function StressSurvey({month, stressResult}){
                                             );
                                         })}
                                     </div>
+                                </div>
+                                <div
+                                    id='question10'
+                                    className={styles.content}
+                                >
                                 </div>
 
 

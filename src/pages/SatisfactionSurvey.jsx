@@ -11,6 +11,7 @@ export default function SatisfactionSurvey(info, healthGoal) {
     const month = 1;
 
     useEffect( ()=>{
+        console.log(info.stressPoint)
     }, [info]);
 
     const [show, setShow] = useState(true);

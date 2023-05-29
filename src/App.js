@@ -40,6 +40,7 @@ function App() {
         email: '',
         firstName: '',
         lastName: '',
+        stressPoint: 0,
     });
     const [healthGoal, setHealthGoal] = useState({
         userId: '',

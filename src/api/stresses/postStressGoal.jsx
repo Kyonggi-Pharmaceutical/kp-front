@@ -1,6 +1,6 @@
 export const postStressGoal = async () => {
     const API_URL = process.env.REACT_APP_API_URL;
-    const path = '/api/v1/stresses/stress-goal';
+    const path = '/api/v1/activities/daily-solutions/renew';
     try {
         const response = await fetch(`${API_URL}${path}`, {
             method: 'POST',
@@ -14,7 +14,7 @@ export const postStressGoal = async () => {
         if (!response.ok) throw new Error('bad server condition');
         return true;
     } catch (e) {
-        console.error('saveUserExercises Error: ', e.message);
+        console.error('saveUserActivity Error: ', e.message);
         return false;
     }
 }
