@@ -149,7 +149,7 @@ function MyCommunity() {
                         {selectedTab === 'likedArticles' && (
                             <div className="section3">
                                 <div className="p-container">
-                                    <p className="p-size">좋아요한 게시물 목록{likeForArticle.length}개</p>
+                                    <p className="p-size">좋아요한 게시물 목록 {likeForArticle.length}개</p>
                                 </div>
                                 {likeForArticle.map((article) => (
                                     <div>
@@ -175,6 +175,10 @@ function MyCommunity() {
                                         <div key={comment.id} className="comment-container">
                                             <p className="article-text">내용 : {comment.description}</p>
                                         </div>
+                                        <button className="btn-cos"
+                                                onClick={() => handleArticleClick(comment.articleId)}>
+                                            더보기
+                                        </button>
                                     </div>
                                 ))}
                             </div>

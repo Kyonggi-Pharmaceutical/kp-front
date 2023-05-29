@@ -37,21 +37,14 @@ function SatisfySurvey({ info }) {
     };
 
     const handleReasonSelect = (reason) => {
-        if (reason === 'too-hard') {
-            setUserAnswer('HARD');
-            setShowDissatisfiedModal(false);
-            setShowProceedModal(true);
-        } else if (reason === 'too-easy') {
-            setUserAnswer('EASY');
-            setShowDissatisfiedModal(false);
-            setShowProceedModal(true);
-        }
+        setUserAnswer(reason);
     };
 
     const handleSubmit = async () => {
         try {
             await postUserAnswer(userAnswer);
             console.log('User answer successfully saved');
+            console.log(userAnswer);
         } catch (error) {
             console.error('API 요청이 실패했습니다:', error);
             alert('API 요청이 실패했습니다. 다시 시도해주세요.');
@@ -62,14 +55,10 @@ function SatisfySurvey({ info }) {
         setShowDissatisfiedModal(false);
     };
 
-    const handleProceed = () => {
-        setShowProceedModal(false);
-        setShowDissatisfiedModal(true);
-    };
+
     const handleProceed2 = () => {
         navigate('/survey');
     };
-
 
     const handleSkip = () => {
         setShowProceedModal(false);
@@ -80,6 +69,16 @@ function SatisfySurvey({ info }) {
         setShowProceedModal(false);
     };
 
+    const handleResponseSubmit = () => {
+        if (userAnswer) {
+            handleSubmit(); // 응답 제출
+            setShowDissatisfiedModal(false);
+            setShowProceedModal(true); // 다음 모달로 전환
+        } else {
+            alert('이유를 선택해주세요.');
+        }
+    };
+
     return (
         <div className="center-container">
             <div className="main-bgs">
@@ -87,37 +86,40 @@ function SatisfySurvey({ info }) {
                     <h4>
                         {`${username}`}님의 달성률은{' '}
                         <span style={{ color: 'orangered', fontWeight: 'bolder', fontSize: '30px' }}>
-                            {accomplishment}%
-                        </span>{' '}
+              {accomplishment}%
+            </span>{' '}
                         입니다.
                     </h4>
                 </div>
                 <h1 className="h2-con">지금까지 만족하셨나요?</h1>
                 <div className="low-con">
-                    <button className="satisfied-btn" onClick={() => handleSatisfactionSelect('satisfied')}>
+                    <button className="satisfied-btn" onClick={() => { handleSatisfactionSelect('satisfied'); handleSubmit(); }}>
                         만족
                     </button>
                     <button className="dissatisfied-btn" onClick={() => handleSatisfactionSelect('dissatisfied')}>
                         불만족
                     </button>
                 </div>
-
                 <Modal show={showDissatisfiedModal} onHide={handleCloseDissatisfiedModal}>
                     <Modal.Header closeButton>
                         <Modal.Title>불만족한 이유 선택</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <select className="reason-select" value={userAnswer} onChange={(e) => handleReasonSelect(e.target.value)}>
+                        <select
+                            className="reason-select"
+                            value={userAnswer}
+                            onChange={(e) => handleReasonSelect(e.target.value)}
+                        >
                             <option value="">이유를 선택해주세요</option>
-                            <option value="too-hard">너무 어려웠다</option>
-                            <option value="too-easy">너무 쉬웠다</option>
+                            <option value="HARD">너무 어려웠다</option>
+                            <option value="EASY">너무 쉬웠다</option>
                         </select>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleCloseDissatisfiedModal}>
                             닫기
                         </Button>
-                        <Button variant="primary" onClick={handleSubmit}>
+                        <Button variant="primary" onClick={handleResponseSubmit} disabled={!userAnswer}>
                             응답 제출
                         </Button>
                     </Modal.Footer>
