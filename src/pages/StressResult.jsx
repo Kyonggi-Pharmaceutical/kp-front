@@ -55,17 +55,7 @@ export default function StressResult({info, setUserInfo, healthGoal, setHealthGo
             <div className="stressResult">
                 <div className="smallTitle">설문 결과</div>
 
-                <p>MBTI {` ${info.lastName} ${info.firstName}`}님의 스트레스 지수는 {value}점입니다.</p>
-                {MBTI.map((item) => {
-                    return (
-                        <div
-                            key={item.id}
-                        >
-                            <p>{item.description}</p>
-                        </div>
-                    )
-                })}
-
+                <p>{` ${info.lastName} ${info.firstName}`}님의 스트레스 지수는 {value}점입니다.</p>
                 {
                     Array.isArray(activityList) && activityList.map((activity, idx) => {
                         return (
