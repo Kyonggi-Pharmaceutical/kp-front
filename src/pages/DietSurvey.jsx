@@ -69,7 +69,7 @@ function DietSurvey({info}) {
         try {
             await saveHealthGoalWeight(weightGoal);
             console.log('Data successfully saved');
-            navigate('/dietResult?exerciseType=' + result);
+            navigate('/main');
         } catch (error) {
             console.log(error);
             alert('API 요청이 실패했습니다. 다시 시도해주세요.');

@@ -92,9 +92,11 @@ function App() {
                         </ul>
                     </div>
                     <ul className="nav-list">
-                        <li><Link to="/">Home</Link></li>
                         {isLogin ? (
-                            <li><Link to="/mypage">My Page</Link></li>
+                            <div>
+                                <li><Link to="/">Logout</Link></li>
+                                <li><Link to="/mypage">My Page</Link></li>
+                            </div>
                         ) : (
                             null
                         )}

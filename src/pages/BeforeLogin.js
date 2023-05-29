@@ -2,10 +2,10 @@ import {useNavigate} from 'react-router-dom';
 import "./Main1.css";
 import React, {useEffect, useState} from "react";
 import GoogleLogin from '../components/GoogleLogin'
-import { postLoginToken } from '../api/user/postLoginToken';
+import {postLoginToken} from '../api/user/postLoginToken';
 import {getUserInfo} from "../api/user/getUserInfo";
 
-function BeforeLogin({ isLogin, setIsLogin }) {
+function BeforeLogin({isLogin, setIsLogin}) {
     const navigate = useNavigate();
     const [info, setInfo] = useState({
         nickname: '',
@@ -13,7 +13,7 @@ function BeforeLogin({ isLogin, setIsLogin }) {
     });
 
     const onGoogleSignIn = async res => {
-        const { credential } = res;
+        const {credential} = res;
         const result = await postLoginToken(credential, setIsLogin);
         setIsLogin(result);
     };
@@ -24,12 +24,16 @@ function BeforeLogin({ isLogin, setIsLogin }) {
             setInfo(newinfo);
         };
         initUserinfo();
-        if(isLogin === true){
-            if(info.mbti == null){
+    }, [isLogin]);
+
+    useEffect(() => {
+        if (isLogin === true) {
+            if (info.mbti === '') {
                 navigate('/signup');
             }
+            navigate('/main');
         }
-    }, [isLogin]);
+    }, [info.mbti, navigate])
 
     return (
         <div className="main-container">
@@ -47,7 +51,7 @@ function BeforeLogin({ isLogin, setIsLogin }) {
                     </div>
                     <div style={{width: "100%", display: "flex", justifyContent: "center", margin: "20px"}}>
                         <div style={{padding: "5px", borderRadius: "10px"}}>
-                            <GoogleLogin onGoogleSignIn={onGoogleSignIn} text="로그인" />
+                            <GoogleLogin onGoogleSignIn={onGoogleSignIn} text="로그인"/>
                         </div>
                     </div>
                 </div>
