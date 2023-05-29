@@ -87,6 +87,14 @@
     font-weight: bolder;
 }
 
+.small-title{
+    margin: 25px;
+    color: #E63A35;
+    font-weight: bolder;
+    font-size: 40px;
+    margin-bottom: 40px;
+}
+
 .main-bg{
     background-color: #F2F3F5;
     padding: 20px;
@@ -299,6 +307,12 @@ input:focus {
 .userinfo-table th:first-child, td:first-child {
     border-left: none;
 }
+.small-title{
+    margin-bottom:20px;
+    font-weight: bold;
+    color: #6A84B7;
+}
+
 
 .slide-enter {
     transform: translateY(100%);

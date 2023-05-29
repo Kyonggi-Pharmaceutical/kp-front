@@ -2,17 +2,24 @@ body {
     max-width: 100%;
     overflow-x: hidden;
     overflow-y: auto;
+    font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
 }
-
+.smallTitle{
+    margin-bottom:20px;
+    font-weight: bold;
+    color: #6A84B7;
+    font-size: 30px;
+}
 #question{
     background: white;
     padding-top: 20px;
     padding-left: 70px;
     border-radius: 30px;
     margin-bottom: 20px;
+
 }
 #choose{
-    margin-inline:3px;
+    margin-inline:7px;
 }
 button {
     border: none;
@@ -52,14 +59,15 @@ button {
     font-size: 1.4rem;
     font-weight: bolder;
     text-align: center;
+    font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
 }
 
 .mbti__btn__box {
     display: flex;
     flex-direction: column;
     width: 80%;
-    height: 25vh;
-    margin: 0 auto;
+    height: 50px;
+    margin: 0px;
 }
 
 .mbti__button {
@@ -75,9 +83,16 @@ button {
     border-radius: 6px;
     border-color: #d0d0d0;
     font-weight: 600;
+
+    &.active{
+         color: #fff;
+         background-color: #ed6174;
+         border: none;
+
+     }
 }
 
-.mbti__button:active {
+.mbti__button active {
     color: #fff;
     background-color: #ed6174;
     transform: scale(0.95);
@@ -129,7 +144,14 @@ button {
     }
 
     .mbti__btn__box {
-        width: 25%;
+        text-align: left;
+        display: grid;
+        grid-auto-flow: column;
+        margin : 0px;
+        height: 100px;
+
+
+
     }
 
     .mbti__counter {
@@ -137,14 +159,19 @@ button {
     }
 
     .mbti__button {
-        display: flex;
-        flex-direction: column;
+
+        margin-left: auto;
         align-items: center;
+        margin-right: 30px;
+        height: 10px;
+        width: 140px;
+
     }
 
     .mbti__button:hover {
         color: #fff;
-        background-color: #ed6174;
+        border-color : #C9C5C5;
+        background-color: #C9C5C5;
         transform: scale(0.98);
         transition: 100ms;
     }
@@ -176,17 +203,37 @@ button {
     font-size: 30px;
 }
 
-.survey-form{
+.stress-survey-form{
     background-color: white;
     margin: 0 auto;
     border-radius: 20px;
-    width: 1000px;
+    width: 800px;
     height: 550px;
     padding: 20px;
     overflow: auto;
 }
 
-.survey-form::-webkit-scrollbar{
+.stress-survey-form::-webkit-scrollbar{
     width: 0;
     height: 0;
+}
+.stressResult-bg{
+
+    width: 1000px;
+}
+.stressResult{
+    border-style: solid;
+    border-color: #6A84B7;
+    border-radius: 20px;
+    margin: 20px auto;
+    padding: 20px;
+    text-align: center;
+    width: 800px;
+    background-color: #ffffff;
+
+}
+
+.daily-button{
+    background-color: #6A84B7;
+    width: 400px;
 }
