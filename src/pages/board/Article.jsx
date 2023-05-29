@@ -3,7 +3,7 @@ import '../Main.css'
 import '../Main1.css'
 import {RiDeleteBin6Line} from "react-icons/ri";
 import {TfiPencilAlt} from "react-icons/tfi";
-import {AiFillLike, AiOutlineLike} from "react-icons/ai"
+import {AiOutlineLike} from "react-icons/ai"
 import {useLocation, useNavigate} from "react-router-dom";
 import {getArticleDetail} from "../../api/board/article/getArticleDetail";
 import {AiOutlineUser} from "react-icons/ai";
@@ -23,9 +23,6 @@ import {getLikeCountForComment} from "../../api/board/like/getLikeCountForCommen
 import {getMaintainLikesForComment} from "../../api/board/like/getMaintainLikesForComment";
 import {postLikeForComment} from "../../api/board/like/postLikeForComment";
 import {deleteLikeForComment} from "../../api/board/like/deleteLikeForComment";
-import {postLikeForComment} from "../../api/board/like/postLikeForComment";
-import {deleteLikeForComment} from "../../api/board/like/deleteLikeForComment";
-import {likeForComment} from "../../api/board/like/likesForComment";
 import {intLikeForComment} from "../../api/board/like/intlikesForComment";
 
 function Article() {
@@ -229,7 +226,6 @@ function Article() {
 
 function CommentSection({comments, userId, setNewComment, likeCountComment, isLikedComment}) {
     const [modify, setModify] = useState(null);
-    const [isLikedComment, setIsLikedComment] = useState(false);
     const [intLike, setIntLike] = useState(0);
     const [comment, setComment] = useState({
         description: null,
@@ -258,30 +254,6 @@ function CommentSection({comments, userId, setNewComment, likeCountComment, isLi
     const fetchInitialData = async (commentId)=>{
         const response = await intLikeForComment(commentId);
         setIntLike(response);
-    };
-
-    // useEffect(() => {
-    //     fetchInitialData();
-    // }, []);
-    //
-    // const fetchInitialData = async (commentId) => {
-    //     try {
-    //         const response = await likeForComment(commentId)
-    //         setIsLikedComment(response);
-    //
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
-
-    const handleLikeComment = (commentId) => {
-        if (isLikedComment) {
-            deleteLikeForComment(commentId); // delete API 호출
-            setIsLikedComment(false); // false로 변경
-        } else {
-            postLikeForComment(commentId); // post API 호출
-            setIsLikedComment(true); // true로 변경
-        }
     };
 
     const delComment = (articleId, commentId) => {
