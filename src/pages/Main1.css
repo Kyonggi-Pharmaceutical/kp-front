@@ -11,6 +11,8 @@
 .main-bgs {
     text-align: center;
     display: flex;
+    flex-direction: column;
+
 }
 
 
@@ -61,7 +63,9 @@
     font-size: 22px;
     color: #777;
 }
-
+.row-con{
+    flex-direction: row !important;
+}
 .satisfied-btn {
     background-color:  #4F6EAA;
     color: white;
@@ -74,6 +78,7 @@
     margin-right: 20px;
     border: none;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+
 }
 .satisfied-btn:hover {
     background-color: #d0d0d0;
@@ -99,11 +104,13 @@
 .h2-con{
     margin-bottom: 40px;
     font-weight: bold;
+    margin-top: 20px;
 }
 
 .de-con{
     margin-top: 30px;
     font-weight: bold;
+
 }
 
 .reason-section {
@@ -166,4 +173,51 @@
 
 .skip-btn:hover {
     background-color: #d32f2f;
+}
+
+.month-result{
+    font-weight: bold;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    background-color: white;
+    padding: 20px;
+    border-radius: 4px;
+}
+
+.reason-section {
+    margin-bottom: 20px;
+}
+
+.reason-select {
+    margin-right: 10px;
+}
+
+.submit-btn {
+    margin-top: 10px;
+}
+
+.close-modal-btn {
+    margin-top: 10px;
+    background-color: #ccc;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.close-modal-btn:hover {
+    background-color: #999;
 }
