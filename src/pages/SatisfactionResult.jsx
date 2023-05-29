@@ -34,6 +34,7 @@ export default function SatisfactionResult({info, setUserInfo, healthGoal, setHe
 
 
     useEffect( async () => {
+        console.log(info.mbti);
         console.log(info.stressPoint);
         console.log(value);
         console.log(comparedStressPoint);
