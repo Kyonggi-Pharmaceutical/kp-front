@@ -19,6 +19,10 @@ import {postLike} from "../../api/board/like/postLike";
 import {getLikeCount} from "../../api/board/like/getLikesCount";
 import {getMaintainLikes} from "../../api/board/like/getMaintainLikes";
 import {deleteLike} from "../../api/board/like/deleteLike";
+import {getLikeCountForComment} from "../../api/board/like/getLikeCountForComment";
+import {getMaintainLikesForComment} from "../../api/board/like/getMaintainLikesForComment";
+import {postLikeForComment} from "../../api/board/like/postLikeForComment";
+import {deleteLikeForComment} from "../../api/board/like/deleteLikeForComment";
 import {postLikeForComment} from "../../api/board/like/postLikeForComment";
 import {deleteLikeForComment} from "../../api/board/like/deleteLikeForComment";
 import {likeForComment} from "../../api/board/like/likesForComment";
@@ -34,6 +38,8 @@ function Article() {
     const [newComment, setNewComment] = useState(false);
     const [isLiked, setIsLiked] = useState(false);
     const [likeCount, setLikeCount] = useState(0);
+    const [isLikedComment, setIsLikedComment] = useState({});
+    const [likeCountComment, setLikeCountComment] = useState({});
 
     const fetchLikeCount = async () => {
         const count = await getLikeCount(articleId);
@@ -43,7 +49,7 @@ function Article() {
     };
 
     useEffect(() => {
-        fetchLikeCount();
+        fetchLikeCount().then();
     }, [isLiked]);
 
 
@@ -57,18 +63,44 @@ function Article() {
             setComments(commentData);
             const isLikeData = await getMaintainLikes(articleId);
             setIsLiked(isLikeData);
+
+            const likeCounts = {};
+            const isLikeComment = {};
+            for (const comment of commentData) {
+                const count = await getLikeCountForComment(comment.id);
+                likeCounts[comment.id] = count;
+            }
+            setLikeCountComment(likeCounts);
+            for (const comment of commentData) {
+                const count = await getMaintainLikesForComment(comment.id);
+                isLikeComment[comment.id] = count;
+            }
+            setIsLikedComment(isLikeComment);
         }
 
-        fetchData();
+        fetchData().then();
     }, []);
 
     useEffect(() => {
         async function fetchData() {
             const commentData = await getComments(articleId);
             setComments(commentData);
+
+            const likeCounts2 = {};
+            const isLikeComment2 = {};
+            for (const comment of commentData) {
+                const count = await getLikeCountForComment(comment.id);
+                likeCounts2[comment.id] = count;
+            }
+            setLikeCountComment(likeCounts2);
+            for (const comment of commentData) {
+                const count = await getMaintainLikesForComment(comment.id);
+                isLikeComment2[comment.id] = count;
+            }
+            setIsLikedComment(isLikeComment2);
         }
 
-        fetchData();
+        fetchData().then(r => console.log("success"));
         setNewComment(false);
     }, [newComment])
 
@@ -149,7 +181,7 @@ function Article() {
                                 </> : (
                                     <>
                                         <th style={{width: "15%"}}>작성자</th>
-                                        <td style={{width: "65%", textAlign: "center"}}>{article.username}</td>
+                                        <td style={{width: "65%", textAlign: "left"}}>{article.username}</td>
                                         <td style={{width: "10%"}}>
                                             <AiOutlineLike size={20}/> {likeCount}</td>
                                         <td style={{width: "10%"}}></td>
@@ -187,14 +219,15 @@ function Article() {
                 </form>
                 <div className="comment-list">
                     <h3 style={{textAlign: "left", marginBottom: "20px"}}>Comment</h3>
-                    <CommentSection comments={comments} userId={userId} setNewComment={setNewComment}/>
+                    <CommentSection comments={comments} userId={userId} setNewComment={setNewComment}
+                                    likeCountComment={likeCountComment} isLikedComment={isLikedComment}/>
                 </div>
             </div>
         </div>
     );
 }
 
-function CommentSection({comments, userId, setNewComment}) {
+function CommentSection({comments, userId, setNewComment, likeCountComment, isLikedComment}) {
     const [modify, setModify] = useState(null);
     const [isLikedComment, setIsLikedComment] = useState(false);
     const [intLike, setIntLike] = useState(0);
@@ -262,6 +295,25 @@ function CommentSection({comments, userId, setNewComment}) {
             [event.target.name]: event.target.value
         }));
     };
+
+    const postCommentLike = async (commentId) => {
+        await postLikeForComment(commentId);
+        setNewComment(true);
+    };
+
+    const deleteCommentLike = async (commentId) => {
+        await deleteLikeForComment(commentId);
+        setNewComment(true);
+    };
+
+    const handleCommentLike = (commentId, isLike) => {
+        if(isLike){
+            deleteCommentLike(commentId).then(r => console.log('cl 삭제'));
+        }else{
+            postCommentLike(commentId).then(r => console.log('cl 추가'));
+        }
+    };
+
     return (
         comments && comments.map((item) => (
             <div className="comment" key={item.id} style={{textAlign: "left"}}>
@@ -279,26 +331,33 @@ function CommentSection({comments, userId, setNewComment}) {
                                     delComment(item.articleId, item.id)
                                 }}><TiDeleteOutline size={20}/></span>
                                 <span>   </span>
-                                <span className="icon-btn" onClick={() => handleLikeComment(item.id)}> {intLike}
-              {isLikedComment ? (
-                  <AiFillLike size={20}/>
-              ) : (
-                  <AiOutlineLike size={20}/>
-              )}
-            </span>
+                                <span className="icon-btn" onClick={() => {handleCommentLike(item.id, isLikedComment[item.id])}}>
+                                    {
+                                        isLikedComment[item.id] == true ? <>
+                                            <AiOutlineLike
+                                            size={20} color="red"/>{likeCountComment[item.id]}</> : <>
+                                            <AiOutlineLike
+                                            size={20}/>{likeCountComment[item.id]}
+                                        </>
+                                    }
+                                </span>
                             </h6>
                         ) : (
                             <h6 style={{float: "right"}}>
-            <span className="icon-btn" onClick={() => handleLikeComment(item.id)}> {intLike}
-              {isLikedComment ? (
-                  <AiFillLike size={20}/>
-              ) : (
-                  <AiOutlineLike size={20}/>
-              )}
-            </span>
+                                <span className="icon-btn" onClick={() => {handleCommentLike(item.id, isLikedComment[item.id])}}>
+                                {
+                                    isLikedComment[item.id] == true ? <>
+                                        <AiOutlineLike
+                                            size={20} color="red"/>{likeCountComment[item.id]}</> : <>
+                                        <AiOutlineLike
+                                            size={20}/>{likeCountComment[item.id]}
+                                    </>
+                                }
+                                </span>
                             </h6>
                         )
                     }
+
                     {
                         (item.userId === userId) && (item.id === modify) ? (
                             <>
@@ -322,7 +381,7 @@ function CommentSection({comments, userId, setNewComment}) {
                 </div>
             </div>
         ))
-    )
+    );
 }
 
 export default Article;

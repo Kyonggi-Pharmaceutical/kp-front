@@ -102,7 +102,7 @@ function SignUp({isLogin}) {
             stressPoint: formData.stressPoint,
         }
         signUpApi(submitData);
-        navigate('/');
+        navigate('/main');
     };
 
     const [radioValue, setRadioValue] = useState('1');

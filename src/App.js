@@ -107,9 +107,9 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Main2 isLogin={isLogin} setIsLogin={setIsLogin}/>}/>
                     <Route path="/main" element={isLogin ? <Main isLogin={isLogin} setIsLogin={setIsLogin}/> : <Navigate to="/"/>}/>
-                    <Route path="/signup" element={<SignUp isLogin={isLogin}/>}/>
+                    <Route path="/signup" element={isLogin ? <SignUp isLogin={isLogin}/> : <Navigate to="/"/>}/>
                     <Route path="/mypage" element={isLogin ? <MyPage isLogin={isLogin}/> : <Navigate to="/"/>}/>
-                    <Route path="/Mine" element={<Mine/>}/>
+                    <Route path="/Mine" element={isLogin ? <Mine/> : <Navigate to="/"/>}/>
                     <Route path="/weekly-my-progress"
                            element={isLogin ? <WeeklyProgress isLogin={isLogin}/> : <Navigate to="/"/>}/>
                     <Route path="/survey"
