@@ -11,8 +11,8 @@ export default function StartPage({ isLogin, info }) {
     const dietSurvey = () => {
         navigate("/dietSurvey?name="+username);
     }
-    const home = () => {
-        navigate("/");
+    const main = () => {
+        navigate("/main");
     }
 
     useEffect( ()=>{
@@ -29,7 +29,7 @@ export default function StartPage({ isLogin, info }) {
                     <div>
                         <Button className="button-custom" variant="outline-danger" size="lg" onClick={dietSurvey}>체중관리</Button>
                         <Button className="button-custom" variant="outline-danger" size="lg" onClick={stressSurvey}>스트레스관리</Button>
-                        <Button className="button-custom" variant="outline-danger" size="lg" onClick={home}>돌아가기</Button>
+                        <Button className="button-custom" variant="outline-danger" size="lg" onClick={main}>돌아가기</Button>
                     </div>
                 </div>
             </div>

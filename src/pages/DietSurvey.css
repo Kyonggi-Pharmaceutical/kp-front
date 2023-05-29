@@ -8,38 +8,88 @@
 .survey-form {
     margin: 40px;
     padding: 20px;
+    width: 1200px;
+    height: 800px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f8f8f8;
+    border-radius: 8px;
+    background-color: ghostwhite;
+}
+.question-container{
+    display: flex;
+    border: 1px solid #ccc;
+    width: 1150px;
+    height: 140px;
+    padding: 10px;
+    margin-bottom: 15px;
+    background: white;
+    border-radius: 8px;
+}
+.radio-container {
+    display: flex;
+    align-items: center;
+    margin-left: -345px !important;
+    margin-top: 50px;
+}
+
+.radio-container label{
+    margin-right: 40px;
+    padding: 5px;
+}
+.radio-container input{
+    margin-right: 9px;
+}
+.question-container p {
+    margin-right: 20px;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .survey-form label {
     display: block;
     margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .survey-form input[type="text"] {
-    width: 200px;
+    width: 300px;
     padding: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid whitesmoke;
     border-radius: 3px;
+    margin-left: 15px;
 }
 
 .survey-form select {
-    padding: 5px;
-    border: 1px solid #ccc;
+    margin-left: 15px;
+    height: 40px;
+    width: 300px;
+    border: 1px solid whitesmoke;
     border-radius: 3px;
+
+
 }
 
 .survey-form button[type="submit"] {
     padding: 10px 20px;
-    background-color: #4CAF50;
+    background-color: #356cb8;
+    font-weight: bold;
     color: white;
+    width: 150px;
+    font-size: 20px;
     border: none;
     border-radius: 3px;
     cursor: pointer;
+    float: right;
+    margin-right: 10px;
+    margin-top: 8px;
+}
+.survey-form h3{
+    font-weight: bold;
+    margin-bottom: 30px;
+    margin-top: 15px;
 }
 
 .survey-form button[type="submit"]:hover {
-    background-color: #45a049;
+    background-color: #4a90e2;
 }

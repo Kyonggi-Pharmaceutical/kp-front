@@ -3,7 +3,7 @@ import axios from "axios";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export async function deleteComment(articleId, commentId) {
-    const path = '/api/v1/articles/' + articleId + '/comments/' + commentId;
+    const path = '/api/v1/articles/comments/' + commentId;
     await axios
         .delete(`${API_URL}${path}`,    //API 주소로 사용자정보(userInfo)를 담아 보냄
             {withCredentials: true})    //권한을 위한 쿠키를 첨가

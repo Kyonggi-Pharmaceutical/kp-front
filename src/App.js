@@ -22,7 +22,7 @@ import CreatedArticle from "./pages/board/CreatedArticle";
 import ModifyArticle from "./pages/board/ModifyArticle";
 import WeeklyProgress from "./pages/progress/WeeklyProgress";
 import Main2 from "./pages/BeforeLogin";
-import Mine from "./pages/GetMyCommunityByUser";
+import Mine from "./pages/MyCommunity";
 import MonthSatisfySurvey from "./pages/SatisfySurvey";
 function App() {
     const [isLogin, setIsLogin] = useState(false);

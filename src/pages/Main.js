@@ -257,26 +257,28 @@ function Main({isLogin}) {
                         </Row>
                     </Container>
                 </div>
-                <div className="overlay-container">
-                    {!isMinimized && (
-                        <>
-                            <div className="overlay-content">
-                                <h3>현재 나의 상태</h3>
-                                <p>키: {info.height}, 몸무게: {info.weight}</p>
-                                <p>BMI 수치: {info.bmi.value} ({info.bmi.description})</p>
-                                <button onClick={myPage}>업데이트 하러가기</button>
+                {info.bmi != null && (
+                    <div className="overlay-container">
+                        {!isMinimized && (
+                            <>
+                                <div className="overlay-content">
+                                    <h3>현재 나의 상태</h3>
+                                    <p>키: {info.height}, 몸무게: {info.weight}</p>
+                                    <p>BMI 수치: {info.bmi.value} ({info.bmi.description})</p>
+                                    <button onClick={myPage}>업데이트 하러가기</button>
+                                </div>
+                                <div className="overlay-minimize" onClick={handleMinimize}>
+                                    <span>&#8722;</span>
+                                </div>
+                            </>
+                        )}
+                        {isMinimized && (
+                            <div className="overlay-minimized" onClick={handleMinimize}>
+                                <span>&#43;</span>
                             </div>
-                            <div className="overlay-minimize" onClick={handleMinimize}>
-                                <span>&#8722;</span>
-                            </div>
-                        </>
-                    )}
-                    {isMinimized && (
-                        <div className="overlay-minimized" onClick={handleMinimize}>
-                            <span>&#43;</span>
-                        </div>
-                    )}
-                </div>
+                        )}
+                    </div>
+                )}
             </div>
             <Modal show={showBeforeCheckModal} onHide={() => setShowBeforeCheckModal(false)} backdrop="static">
                 <Modal.Body>
