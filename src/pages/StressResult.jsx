@@ -22,9 +22,8 @@ export default function StressResult({info, setUserInfo, healthGoal, setHealthGo
 
 
 
-    const navigate = useNavigate();
-    const DailyGoal = () => {
-        navigate("/dailyGoal");
+    const Main = () => {
+        window.location.replace("/main");
     }
 
 
@@ -58,7 +57,7 @@ export default function StressResult({info, setUserInfo, healthGoal, setHealthGo
                 <p>{` ${info.lastName} ${info.firstName}`}님의 스트레스 지수는 {value}점입니다.</p>
                 {
                     Array.isArray(activityList) && activityList.map((activity, idx) => {
-                        return (
+                        (
                             <div className="activity-item" key={idx}>
                                 <p>증상: {activity.symptom}</p>
                                 <p>추천활동: {activity.name}</p>

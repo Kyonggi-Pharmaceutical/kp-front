@@ -1,23 +1,35 @@
-import React, { useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
+import {getUserInfo} from "../api/user/getUserInfo";
 
-export default function StartPage({ isLogin, info }) {
+export default function StartPage({ isLogin }) {
     const navigate = useNavigate();
-    const username = info.lastName + info.firstName;
     const stressSurvey = () => {
-        navigate("/stressSurvey?name="+username);
+        navigate("/stressSurvey");
     }
     const dietSurvey = () => {
-        navigate("/dietSurvey?name="+username);
+        navigate("/dietSurvey");
     }
     const main = () => {
         navigate("/main");
     }
 
+    const [info, setInfo] = useState({
+        nickname: '',
+        fullName: ''
+    });
+
     useEffect( ()=>{
         if (!isLogin) navigate('/');
-    }, [isLogin, info]);
+
+        const initUserinfo = async () => {
+            const newinfo = await getUserInfo();
+            setInfo(newinfo);
+        };
+
+        initUserinfo();
+    }, [isLogin]);
 
     return (
 

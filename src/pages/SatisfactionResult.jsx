@@ -12,7 +12,7 @@ import Modal from 'react-bootstrap/Modal';
 import Main from "./Main";
 import {getUserActivitySolutions} from "../api/activity/getUserActivitySolutions";
 import {getUserInfo} from "../api/user/getUserInfo";
-import {postStressGoal} from "../api/stresses/postStressGoal";
+import {renewSolutions} from "../api/stresses/renewSolutions";
 console.log(MBTI);
 console.log(Activity);
 
@@ -24,8 +24,8 @@ export default function SatisfactionResult({info, setUserInfo, healthGoal, setHe
     const handleShow = () => setShow(true);
 
     const navigate = useNavigate();
-    const DailyGoal = () => {
-        navigate("/dailyGoal");
+    const Main = () => {
+        window.location.replace("/main");
     }
     const location = useLocation();
     const value = location.state.value;
@@ -54,7 +54,7 @@ export default function SatisfactionResult({info, setUserInfo, healthGoal, setHe
     }, []);
 
     function NO(){
-        postStressGoal();
+        renewSolutions();
 
         return(
             <div className='new-solution'>
@@ -79,7 +79,7 @@ export default function SatisfactionResult({info, setUserInfo, healthGoal, setHe
                             </div>
                         )
                     })}
-                <Button className="button-custom" variant="outline-danger" onClick={DailyGoal}>새 솔루션으로 일일 목표 관리하기</Button>
+                <Button className="button-custom" variant="outline-danger" onClick={Main}>새 솔루션으로 일일 목표 관리하기</Button>
             </div>
 
         )

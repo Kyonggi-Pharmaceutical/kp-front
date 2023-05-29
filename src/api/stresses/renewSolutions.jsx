@@ -1,4 +1,4 @@
-export const postStressGoal = async () => {
+export const renewSolutions = async () => {
     const API_URL = process.env.REACT_APP_API_URL;
     const path = '/api/v1/activities/daily-solutions/renew';
     try {

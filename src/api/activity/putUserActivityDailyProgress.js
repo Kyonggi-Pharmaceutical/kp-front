@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-export async function putUserDailyProgress(done) {
+export async function putUserActivityDailyProgress(done) {
     const path = `/api/v1/stresses/daily-progress?done=` + done;
 
     try {

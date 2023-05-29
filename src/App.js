@@ -116,7 +116,7 @@ function App() {
                     <Route path="/weekly-my-progress"
                            element={isLogin ? <WeeklyProgress isLogin={isLogin}/> : <Navigate to="/"/>}/>
                     <Route path="/survey"
-                           element={isLogin ? <StartPage isLogin={isLogin} info={info}/> : <Navigate to="/"/>}/>
+                           element={isLogin ? <StartPage isLogin={isLogin}/> : <Navigate to="/"/>}/>
                     <Route path="/stressSurvey" element={<StressSurvey month={month} stressResult={StressResult}/>}/>
                     <Route path="/stressResult"
                            element={<StressResult info={info} setUserInfo={setUserInfo} healthGoal={healthGoal}

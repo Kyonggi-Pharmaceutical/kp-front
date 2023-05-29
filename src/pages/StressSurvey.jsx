@@ -1,7 +1,7 @@
 import React, {createRef, useEffect, useRef, useState} from 'react';
 import { useNavigate } from "react-router-dom";
 import { putStressPoint } from '../api/stresses/putStressPoint'
-import { postStressGoal } from "../api/stresses/postStressGoal";
+import { renewSolutions } from "../api/stresses/renewSolutions";
 import styles from './StressSurvey.css';
 import Questions from "../api/StressQuestion/../StressQuestion";
 import {getValue} from "@testing-library/user-event/dist/utils";
@@ -59,14 +59,6 @@ export default function StressSurvey({month, stressResult}){
     const navigate = useNavigate();
 
     const nextSlide = (idx) => {
-        console.log(num);
-        if((idx == btnActive) && buttonRef.current.isDoubleClick){
-            return;
-        }
-
-
-        console.log(num);
-
         setStress(stress + idx);
         setNum(num + 1);
         setCurrentSlide(currentSlide + 1);
@@ -167,7 +159,7 @@ export default function StressSurvey({month, stressResult}){
 
         putStressPoint(result).then(r => result);
         try {
-            const response = postStressGoal();;
+            const response = renewSolutions();;
             if (response.ok) {
                 console.log('User StressGoal created');
             }
@@ -176,9 +168,9 @@ export default function StressSurvey({month, stressResult}){
             alert('API 요청이 실패했습니다. 다시 시도해주세요.');
         }
 
-        if (num > 7 && month == 0){ navigate("/stressResult?result="+result, {
+        if (num > 8 && month == 0){ navigate("/stressResult?result="+result, {
             state:{ value : parseInt(result) },
-        })}else if (num > 7 && month == 1){ navigate("/satisfactionResult?result="+result, {
+        })}else if (num > 8 && month == 1){ navigate("/satisfactionResult?result="+result, {
             state:{ value : parseInt(stress) },
         })};
 

@@ -12,12 +12,13 @@ import {getAllRanking} from "../api/main/getAllRanking";
 import MainRank from "./main/MainRank";
 import WeeklyProgress from "./progress/WeeklyProgress";
 import Modal from "react-bootstrap/Modal";
-import {putUserDailyProgress} from "../api/activity/putUserDailyProgress";
+import {putUserActivityDailyProgress} from "../api/activity/putUserActivityDailyProgress";
 import {getUserActivitySolutions} from "../api/activity/getUserActivitySolutions";
 import {getUserTodayProgressChecked} from "../api/progress/getUserTodayProgressChecked";
 import {getExerciseInfo} from "../api/getExerciseInfo";
 import {getHealthGoal} from "../api/getHealthGoal";
 import {getStressGoal} from "../api/getStressGoal";
+import {saveDailyChecked} from "../api/postDailyChecked";
 
 function Main({isLogin}) {
     let navigate = useNavigate();
@@ -82,12 +83,14 @@ function Main({isLogin}) {
             const newinfo = await getUserInfo();
             setInfo(newinfo);
             console.log("###" + newinfo.fullName);
-            fetchGoal(newinfo.healthcareType);
+            await fetchGoal(newinfo.healthcareType);
         };
 
 
         const initDailyHealthMessage = async () => {
             try {
+                await initUserinfo();
+                console.log('test7');
                 const newMessage = await getDailyHealthMessage()
                 setDailyHealthMessage(newMessage.content)
             } catch (e) {
@@ -122,6 +125,7 @@ function Main({isLogin}) {
         };
 
         const fetchUserExerciseSolutions = async () => {
+            console.log('###!! healthcareType:' + info.healthcareType)
             if (info.healthcareType !== '') {
                 try {
                     const exerciseSolutions = await getExerciseInfo();
@@ -155,7 +159,12 @@ function Main({isLogin}) {
         setDailyProgressDone(done)
         setShowBeforeCheckModal(false);
         setShowAfterCheckModal(true);
-        await putUserDailyProgress(done);
+        if (info.healthcareType === 'STRESS') {
+            await putUserActivityDailyProgress(done);
+        } else {
+            await saveDailyChecked({isCheck: done})
+        }
+
         setTimeout(() => {
             setShowAfterCheckModal(false);
             handleRefreshWeeklyProgress();
