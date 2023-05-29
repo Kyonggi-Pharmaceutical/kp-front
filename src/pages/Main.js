@@ -90,11 +90,9 @@ function Main({isLogin}) {
         const initDailyHealthMessage = async () => {
             try {
                 await initUserinfo();
-                console.log('test7');
                 const newMessage = await getDailyHealthMessage()
                 setDailyHealthMessage(newMessage.content)
             } catch (e) {
-                console.error(e.message)
                 setDailyHealthMessage('문진을 완료하고, 맞춤형 건강 관리 솔루션을 받아보세요!')
             }
         }
@@ -112,6 +110,12 @@ function Main({isLogin}) {
                 console.error('Failed to fetch user ranking:', error);
             }
         };
+        initDailyHealthMessage()
+        initUserinfo()
+        fetchAllRanking()
+    }, []);
+
+    useEffect(() => {
 
         const fetchUserActivitySolutions = async () => {
             if (info.healthcareType !== '') {
@@ -136,6 +140,7 @@ function Main({isLogin}) {
             }
         };
 
+
         const fetchWeeklyProgresses = async () => {
             if (info.healthcareType !== '') {
                 try {
@@ -149,11 +154,8 @@ function Main({isLogin}) {
 
         fetchUserActivitySolutions()
         fetchUserExerciseSolutions()
-        initDailyHealthMessage()
-        initUserinfo()
-        fetchAllRanking()
         fetchWeeklyProgresses()
-    }, []);
+    }, [info.healthcareType])
 
     const putDailyProgress = async (done) => {
         setDailyProgressDone(done)
