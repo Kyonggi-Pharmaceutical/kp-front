@@ -167,20 +167,24 @@ function Main({isLogin}) {
                 const endAt = new Date(healthGoal.endAt);
                 const isPast = endAt < new Date();
                 setShowMonthlyCheckModal(today.check && isPast)
-                setTimeout(() => {
-                    setShowMonthlyCheckModal(false);
-                    navigate("/monthSurvey");
-                }, 5000);
+                if (today.check && isPast) {
+                    setTimeout(() => {
+                        setShowMonthlyCheckModal(false);
+                        navigate("/monthSurvey");
+                    }, 5000);
+                }
             }
             if (healthcareType === 'STRESS') {
                 const stressGoal = await getStressGoal();
                 const endAt = new Date(stressGoal.endAt);
                 const isPast = endAt < new Date();
                 setShowMonthlyCheckModal(today.check && isPast)
-                setTimeout(() => {
-                    setShowMonthlyCheckModal(false);
-                    navigate("/satisfactionSurvey");
-                }, 5000);
+                if (today.check && isPast) {
+                    setTimeout(() => {
+                        setShowMonthlyCheckModal(false);
+                        navigate("/satisfactionSurvey");
+                    }, 5000);
+                }
             }
         } catch (error) {
             console.error('Failed to fetchGoal:', error);
