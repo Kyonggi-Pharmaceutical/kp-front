@@ -111,29 +111,35 @@ function Main({isLogin}) {
         };
 
         const fetchUserActivitySolutions = async () => {
-            try {
-                const activitySolutions = await getUserActivitySolutions();
-                setUserActivitySolutions(activitySolutions);
-            } catch (error) {
-                console.error('Failed to fetchUserActivitySolutions:', error);
+            if (info.healthcareType !== '') {
+                try {
+                    const activitySolutions = await getUserActivitySolutions();
+                    setUserActivitySolutions(activitySolutions);
+                } catch (error) {
+                    console.error('Failed to fetchUserActivitySolutions:', error);
+                }
             }
         };
 
         const fetchUserExerciseSolutions = async () => {
-            try {
-                const exerciseSolutions = await getExerciseInfo();
-                setUserExerciseSolutions(exerciseSolutions);
-            } catch (error) {
-                console.error('Failed to fetchUserExerciseSolutions:', error);
+            if (info.healthcareType !== '') {
+                try {
+                    const exerciseSolutions = await getExerciseInfo();
+                    setUserExerciseSolutions(exerciseSolutions);
+                } catch (error) {
+                    console.error('Failed to fetchUserExerciseSolutions:', error);
+                }
             }
         };
 
         const fetchWeeklyProgresses = async () => {
-            try {
-                const today = await getUserTodayProgressChecked();
-                setShowBeforeCheckModal(!today.check)
-            } catch (error) {
-                console.error('Failed to fetchWeeklyProgresses:', error);
+            if (info.healthcareType !== '') {
+                try {
+                    const today = await getUserTodayProgressChecked();
+                    setShowBeforeCheckModal(!today.check)
+                } catch (error) {
+                    console.error('Failed to fetchWeeklyProgresses:', error);
+                }
             }
         };
 
@@ -159,35 +165,37 @@ function Main({isLogin}) {
 
 
     const fetchGoal = async (healthcareType) => {
-        try {
-            const today = await getUserTodayProgressChecked();
-            setShowBeforeCheckModal(!today.check)
-            if (healthcareType === 'HEALTH') {
-                const healthGoal = await getHealthGoal();
-                const endAt = new Date(healthGoal.endAt);
-                const isPast = endAt < new Date();
-                setShowMonthlyCheckModal(today.check && isPast)
-                if (today.check && isPast) {
-                    setTimeout(() => {
-                        setShowMonthlyCheckModal(false);
-                        navigate("/monthSurvey");
-                    }, 5000);
+        if (info.healthcareType !== '') {
+            try {
+                const today = await getUserTodayProgressChecked();
+                setShowBeforeCheckModal(!today.check)
+                if (healthcareType === 'HEALTH') {
+                    const healthGoal = await getHealthGoal();
+                    const endAt = new Date(healthGoal.endAt);
+                    const isPast = endAt < new Date();
+                    setShowMonthlyCheckModal(today.check && isPast)
+                    if (today.check && isPast) {
+                        setTimeout(() => {
+                            setShowMonthlyCheckModal(false);
+                            navigate("/monthSurvey");
+                        }, 5000);
+                    }
                 }
-            }
-            if (healthcareType === 'STRESS') {
-                const stressGoal = await getStressGoal();
-                const endAt = new Date(stressGoal.endAt);
-                const isPast = endAt < new Date();
-                setShowMonthlyCheckModal(today.check && isPast)
-                if (today.check && isPast) {
-                    setTimeout(() => {
-                        setShowMonthlyCheckModal(false);
-                        navigate("/satisfactionSurvey");
-                    }, 5000);
+                if (healthcareType === 'STRESS') {
+                    const stressGoal = await getStressGoal();
+                    const endAt = new Date(stressGoal.endAt);
+                    const isPast = endAt < new Date();
+                    setShowMonthlyCheckModal(today.check && isPast)
+                    if (today.check && isPast) {
+                        setTimeout(() => {
+                            setShowMonthlyCheckModal(false);
+                            navigate("/satisfactionSurvey");
+                        }, 5000);
+                    }
                 }
+            } catch (error) {
+                console.error('Failed to fetchGoal:', error);
             }
-        } catch (error) {
-            console.error('Failed to fetchGoal:', error);
         }
     };
 
