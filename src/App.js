@@ -24,6 +24,8 @@ import WeeklyProgress from "./pages/progress/WeeklyProgress";
 import Main2 from "./pages/BeforeLogin";
 import Mine from "./pages/MyCommunity";
 import MonthSatisfySurvey from "./pages/SatisfySurvey";
+import {logout} from "./api/logout";
+
 function App() {
     const [isLogin, setIsLogin] = useState(false);
     const [info, setUserInfo] = useState({
@@ -59,6 +61,11 @@ function App() {
         initLogin();
     }, []);
 
+    const handleLogout = async () => {
+        await logout();
+        window.location.replace('/');
+    }
+
     return (
         <div className="app-container">
             <div className="sidebar-container">
@@ -76,25 +83,25 @@ function App() {
                         <ul>
                             <li>
                                 <Link to="/main" style={{textDecoration: "none", color: "white"}}>
-                                <span className="bold-size">H O M E</span>
-                                <span className="li-span">메 인</span></Link>
+                                    <span className="bold-size">H O M E</span>
+                                    <span className="li-span">메 인</span></Link>
                             </li>
                             <li>
                                 <Link to={isLogin ? "/board" : "/"} style={{textDecoration: "none", color: "white"}}>
-                                <span className="bold-size">B O A R D</span>
-                                <span className="li-span">게시판</span></Link>
+                                    <span className="bold-size">B O A R D</span>
+                                    <span className="li-span">게시판</span></Link>
                             </li>
                             <li>
                                 <Link to="/Mine" style={{textDecoration: "none", color: "white"}}>
-                                <span className="bold-size">M I N E</span>
-                                <span className="li-span">나의 활동</span></Link>
+                                    <span className="bold-size">M I N E</span>
+                                    <span className="li-span">나의 활동</span></Link>
                             </li>
                         </ul>
                     </div>
                     <ul className="nav-list">
                         {isLogin ? (
                             <div>
-                                <li><Link to="/">Logout</Link></li>
+                                <li><Link to="/" onClick={handleLogout}>Logout</Link></li>
                                 <li><Link to="/mypage">My Page</Link></li>
                             </div>
                         ) : (
@@ -109,7 +116,8 @@ function App() {
             <div className="main-container">
                 <Routes>
                     <Route path="/" element={<Main2 isLogin={isLogin} setIsLogin={setIsLogin}/>}/>
-                    <Route path="/main" element={isLogin ? <Main isLogin={isLogin} setIsLogin={setIsLogin}/> : <Navigate to="/"/>}/>
+                    <Route path="/main"
+                           element={isLogin ? <Main isLogin={isLogin} setIsLogin={setIsLogin}/> : <Navigate to="/"/>}/>
                     <Route path="/signup" element={isLogin ? <SignUp isLogin={isLogin}/> : <Navigate to="/"/>}/>
                     <Route path="/mypage" element={isLogin ? <MyPage isLogin={isLogin}/> : <Navigate to="/"/>}/>
                     <Route path="/Mine" element={isLogin ? <Mine/> : <Navigate to="/"/>}/>
