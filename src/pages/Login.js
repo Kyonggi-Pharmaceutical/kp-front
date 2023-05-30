@@ -18,21 +18,25 @@ function Login({ isLogin, setIsLogin }) {
         const { credential } = res;
         const result = await postLoginToken(credential, setIsLogin);
         setIsLogin(result);
+        console.log('로그인 성공');
     };
 
     //로그인이 되었다면 mypage로 이동, 아니면 return
-    useEffect(() => {
+    useEffect(async () => {
         if (!isLogin) return;
         //navigate('/mypage');
         const initUserinfo = async () => {
             const newinfo = await getUserInfo();
             setInfo(newinfo);
         };
-        initUserinfo();
-        if((info.mbti === null) && (info.nickname === null)){
+        let newinfo = await getUserInfo();
+        setInfo(newinfo);
+        ;
+        initUserinfo().then(r => newinfo);
+        if ((info.mbti === null) && (info.nickname === null)) {
             navigate("/signup")
-        }else{
-            window.location.replace("/");
+        } else {
+            navigate("/main")
         }
     }, [isLogin]);
 

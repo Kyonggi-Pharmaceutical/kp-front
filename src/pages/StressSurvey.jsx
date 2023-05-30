@@ -2,6 +2,7 @@ import React, {createRef, useEffect, useRef, useState} from 'react';
 import { useNavigate } from "react-router-dom";
 import { putStressPoint } from '../api/stresses/putStressPoint'
 import { renewSolutions } from "../api/stresses/renewSolutions";
+import { createSolutions} from "../api/stresses/createSolution";
 import styles from './StressSurvey.css';
 import Questions from "../api/StressQuestion/../StressQuestion";
 import {getValue} from "@testing-library/user-event/dist/utils";
@@ -158,8 +159,19 @@ export default function StressSurvey({month, stressResult}){
         let result = stress;
 
         putStressPoint(result).then(r => result);
+
         try {
             const response = renewSolutions();;
+            if (response.ok) {
+                console.log('User StressSolution created');
+            }
+        } catch (error) {
+            console.log(error);
+            alert('API 요청이 실패했습니다. 다시 시도해주세요.');
+        }
+
+        try {
+            const response = createSolutions();;
             if (response.ok) {
                 console.log('User StressGoal created');
             }
