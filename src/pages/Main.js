@@ -43,7 +43,7 @@ function Main({isLogin}) {
     const [info, setInfo] = useState({
         nickname: '',
         fullName: '',
-        healthcareType: '',
+        healthcareType: null,
         bmi: {
             value: '',
             description: ''
@@ -118,7 +118,7 @@ function Main({isLogin}) {
     useEffect(() => {
 
         const fetchUserActivitySolutions = async () => {
-            if (info.healthcareType !== '') {
+            if (info.healthcareType != null) {
                 try {
                     const activitySolutions = await getUserActivitySolutions();
                     setUserActivitySolutions(activitySolutions);
@@ -130,7 +130,7 @@ function Main({isLogin}) {
 
         const fetchUserExerciseSolutions = async () => {
             console.log('###!! healthcareType:' + info.healthcareType)
-            if (info.healthcareType !== '') {
+            if (info.healthcareType != null) {
                 try {
                     const exerciseSolutions = await getExerciseInfo();
                     setUserExerciseSolutions(exerciseSolutions);
@@ -142,7 +142,7 @@ function Main({isLogin}) {
 
 
         const fetchWeeklyProgresses = async () => {
-            if (info.healthcareType !== '') {
+            if (info.healthcareType != null) {
                 try {
                     const today = await getUserTodayProgressChecked();
                     setShowBeforeCheckModal(!today.check)
@@ -176,7 +176,7 @@ function Main({isLogin}) {
 
 
     const fetchGoal = async (healthcareType) => {
-        if (info.healthcareType !== '') {
+        if (info.healthcareType != null) {
             try {
                 const today = await getUserTodayProgressChecked();
                 setShowBeforeCheckModal(!today.check)
