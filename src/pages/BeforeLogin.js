@@ -28,10 +28,11 @@ function BeforeLogin({isLogin, setIsLogin}) {
 
     useEffect(() => {
         if (isLogin === true) {
-            if (info.mbti === '') {
+            if (info.mbti == null) {
                 navigate('/signup');
+            } else {
+                navigate('/main');
             }
-            navigate('/main');
         }
     }, [info.mbti, navigate])
 
