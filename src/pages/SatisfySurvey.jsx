@@ -56,13 +56,13 @@ function SatisfySurvey({ info }) {
     };
 
 
-    const handleProceed2 = () => {
-        navigate('/survey');
+const handleProceed2 = () => {
+        navigate('/dietSurvey');
     };
 
     const handleSkip = () => {
         setShowProceedModal(false);
-        navigate('/');
+        navigate('/survey');
     };
 
     const handleCloseProceedModal = () => {

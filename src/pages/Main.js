@@ -155,6 +155,7 @@ function Main({isLogin}) {
         fetchUserActivitySolutions()
         fetchUserExerciseSolutions()
         fetchWeeklyProgresses()
+        fetchGoal(info.healthcareType);
     }, [info.healthcareType])
 
     const putDailyProgress = async (done) => {
