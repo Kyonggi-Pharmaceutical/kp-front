@@ -28,9 +28,9 @@ function Main({isLogin}) {
     }
 
     const board = () => {
-        if(info.nickname && info.fullName){
+        if (info.nickname && info.fullName) {
             window.location.replace('/board');
-        }else{
+        } else {
             alert('로그인/회원가입이 필요한 서비스입니다!');
             navigate('/');
         }
@@ -240,10 +240,8 @@ function Main({isLogin}) {
                                                     {userExerciseSolutions.map((exercise, index) => (
                                                         <div key={index}>
                                                             <p style={{fontSize: '25px'}}>
-                                                                <strong>
-                                                                    {number[index + 1]} {exercise.name} (칼로리:{exercise.cal} /
-                                                                    시간:{exercise.time})
-                                                                </strong>
+                                                                <strong>{number[index + 1]} {exercise.name} (칼로리:{exercise.cal}kcal
+                                                                    / {exercise.time}분)</strong>
                                                             </p>
                                                         </div>
                                                     ))}
@@ -318,16 +316,27 @@ function Main({isLogin}) {
                                     {info.healthcareType === 'STRESS' ? '스트레스' : '건강'}
                                     관리 솔루션 입니다
                                 </p>
-
-                                {userActivitySolutions.map((activity, index) => (
-                                    <div key={index}>
-                                        <p style={{fontSize: '25px'}}>
-                                            <strong>
-                                                ✅️ {activity.name}
-                                            </strong>
-                                        </p>
-                                    </div>
-                                ))}
+                                {(info.healthcareType === 'STRESS') ? (
+                                    userActivitySolutions.map((activity, index) => (
+                                        <div key={index}>
+                                            <p style={{fontSize: '25px'}}>
+                                                <strong>
+                                                    ✅️ {activity.name}
+                                                </strong>
+                                            </p>
+                                        </div>
+                                    ))
+                                ) : (
+                                    userExerciseSolutions.map((exercise, index) => (
+                                        <div key={index}>
+                                            <p style={{fontSize: '25px'}}>
+                                                <strong>
+                                                    ✅️ {exercise.name} / {exercise.cal}kcal / {exercise.time}분
+                                                </strong>
+                                            </p>
+                                        </div>
+                                    ))
+                                )}
                                 <p>달성하셨나요?</p>
                             </div>
                         </Row>
@@ -368,9 +377,10 @@ function Main({isLogin}) {
             <Modal show={showMonthlyCheckModal} onHide={() => setShowMonthlyCheckModal(false)} backdrop="static">
                 <Modal.Body>
                     <div>
-                        <h3>{(info.nickname === '') ? info.fullName : info.nickname }님, 축하합니다!</h3>
+                        <h3>{(info.nickname === '') ? info.fullName : info.nickname}님, 축하합니다!</h3>
                         <p>이번 달 {(info.healthcareType === 'HEALTH') ? '건강' : '스트레스'} 관리 목표가 종료되었습니다 🎉🎉</p>
-                        <p><strong>한 달동안 {(info.healthcareType === 'HEALTH') ? '건강' : '스트레스'} 관리를 진행하면서, 변화된 부분이 있었나요?</strong></p>
+                        <p><strong>한 달동안 {(info.healthcareType === 'HEALTH') ? '건강' : '스트레스'} 관리를 진행하면서, 변화된 부분이
+                            있었나요?</strong></p>
                         <p>잠시 후에 만족도 조사 페이지로 이동됩니다.</p>
                     </div>
                 </Modal.Body>
