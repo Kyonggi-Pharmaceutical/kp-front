@@ -160,31 +160,59 @@ export default function StressSurvey({month, stressResult}){
 
         putStressPoint(result).then(r => result);
 
-        try {
-            const response = renewSolutions();;
-            if (response.ok) {
-                console.log('User StressSolution created');
-            }
-        } catch (error) {
-            console.log(error);
-            alert('API 요청이 실패했습니다. 다시 시도해주세요.');
-        }
 
-        try {
-            const response = createSolutions();;
-            if (response.ok) {
-                console.log('User StressGoal created');
-            }
-        } catch (error) {
-            console.log(error);
-            alert('API 요청이 실패했습니다. 다시 시도해주세요.');
-        }
 
         if (num > 8 && month == 0){ navigate("/stressResult?result="+result, {
             state:{ value : parseInt(result) },
-        })}else if (num > 8 && month == 1){ navigate("/satisfactionResult?result="+result, {
+        })
+
+            try {
+                const response = renewSolutions();;
+                if (response.ok) {
+                    console.log('User StressSolution created');
+                }
+            } catch (error) {
+                console.log(error);
+                alert('API 요청이 실패했습니다. 다시 시도해주세요.');
+            }
+
+            try {
+                const response = createSolutions();;
+                if (response.ok) {
+                    console.log('User StressGoal created');
+                }
+            } catch (error) {
+                console.log(error);
+                alert('API 요청이 실패했습니다. 다시 시도해주세요.');
+            }
+
+
+        }else if (num > 8 && month == 1){ navigate("/satisfactionResult?result="+result, {
             state:{ value : parseInt(stress) },
-        })};
+        })
+
+            try {
+                const response = renewSolutions();;
+                if (response.ok) {
+                    console.log('User StressSolution created');
+                }
+            } catch (error) {
+                console.log(error);
+                alert('API 요청이 실패했습니다. 다시 시도해주세요.');
+            }
+
+            try {
+                const response = createSolutions();;
+                if (response.ok) {
+                    console.log('User StressGoal created');
+                }
+            } catch (error) {
+                console.log(error);
+                alert('API 요청이 실패했습니다. 다시 시도해주세요.');
+            }
+
+
+        };
 
     }, [currentSlide]);
 
