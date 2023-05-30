@@ -1,15 +1,15 @@
 import React, {createRef, useEffect, useRef, useState} from 'react';
-import { useNavigate } from "react-router-dom";
-import { putStressPoint } from '../api/stresses/putStressPoint'
-import { renewSolutions } from "../api/stresses/renewSolutions";
-import { createSolutions} from "../api/stresses/createSolution";
+import {useNavigate} from "react-router-dom";
+import {putStressPoint} from '../api/stresses/putStressPoint'
+import {renewSolutions} from "../api/stresses/renewSolutions";
+import {createSolutions} from "../api/stresses/createSolution";
 import styles from './StressSurvey.css';
 import Questions from "../api/StressQuestion/../StressQuestion";
 import {getValue} from "@testing-library/user-event/dist/utils";
-import { FiEdit2 } from "react-icons/fi";
+import {FiEdit2} from "react-icons/fi";
 
 console.log(Questions);
-export default function StressSurvey({month, stressResult}){
+export default function StressSurvey({month, stressResult}) {
     const [loading, setLoading] = useState(false);
     const [num, setNum] = useState(0);
     const [currentSlide, setCurrentSlide] = useState(1);
@@ -65,14 +65,13 @@ export default function StressSurvey({month, stressResult}){
         setCurrentSlide(currentSlide + 1);
 
 
-
         // slideRef.current.style.transform += 'translateX(-100vw)';
     };
 
     const toggleActive = (event) => {
-        if(buttonRef.current.isDoubleClick){
-                return;
-            }
+        if (buttonRef.current.isDoubleClick) {
+            return;
+        }
         setBtnActive((prev) => {
             return event.target.value;
         });
@@ -80,7 +79,7 @@ export default function StressSurvey({month, stressResult}){
     };
 
     const toggleActive1 = (event) => {
-        if(buttonRef1.current.isDoubleClick1){
+        if (buttonRef1.current.isDoubleClick1) {
             return;
         }
         setBtnActive1((prev) => {
@@ -90,7 +89,7 @@ export default function StressSurvey({month, stressResult}){
     };
 
     const toggleActive2 = (event) => {
-        if(buttonRef2.current.isDoubleClick2){
+        if (buttonRef2.current.isDoubleClick2) {
             return;
         }
         setBtnActive2((prev) => {
@@ -100,7 +99,7 @@ export default function StressSurvey({month, stressResult}){
     };
 
     const toggleActive3 = (event) => {
-        if(buttonRef3.current.isDoubleClick3){
+        if (buttonRef3.current.isDoubleClick3) {
             return;
         }
         setBtnActive3((prev) => {
@@ -109,7 +108,7 @@ export default function StressSurvey({month, stressResult}){
         buttonRef3.current.isDoubleClick3 = true;
     };
     const toggleActive4 = (event) => {
-        if(buttonRef4.current.isDoubleClick4){
+        if (buttonRef4.current.isDoubleClick4) {
             return;
         }
         setBtnActive4((prev) => {
@@ -118,7 +117,7 @@ export default function StressSurvey({month, stressResult}){
         buttonRef4.current.isDoubleClick4 = true;
     };
     const toggleActive5 = (event) => {
-        if(buttonRef5.current.isDoubleClick5){
+        if (buttonRef5.current.isDoubleClick5) {
             return;
         }
         setBtnActive5((prev) => {
@@ -127,7 +126,7 @@ export default function StressSurvey({month, stressResult}){
         buttonRef5.current.isDoubleClick5 = true;
     };
     const toggleActive6 = (event) => {
-        if(buttonRef6.current.isDoubleClick6){
+        if (buttonRef6.current.isDoubleClick6) {
             return;
         }
         setBtnActive6((prev) => {
@@ -136,7 +135,7 @@ export default function StressSurvey({month, stressResult}){
         buttonRef6.current.isDoubleClick6 = true;
     };
     const toggleActive7 = (event) => {
-        if(buttonRef7.current.isDoubleClick7){
+        if (buttonRef7.current.isDoubleClick7) {
             return;
         }
         setBtnActive7((prev) => {
@@ -145,7 +144,7 @@ export default function StressSurvey({month, stressResult}){
         buttonRef7.current.isDoubleClick7 = true;
     };
     const toggleActive8 = (event) => {
-        if(buttonRef8.current.isDoubleClick8){
+        if (buttonRef8.current.isDoubleClick8) {
             return;
         }
         setBtnActive8((prev) => {
@@ -161,13 +160,9 @@ export default function StressSurvey({month, stressResult}){
         putStressPoint(result).then(r => result);
 
 
-
-        if (num > 8 && month == 0){ navigate("/stressResult?result="+result, {
-            state:{ value : parseInt(result) },
-        })
-
+        if (num > 8 && month === 0) {
             try {
-                const response = createSolutions();;
+                const response = createSolutions();
                 if (response.ok) {
                     console.log('User StressGoal created');
                 }
@@ -176,7 +171,7 @@ export default function StressSurvey({month, stressResult}){
                 alert('API 요청이 실패했습니다. 다시 시도해주세요.');
             }
             try {
-                const response = renewSolutions();;
+                const response = renewSolutions();
                 if (response.ok) {
                     console.log('User StressSolution created');
                 }
@@ -184,15 +179,12 @@ export default function StressSurvey({month, stressResult}){
                 console.log(error);
                 alert('API 요청이 실패했습니다. 다시 시도해주세요.');
             }
-
-
-
-        }else if (num > 8 && month == 1){ navigate("/satisfactionResult?result="+result, {
-            state:{ value : parseInt(stress) },
-        })
-
+            navigate("/stressResult?result=" + result, {
+                state: {value: parseInt(result)},
+            })
+        } else if (num > 8 && month === 1) {
             try {
-                const response = createSolutions();;
+                const response = createSolutions();
                 if (response.ok) {
                     console.log('User StressGoal created');
                 }
@@ -201,7 +193,7 @@ export default function StressSurvey({month, stressResult}){
                 alert('API 요청이 실패했습니다. 다시 시도해주세요.');
             }
             try {
-                const response = renewSolutions();;
+                const response = renewSolutions();
                 if (response.ok) {
                     console.log('User StressSolution created');
                 }
@@ -210,28 +202,30 @@ export default function StressSurvey({month, stressResult}){
                 alert('API 요청이 실패했습니다. 다시 시도해주세요.');
             }
 
-
-
-        };
+            navigate("/satisfactionResult?result=" + result, {
+                state: {value: parseInt(stress)},
+            })
+        }
 
     }, [currentSlide]);
 
     return (
-        <div className="main-bg" style={{height:"550px"}}>
+        <div className="main-bg" style={{height: "550px"}}>
             <div className="stress-survey-form">
-                <h3 className="small-title" style={{color: "#ed6174", marginBottom: "40px", marginTop: "20px"}}>문진하기<FiEdit2 /></h3>
+                <h3 className="small-title"
+                    style={{color: "#ed6174", marginBottom: "40px", marginTop: "20px"}}>문진하기<FiEdit2/></h3>
                 <section>
                     {!loading && (
                         <>
                             <div className={styles.slider} ref={slideRef}>
+                                <div
+                                    id='question1'
+                                    className={styles.content}
+                                >
+                                    <div className={styles.top}>
                                         <div
-                                            id='question1'
-                                            className={styles.content}
+                                            className={styles.mbti__counter}
                                         >
-                                            <div className={styles.top}>
-                                                <div
-                                                    className={styles.mbti__counter}
-                                                >
                                                 <span
                                                     className={
                                                         styles.mbti__progress__color
@@ -239,30 +233,30 @@ export default function StressSurvey({month, stressResult}){
                                                 >
                                                     1
                                                 </span>
-                                                    <span
-                                                        className={
-                                                            styles.mbti__end__color
-                                                        }
-                                                    >
+                                            <span
+                                                className={
+                                                    styles.mbti__end__color
+                                                }
+                                            >
                                                         / 9번
                                                 </span>
-                                                </div>
-                                                <p
-                                                    className={
-                                                        styles.mbti__question
-                                                    }
-                                                    style={{fontSize: "25px"}}
-                                                >
-                                                    "매우 피곤하고 지쳐서 먹는 것조차 힘드나요?"
-                                                </p>
-                                            </div>
-                                            <div
-                                                className={"mbti__btn__box"}
-                                            >
-                                                {data.map((item, idx) =>{
-                                                    return(
-                                                        <>
-                                                        <button
+                                        </div>
+                                        <p
+                                            className={
+                                                styles.mbti__question
+                                            }
+                                            style={{fontSize: "25px"}}
+                                        >
+                                            "매우 피곤하고 지쳐서 먹는 것조차 힘드나요?"
+                                        </p>
+                                    </div>
+                                    <div
+                                        className={"mbti__btn__box"}
+                                    >
+                                        {data.map((item, idx) => {
+                                            return (
+                                                <>
+                                                    <button
                                                         id='choose'
                                                         value={idx}
                                                         ref={buttonRef}
@@ -272,14 +266,14 @@ export default function StressSurvey({month, stressResult}){
                                                             toggleActive(event);
                                                         }}
                                                     >
-                                                            {item}
+                                                        {item}
                                                     </button>
-                                                        </>
-                                                    );
-                                                })}
+                                                </>
+                                            );
+                                        })}
 
-                                            </div>
-                                        </div>
+                                    </div>
+                                </div>
                                 <div
                                     id='question2'
                                     className={styles.content}
@@ -315,8 +309,8 @@ export default function StressSurvey({month, stressResult}){
                                     <div
                                         className={"mbti__btn__box"}
                                     >
-                                        {data.map((item ,idx) =>{
-                                            return(
+                                        {data.map((item, idx) => {
+                                            return (
                                                 <>
                                                     <button
                                                         id='choose'
@@ -370,8 +364,8 @@ export default function StressSurvey({month, stressResult}){
                                     <div
                                         className={"mbti__btn__box"}
                                     >
-                                        {data.map((item ,idx) =>{
-                                            return(
+                                        {data.map((item, idx) => {
+                                            return (
                                                 <>
                                                     <button
                                                         id='choose'
@@ -425,8 +419,8 @@ export default function StressSurvey({month, stressResult}){
                                     <div
                                         className={"mbti__btn__box"}
                                     >
-                                        {data.map((item ,idx) =>{
-                                            return(
+                                        {data.map((item, idx) => {
+                                            return (
                                                 <>
                                                     <button
                                                         id='choose'
@@ -480,8 +474,8 @@ export default function StressSurvey({month, stressResult}){
                                     <div
                                         className={"mbti__btn__box"}
                                     >
-                                        {data.map((item ,idx) =>{
-                                            return(
+                                        {data.map((item, idx) => {
+                                            return (
                                                 <>
                                                     <button
                                                         id='choose'
@@ -535,8 +529,8 @@ export default function StressSurvey({month, stressResult}){
                                     <div
                                         className={"mbti__btn__box"}
                                     >
-                                        {data.map((item ,idx) =>{
-                                            return(
+                                        {data.map((item, idx) => {
+                                            return (
                                                 <>
                                                     <button
                                                         id='choose'
@@ -590,8 +584,8 @@ export default function StressSurvey({month, stressResult}){
                                     <div
                                         className={"mbti__btn__box"}
                                     >
-                                        {data.map((item ,idx) =>{
-                                            return(
+                                        {data.map((item, idx) => {
+                                            return (
                                                 <>
                                                     <button
                                                         id='choose'
@@ -645,8 +639,8 @@ export default function StressSurvey({month, stressResult}){
                                     <div
                                         className={"mbti__btn__box"}
                                     >
-                                        {data.map((item ,idx) =>{
-                                            return(
+                                        {data.map((item, idx) => {
+                                            return (
                                                 <>
                                                     <button
                                                         id='choose'
@@ -700,8 +694,8 @@ export default function StressSurvey({month, stressResult}){
                                     <div
                                         className={"mbti__btn__box"}
                                     >
-                                        {data.map((item ,idx) =>{
-                                            return(
+                                        {data.map((item, idx) => {
+                                            return (
                                                 <>
                                                     <button
                                                         id='choose'
