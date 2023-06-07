@@ -1,0 +1,36 @@
+.main-rank{
+    background: #F2F3F5;
+    margin-left: 5px;
+    border-radius: 20px;
+    width: 100%;
+    height: 550px;
+    padding: 20px;
+    float: right;
+}
+
+.nav-tabs {
+    --bs-nav-tabs-link-active-bg: #e3e4e5;
+    --bs-nav-tabs-link-active-border-color: var(--bs-nav-tabs-border-color);
+    border-bottom: var(--bs-nav-tabs-border-width) solid var(--bs-nav-tabs-border-color);
+}
+
+.main-rank-title{
+    color: black;
+    font-size: 15px;
+}
+
+.main-rank-small-title{
+    margin: 10px;
+    color: #E63A35;
+    font-weight: bolder;
+    font-size: 35px;
+}
+
+.main-rank-table {
+    line-height: 10px;
+    font-size: 15px;
+}
+
+.main-rank-row img {
+    width: 40px;
+}

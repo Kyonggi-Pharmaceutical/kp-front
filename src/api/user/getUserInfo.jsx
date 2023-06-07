@@ -1,4 +1,4 @@
-export const getUserInfo = async () => {
+export const getUserInfo = async () => {  //서버에 유저 정보 요청
   const API_URL = process.env.REACT_APP_API_URL;
   const path = '/api/v1/users/me';
 

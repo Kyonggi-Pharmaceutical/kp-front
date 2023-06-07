@@ -1,4 +1,4 @@
-export const postLoginToken = async idToken => {
+export const postLoginToken = async idToken => {  //서버에 사용자가 로그인하여 생성된 인증 토큰을 보냄
   const API_URL = process.env.REACT_APP_API_URL;
   const path = '/api/v1/login/oauth/google';
 

@@ -1,0 +1,239 @@
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+.smallTitle{
+    margin-bottom:20px;
+    font-weight: bold;
+    color: #6A84B7;
+    font-size: 30px;
+}
+#question{
+    background: white;
+    padding-top: 20px;
+    padding-left: 70px;
+    border-radius: 30px;
+    margin-bottom: 20px;
+
+}
+#choose{
+    margin-inline:7px;
+}
+button {
+    border: none;
+}
+
+.slider {
+    width: 1200vw;
+}
+.content {
+    margin-top: 15vh;
+    width: 100vw;
+    float: left;
+}
+
+.top {
+    height: 20vh;
+    padding: 2rem;
+}
+
+.mbti__counter {
+    font-size: 2rem;
+    font-weight: bold;
+    height: 10vh;
+}
+
+.mbti__progress__color {
+    color: #ed6174;
+    font-size: 1.5em;
+}
+
+.mbti__end__color {
+    color: #e8e7e6;
+}
+
+.mbti__question {
+    color: #4e4e4e;
+    font-size: 1.4rem;
+    font-weight: bolder;
+    text-align: center;
+    font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+
+.mbti__btn__box {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: 50px;
+    margin: 0px;
+}
+
+.mbti__button {
+    display: flex;
+    justify-content: center;
+    height: 45%;
+    margin: 1rem;
+    padding: 1.2rem;
+    box-sizing: border-box;
+    background-color: #fff;
+    color: rgba(110, 110, 110, 1);
+    border: 1px solid gray;
+    border-radius: 6px;
+    border-color: #d0d0d0;
+    font-weight: 600;
+
+    &.active{
+         color: #fff;
+         background-color: #ed6174;
+         border: none;
+
+     }
+}
+
+.mbti__button active {
+    color: #fff;
+    background-color: #ed6174;
+    transform: scale(0.95);
+    transition: 100ms;
+    border: none;
+}
+
+.loading__container {
+    display: flex;
+    width: 50%;
+    margin: 0 auto;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40vh;
+}
+
+.loading__container h2 {
+    padding: 2rem;
+}
+.loading {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    border: 1px solid #ed6174;
+    border-top: 1px solid white;
+    animation: spin 2s linear infinite;
+}
+
+.ticket {
+    width: 100vw;
+}
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@media screen and (min-width: 768px) {
+    html {
+        background-color: #fff;
+    }
+    .top {
+        width: 768px;
+        margin: 0 auto;
+    }
+
+    .mbti__btn__box {
+        text-align: left;
+        display: grid;
+        grid-auto-flow: column;
+        margin : 0px;
+        height: 100px;
+
+
+
+    }
+
+    .mbti__counter {
+        text-align: left;
+    }
+
+    .mbti__button {
+
+        margin-left: auto;
+        align-items: center;
+        margin-right: 30px;
+        height: 10px;
+        width: 140px;
+
+    }
+
+    .mbti__button:hover {
+        color: #fff;
+        border-color : #C9C5C5;
+        background-color: #C9C5C5;
+        transform: scale(0.98);
+        transition: 100ms;
+    }
+
+    .loading {
+        width: 3rem;
+        height: 3rem;
+    }
+
+    .ticket {
+        width: 30rem;
+    }
+}
+
+
+.start-page{
+    width: 100%;
+    text-align: center;
+}
+
+.start-page p{
+    font-size: 40px;
+}
+
+.button-custom{
+    width: 500px;
+    margin-top: 25px;
+    padding: 10px 0px;
+    font-size: 30px;
+}
+
+.stress-survey-form{
+    background-color: white;
+    margin: 0 auto;
+    border-radius: 20px;
+    width: 800px;
+    height: 550px;
+    padding: 20px;
+    overflow: auto;
+}
+
+.stress-survey-form::-webkit-scrollbar{
+    width: 0;
+    height: 0;
+}
+.stressResult-bg{
+
+    width: 1000px;
+}
+.stressResult{
+    border-style: solid;
+    border-color: #6A84B7;
+    border-radius: 20px;
+    margin: 20px auto;
+    padding: 20px;
+    text-align: center;
+    width: 800px;
+    background-color: #ffffff;
+
+}
+
+.daily-button{
+    background-color: #6A84B7;
+    width: 400px;
+}

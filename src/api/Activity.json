@@ -1,0 +1,12 @@
+[
+    {
+        "id":"01",
+        "symptom": "무기력함",
+        "personality": "I",
+        "type": "학습된 무기력함에 속지 말자고 다짐하기",
+        "MBTI": [
+            "ESFP", "ENFP", "ISFP", "INFP"
+        ],
+        "problem": "정서적대처"
+    }
+]

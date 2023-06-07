@@ -1,3 +1,4 @@
+import React from 'react';
 import { useRef } from 'react';
 import useScript from '../hooks/useScript';
 
@@ -18,7 +19,7 @@ export default function GoogleLogin({
     // https://developers.google.com/identity/gsi/web/reference/js-reference#google.accounts.id.renderButton
     window.google.accounts.id.renderButton(
       googleSignInButton.current,
-      { theme: 'filled_blue', size: 'large', text, width: '250' }, // customization attributes
+      { theme: 'outline', type: "standard" , size: 'large', text, shape: "rectangular" }, // customization attributes
     );
   });
 

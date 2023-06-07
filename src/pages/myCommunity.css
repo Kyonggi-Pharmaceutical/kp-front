@@ -1,0 +1,88 @@
+.button-customizing {
+    top: 0;
+    left: 0;
+    margin-left: 640px;
+    margin-top: 170px
+}
+
+.button-customizing button {
+    margin-right: 30px;
+    font-weight: bold;
+    background: none;
+    font-size: 30px;
+
+}
+
+.button-customizing button.selected {
+    color: #4F6EAA;
+}
+
+.article-container,
+.comment-container {
+    height: 110px;
+    margin-top: 50px;
+    margin-bottom: -45px;
+    border: 1px solid honeydew;
+    border-radius: 8px;
+    padding: 10px;
+    background: white;
+    position: relative;
+    width: 900px;
+}
+
+.comment-container p{
+    margin-top: 25px;
+}
+
+.article-text{
+    font-size: 20px;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color : black;
+}
+.p-container{
+    position: fixed;
+}
+.p-size {
+    font-size: 20px;
+    color: gray;
+
+}
+
+.section1,
+.section2,
+.section3,
+.section4 {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    overflow: auto;
+    height: 500px;
+}
+
+
+.body-container{
+    border: 1px solid #F2F3F5;
+    border-radius: 8px;
+    background: #F2F3F5;
+    width: 1100px;
+    height: 700px;
+}
+.list-customizing{
+    margin-top: 150px;
+    margin-left: 35px;
+}
+.btn-cos{
+    float: right;
+    margin-right: 40px;
+    margin-top: -40px;
+    width: 90px;
+    height: 50px;
+    border-radius: 8px;
+    background-color: #4F6EAA;
+    color: white;
+    font-weight: bold;
+
+}

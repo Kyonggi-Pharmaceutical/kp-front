@@ -1,0 +1,238 @@
+
+.title-header {
+    align-items: center;
+    padding: 10px;
+}
+.title span {
+    font-family: 'Roboto', sans-serif;
+  font-size: 40px;
+    font-weight: bold;
+    color: white;
+    display:block;
+    margin-bottom: -5px;
+    text-align: center;
+
+}
+
+.navbar {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+}
+.menu-bar {
+    margin-top:5px;
+    color: white;
+}
+
+.menu-bar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-bar li {
+    display: block;
+    text-decoration: none; /* Remove underline */
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+}
+span.bold-size {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    padding: 10px;
+    margin-bottom: -10px;
+    text-align: center;
+    font-size: 30px;
+}
+.li-span {
+    display: block;
+    font-size: 16px;
+    text-align: center;
+}
+.menu-bar li:hover span {
+    color: #EAEAEA;
+}
+
+.nav-list li:hover a {
+    color: #EAEAEA;
+}
+.nav-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 80px;
+}
+
+.nav-list li {
+    padding: 10px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.nav-list li a {
+    text-decoration: none;
+    display: block;
+    color: white;
+}
+
+.app-container {
+    background: #6A84B7;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.sidebar-container {
+    position: fixed;
+    float: left;
+    width: 300px; /* 사이드바의 너비 */
+    top: 100px;
+    left: 0;
+}
+.health-image {
+    display: block;
+    height: auto;
+    margin: 0 auto 6px;
+}
+
+.submit-btn {
+    margin: 0 auto;
+    background-color: #E63A35;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.submit-btn:hover {
+    background-color: #0062cc;
+}
+
+.error-message{
+    color: red;
+}
+
+.form-string-input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 18px;
+    box-sizing: border-box;
+    background-color: #fff;
+    color: #333;
+}
+
+.form-string-input:focus {
+    outline: none;
+    border-color: #0070f3;
+    box-shadow: 0 0 0 2px rgba(0, 112, 243, 0.1);
+}
+
+.form-input-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.form-input-label {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 3px;
+    text-align: left;
+}
+
+.select {
+    width: 200px;
+    padding: 8px 20px;
+    margin-right: 5px;
+    border: 0.5px solid gray;
+    font-size: 17px;
+    outline: none;
+}
+
+.month-submit-button{
+    text-align: center;
+    font-weight: bold;
+    font-size: 35px;
+    background-color: #E63A35;
+    border-radius: 50px;
+    color : white;
+    width: 150px;
+    height: 50px;
+    border: none;
+    padding : 5px 0;
+    margin-top: 10px;
+    margin-inline: auto;
+}
+
+.new-submit-button{
+    text-align: center;
+    font-weight: bold;
+    font-size: 25px;
+    background-color: #E63A35;
+    border-radius: 50px;
+    color : white;
+    width: 580px;
+    height: 40px;
+    border: none;
+    padding : 5px 0;
+    margin-top: 30px;
+    margin-inline: auto;
+}
+
+
+.sign-page{
+    background-color: white;
+    margin: 0 auto;
+    border-radius: 20px;
+    max-width: 1000px;
+    height: 550px;
+    padding: 20px;
+}
+
+.signup-input{
+    display: block;
+    font-size: 20px;
+}
+
+.month-result-page{
+    text-align: center;
+}
+
+.number-picker {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.number-picker input {
+    width: 50px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.number-picker button {
+    width: 30px;
+    height: 30px;
+    background-color: #f2f2f2;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+}
+
+.number-picker button:hover {
+    background-color: #e0e0e0;
+}

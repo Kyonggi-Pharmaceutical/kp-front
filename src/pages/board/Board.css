@@ -1,0 +1,187 @@
+.board-rank{
+    margin: 0 auto;
+    border-radius: 20px;
+    width: 100%;
+    min-width: 500px;
+    height: 100%;
+    padding: 20px;
+    overflow: auto;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.5);
+}
+
+.board-rank::-webkit-scrollbar{
+    width: 0;
+    height: 0;
+}
+
+.board{
+    background-color: white;
+    margin: 0 auto;
+    border-radius: 20px;
+    width: 73%;
+    height: 100%;
+    padding: 20px;
+    float: left;
+    overflow: auto;
+    box-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.5);
+}
+.board::-webkit-scrollbar{
+    width: 0;
+    height: 0;
+}
+
+.rank{
+    background-color: white;
+    margin-left: 5px;
+    border-radius: 20px;
+    width: 25%;
+    height: 100%;
+    padding: 20px;
+    float: right;
+    box-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.5);
+}
+
+.rank-title{
+    color: black;
+    font-size: 15px;
+}
+
+.small-title{
+    margin: 5px;
+    color: #E63A35;
+    font-weight: bolder;
+    font-size: 40px;
+}
+
+.ranking-box{
+    overflow: scroll;
+}
+
+.ranking-box::-webkit-scrollbar{
+    width: 0;
+    height: 0;
+}
+
+.rank-map {
+    margin: 5px;
+    font-size: 20px;
+}
+
+.title-td{
+    width: 500px;
+    white-space: nowrap; /* 줄바꿈 금지 */
+    overflow: hidden; /* 내용이 셀을 넘어갈 경우 숨기기 */
+    text-overflow: ellipsis; /* 넘친 부분 대체 */
+}
+
+.category{
+    margin: 0px 10px 20px 10px;
+    font-size: 25px;
+    color: black;
+    font-weight: bolder;
+}
+
+.category:hover{
+    transition: all 0.5s ease-in-out;
+    color: #E63A35;
+}
+
+.category-selected{
+    color: #E63A35;
+}
+
+.accordion-header{
+    width: 100%;
+}
+
+.accordion-title{
+    margin-top: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.article-box{
+    background-color: white;
+    margin: 0 auto;
+    border-radius: 20px;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    float: left;
+    overflow: auto;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.5);
+}
+
+.article-box::-webkit-scrollbar{
+    width: 0px;
+    height: 0px;
+}
+
+.comment-input{
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+.comment-input input{
+    width: 75%;
+    height: 60px;
+    font-size: 20px;
+    padding-left: 30px;
+    border: 1px solid lightgray;
+    margin-right: 20px;
+    flex: 1;
+}
+
+.comment-btn{
+    width: 15%;
+    height: 60px;
+    background-color: #333333;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.comment-list{
+    width: 90%;
+    margin: 20px auto;
+}
+
+.comment{
+    width: 100%;
+    min-height: 80px;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    padding: 15px 20px 10px 20px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+
+}
+
+.comment span{
+    margin: 3px;
+}
+
+.profile-image {
+    width: 50px;
+    height: 50px;
+    border: 1px solid lightgray;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.icon-btn:hover{
+    cursor: pointer;
+}
+
+.user-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 이미지 비율 유지 */
+}
