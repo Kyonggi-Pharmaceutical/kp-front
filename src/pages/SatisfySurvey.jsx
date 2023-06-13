@@ -129,14 +129,14 @@ const handleProceed2 = () => {
                         <Modal.Title>진행 여부</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <p>진행하시겠습니까?</p>
+                        <p>운동 솔루션을 진행하시겠습니까?</p>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="primary" onClick={handleProceed2}>
-                            진행한다
+                            네
                         </Button>
                         <Button variant="secondary" onClick={handleSkip}>
-                            안한다
+                            아니요
                         </Button>
                     </Modal.Footer>
                 </Modal>
