@@ -9,7 +9,6 @@ function SatisfySurvey({ info }) {
     const navigate = useNavigate();
     const [userAnswer, setUserAnswer] = useState('');
     const [selectedSatisfaction, setSelectedSatisfaction] = useState('');
-    const username = info.lastName + info.firstName;
     const [accomplishment, setAccomplishment] = useState(0);
     const [showDissatisfiedModal, setShowDissatisfiedModal] = useState(false);
     const [showProceedModal, setShowProceedModal] = useState(false);
@@ -84,7 +83,7 @@ const handleProceed2 = () => {
             <div className="main-bgs">
                 <div className="month-result">
                     <h4>
-                        {`${username}`}님의 달성률은{' '}
+                        {`${info.fullName}`}님의 달성률은{' '}
                         <span style={{ color: 'orangered', fontWeight: 'bolder', fontSize: '30px' }}>
               {accomplishment}%
             </span>{' '}
